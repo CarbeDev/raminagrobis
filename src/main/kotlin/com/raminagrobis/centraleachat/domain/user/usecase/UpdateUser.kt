@@ -4,9 +4,9 @@ import com.raminagrobis.centraleachat.domain.user.adapter.UserRepoInterface
 import com.raminagrobis.centraleachat.domain.user.model.Role
 import com.raminagrobis.centraleachat.domain.user.model.User
 
-class CreateUser(private val userRepo : UserRepoInterface) {
+class UpdateUser(val userRepo : UserRepoInterface) {
 
-    fun createUser(email: String, prenom: String, nom: String, role: Role) {
-        InsertUserIntoDB(userRepo).insertUserIntoDb(User(email, prenom, nom, role))
+    fun updateUser(id: Int,email: String, prenom: String, nom: String, role: Role){
+        InsertUserIntoDB(userRepo).insertUserIntoDb(User(id,email, prenom, nom, role))
     }
 }
