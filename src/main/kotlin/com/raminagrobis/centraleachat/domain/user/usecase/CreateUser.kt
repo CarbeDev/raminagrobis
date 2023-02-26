@@ -7,6 +7,7 @@ import com.raminagrobis.centraleachat.domain.user.model.User
 class CreateUser(private val userRepo : UserRepoInterface) {
 
     fun createUser(email: String, prenom: String, nom: String, role: Role) {
-        InsertUserIntoDB(userRepo).insertUserIntoDb(User(email, prenom, nom, role))
+        val actif = true
+        InsertUserIntoDB(userRepo).insertUserIntoDb(User(email, prenom, nom, role, actif))
     }
 }

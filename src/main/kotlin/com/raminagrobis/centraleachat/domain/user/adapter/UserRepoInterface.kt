@@ -9,4 +9,9 @@ interface UserRepoInterface {
     fun isEmailUnique(email: String) : Boolean
     fun findUserByID(id : Int) : Optional<User>
 
+    fun getNbCommandeByUser(user: User) : Int
+    fun deleteUser(user: User)
+
+    fun unactiveUser(user: User)
+
 }

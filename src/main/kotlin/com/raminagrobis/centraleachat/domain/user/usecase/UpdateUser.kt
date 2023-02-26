@@ -6,7 +6,7 @@ import com.raminagrobis.centraleachat.domain.user.model.User
 
 class UpdateUser(val userRepo : UserRepoInterface) {
 
-    fun updateUser(id: Int,email: String, prenom: String, nom: String, role: Role){
-        InsertUserIntoDB(userRepo).insertUserIntoDb(User(id,email, prenom, nom, role))
+    fun updateUser(id: Int,email: String, prenom: String, nom: String, role: Role, actif : Boolean){
+        InsertUserIntoDB(userRepo).insertUserIntoDb(User(id,email, prenom, nom, role, actif))
     }
 }
