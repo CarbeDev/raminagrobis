@@ -1,12 +1,13 @@
 package com.raminagrobis.centraleachat.domain.user.usecase
 
 import com.raminagrobis.centraleachat.domain.user.adapter.UserRepoInterface
-import com.raminagrobis.centraleachat.domain.user.model.Role
 import com.raminagrobis.centraleachat.domain.user.model.User
+import org.springframework.stereotype.Service
 
+@Service
 class UpdateUser(val userRepo : UserRepoInterface) {
 
-    fun updateUser(id: Int,email: String, prenom: String, nom: String, role: Role, actif : Boolean){
-        InsertUserIntoDB(userRepo).insertUserIntoDb(User(id,email, prenom, nom, role, actif))
+    fun updateUser(user: User){
+        InsertUser(userRepo).insertUserIntoDb(user)
     }
 }

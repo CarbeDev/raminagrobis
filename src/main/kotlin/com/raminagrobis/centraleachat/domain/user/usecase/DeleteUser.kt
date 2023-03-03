@@ -6,11 +6,11 @@ import com.raminagrobis.centraleachat.domain.user.model.User
 class DeleteUser(val userRepo : UserRepoInterface){
 
     fun deleteUser(user : User){
-        if(userRepo.getNbCommandeByUser(user) == 0) userRepo.deleteUser(user) else desactiveUser(user)
+        if(userRepo.getNbCommandeByUser(user) >= 1)  desactiveUser(user) else userRepo.deleteUser(user)
     }
 
     private fun desactiveUser(user: User) {
         user.actif = false
-        InsertUserIntoDB(userRepo).insertUserIntoDb(user)
+        InsertUser(userRepo).insertUserIntoDb(user)
     }
 }
