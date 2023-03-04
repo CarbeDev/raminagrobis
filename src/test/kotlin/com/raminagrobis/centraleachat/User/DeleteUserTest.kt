@@ -39,13 +39,10 @@ class DeleteUserTest {
     @Test
     fun aUserWithoutCommandeMustBeDeleted(){
 
-        val userArgumentCaptor = argumentCaptor<User>()
-
-
         `when`(userRepo.getNbCommandeByUser(user)).thenReturn(0)
         deleteUser.handle(user)
 
-        verify(userRepo, times(1)).deleteUser(userArgumentCaptor.capture())
+        verify(userRepo, times(1)).deleteUser(user)
     }
 
     @Test
