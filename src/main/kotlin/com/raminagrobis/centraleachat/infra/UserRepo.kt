@@ -1,17 +1,17 @@
 package com.raminagrobis.centraleachat.infra
 
-import com.raminagrobis.centraleachat.domain.user.adapter.UserRepoInterface
-import com.raminagrobis.centraleachat.domain.user.model.User
+import com.raminagrobis.centraleachat.domain.societe.adapter.UserRepoInterface
+import com.raminagrobis.centraleachat.domain.societe.model.Societe
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
 class UserRepo : UserRepoInterface {
-    override fun getAll(): Iterable<User> {
+    override fun getAll(): Iterable<Societe> {
         TODO("Not yet implemented")
     }
 
-    override fun saveUser(user: User) {
+    override fun saveUser(societe: Societe) {
         TODO("Not yet implemented")
     }
 
@@ -19,15 +19,15 @@ class UserRepo : UserRepoInterface {
         TODO("Not yet implemented")
     }
 
-    override fun findUserByID(id: Int): Optional<User> {
+    override fun findUserByID(id: Int): Optional<Societe> {
         TODO("Not yet implemented")
     }
 
-    override fun getNbCommandeByUser(user: User): Int {
+    override fun getNbCommandeByUser(societe: Societe): Int {
         TODO("Not yet implemented")
     }
 
-    override fun deleteUser(user: User) {
+    override fun deleteUser(societe: Societe) {
         TODO("Not yet implemented")
     }
 }
