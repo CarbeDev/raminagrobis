@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.User
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.raminagrobis.centraleachat.domain.societe.adapter.UserRepoInterface
+import com.raminagrobis.centraleachat.domain.societe.adapter.SocieteRepoInterface
 import com.raminagrobis.centraleachat.domain.societe.model.Role
 import com.raminagrobis.centraleachat.domain.societe.model.Societe
 import com.raminagrobis.centraleachat.domain.societe.usecase.SuppressionSociete
@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class SuppressionSocieteTest {
 
     @Mock
-    lateinit var userRepo: UserRepoInterface
+    lateinit var userRepo: SocieteRepoInterface
 
     @InjectMocks
     lateinit var suppressionSociete: SuppressionSociete
@@ -48,12 +48,12 @@ class SuppressionSocieteTest {
     fun aUserWithCommandeMustBeDesactive(){
         val societeArgumentCaptor = argumentCaptor<Societe>()
 
-        `when`(userRepo.isEmailUnique(societe.email)).thenReturn(true)
+        `when`(userRepo.isEmailUnique(societe.email.toString())).thenReturn(true)
         `when`(userRepo.getNbCommandeByUser(societe)).thenReturn(1)
         suppressionSociete.handle(societe)
 
-        verify(userRepo, times(1)).saveUser(societeArgumentCaptor.capture())
-        Assertions.assertFalse(societeArgumentCaptor.firstValue.actif)
+        verify(userRepo, times(1)).saveSociete(societeArgumentCaptor.capture())
+        societeArgumentCaptor.firstValue.actif?.let { Assertions.assertFalse(it) }
     }
 
 

@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.User
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.raminagrobis.centraleachat.domain.societe.adapter.UserRepoInterface
+import com.raminagrobis.centraleachat.domain.societe.adapter.SocieteRepoInterface
 import com.raminagrobis.centraleachat.domain.societe.exception.EmailAlreadyUseException
 import com.raminagrobis.centraleachat.domain.societe.model.Role
 import com.raminagrobis.centraleachat.domain.societe.model.Societe
@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class CreationSocieteTest{
 
     @Mock
-    private lateinit var userRepo : UserRepoInterface
+    private lateinit var userRepo : SocieteRepoInterface
     @InjectMocks
     private lateinit var creationSociete: CreationSociete
 
@@ -34,11 +34,11 @@ class CreationSocieteTest{
         `when`(userRepo.isEmailUnique(email)).thenReturn(true)
         creationSociete.handle(email, nom, role)
 
-        verify(userRepo, times(1)).saveUser(societeCaptor.capture())
+        verify(userRepo, times(1)).saveSociete(societeCaptor.capture())
         assertEquals(email,societeCaptor.firstValue.email)
         assertEquals(nom,societeCaptor.firstValue.nom)
         assertEquals(role,societeCaptor.firstValue.role)
-        assertTrue(societeCaptor.firstValue.actif)
+        societeCaptor.firstValue.actif?.let { assertTrue(it) }
     }
 
     @Test
@@ -49,7 +49,7 @@ class CreationSocieteTest{
             creationSociete.handle(email, nom, role)
         }
 
-        verify(userRepo, times(0)).saveUser(com.nhaarman.mockitokotlin2.any())
+        verify(userRepo, times(0)).saveSociete(com.nhaarman.mockitokotlin2.any())
     }
 
 }

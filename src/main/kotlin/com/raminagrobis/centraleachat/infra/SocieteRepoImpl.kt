@@ -1,26 +1,26 @@
 package com.raminagrobis.centraleachat.infra
 
-import com.raminagrobis.centraleachat.domain.societe.adapter.UserRepoInterface
+import com.raminagrobis.centraleachat.domain.societe.adapter.SocieteRepoInterface
 import com.raminagrobis.centraleachat.domain.societe.model.Societe
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 import java.util.*
 
-@Repository
-class UserRepo : UserRepoInterface {
+@Component
+class SocieteRepoImpl(private val repo: SocieteRepo) : SocieteRepoInterface { //TODO Stop cycle and remove allow circular references
     override fun getAll(): Iterable<Societe> {
-        TODO("Not yet implemented")
+        return repo.findAll()
     }
 
-    override fun saveUser(societe: Societe) {
-        TODO("Not yet implemented")
+    override fun saveSociete(societe: Societe) {
+        repo.save(societe)
     }
 
     override fun isEmailUnique(email: String): Boolean {
-        TODO("Not yet implemented")
+        return repo.existsByEmail(email)
     }
 
     override fun findUserByID(id: Int): Optional<Societe> {
-        TODO("Not yet implemented")
+        return repo.findById(id)
     }
 
     override fun getNbCommandeByUser(societe: Societe): Int {
@@ -28,6 +28,6 @@ class UserRepo : UserRepoInterface {
     }
 
     override fun deleteUser(societe: Societe) {
-        TODO("Not yet implemented")
+        repo.delete(societe)
     }
 }

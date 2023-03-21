@@ -1,9 +1,24 @@
 package com.raminagrobis.centraleachat.domain.societe.model
 
-class Societe (var email : String, var nom : String, val role: Role, var actif : Boolean){
+import jakarta.persistence.*
 
-    private var id : Int? = null
-    constructor(id : Int, email: String, nom: String, role: Role, actif: Boolean) : this(email, nom, role, actif){
-        this.id = id
-    }
+@Entity
+class Societe(
+    @Column(name = "nom_societe")
+    var nom : String? = null,
+    @Column(nullable = false)
+    var email: String? = null,
+    @Column(nullable = false)
+    var actif : Boolean? = null,
+    @Enumerated(EnumType.STRING)
+    var role: Role? = null,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_societe")
+    var id: Int? = null
+)
+
+enum class Role{
+    ADHERENT,
+    FOURNISSEUR
 }
