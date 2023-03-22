@@ -19,7 +19,7 @@ class SocieteRepo(private val repo: SQLSociete) : ISocieteRepo {
         return repo.existsByEmail(email)
     }
 
-    override fun findUserByID(id: Int): Optional<Societe> {
+    override fun findSocieteByID(id: Int): Optional<Societe> {
         return repo.findById(id)
     }
 

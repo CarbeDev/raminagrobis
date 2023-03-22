@@ -6,18 +6,21 @@ import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import org.springframework.stereotype.Service
 
 @Service
-class SuppressionSociete(private val userRepo : ISocieteRepo){
+class SuppressionSociete(private val societeRepo : ISocieteRepo){
 
-    fun handle(societe : Societe){
-        if(userRepo.getNbCommandeBySociete(societe) >= 1) {
+    fun handle(id : Int){
+
+        val societe = societeRepo.findSocieteByID(id).get()
+
+        if(societeRepo.getNbCommandeBySociete(societe) >= 1) {
             desactiveSociete(societe)
         } else {
-            userRepo.deleteSociete(societe)
+            societeRepo.deleteSociete(societe)
         }
     }
 
     private fun desactiveSociete(societe: Societe) {
         societe.actif = false
-        if (userRepo.isEmailUnique(societe.email.toString())) userRepo.saveSociete(societe) else throw EmailAlreadyUseException()
+        if (societeRepo.isEmailUnique(societe.email.toString())) societeRepo.saveSociete(societe) else throw EmailAlreadyUseException()
     }
 }

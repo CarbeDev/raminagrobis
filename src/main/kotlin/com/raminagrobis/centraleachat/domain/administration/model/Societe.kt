@@ -15,7 +15,8 @@ class Societe(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_societe")
-    var id: Int? = null
+    var id: Int? = null,
+    var motDePasse :String? = null
 )
 
 enum class Role{
