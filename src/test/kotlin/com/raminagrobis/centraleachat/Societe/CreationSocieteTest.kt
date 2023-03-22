@@ -1,7 +1,7 @@
-package com.raminagrobis.centraleachat.User
+package com.raminagrobis.centraleachat.Societe
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.raminagrobis.centraleachat.domain.societe.adapter.SocieteRepoInterface
+import com.raminagrobis.centraleachat.domain.societe.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.societe.exception.EmailAlreadyUseException
 import com.raminagrobis.centraleachat.domain.societe.model.Role
 import com.raminagrobis.centraleachat.domain.societe.model.Societe
@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class CreationSocieteTest{
 
     @Mock
-    private lateinit var userRepo : SocieteRepoInterface
+    private lateinit var userRepo : ISocieteRepo
     @InjectMocks
     private lateinit var creationSociete: CreationSociete
 

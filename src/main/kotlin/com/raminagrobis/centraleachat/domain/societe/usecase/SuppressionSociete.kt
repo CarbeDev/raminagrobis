@@ -1,19 +1,19 @@
 package com.raminagrobis.centraleachat.domain.societe.usecase
 
-import com.raminagrobis.centraleachat.domain.societe.adapter.SocieteRepoInterface
+import com.raminagrobis.centraleachat.domain.societe.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.societe.exception.EmailAlreadyUseException
 import com.raminagrobis.centraleachat.domain.societe.model.Societe
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 
 @Service
-class SuppressionSociete(@Lazy val userRepo : SocieteRepoInterface){
+class SuppressionSociete(@Lazy val userRepo : ISocieteRepo){
 
     fun handle(societe : Societe){
-        if(userRepo.getNbCommandeByUser(societe) >= 1) {
+        if(userRepo.getNbCommandeBySociete(societe) >= 1) {
             desactiveSociete(societe)
         } else {
-            userRepo.deleteUser(societe)
+            userRepo.deleteSociete(societe)
         }
     }
 

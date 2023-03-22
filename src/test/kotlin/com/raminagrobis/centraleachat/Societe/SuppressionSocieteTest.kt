@@ -1,7 +1,7 @@
-package com.raminagrobis.centraleachat.User
+package com.raminagrobis.centraleachat.Societe
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.raminagrobis.centraleachat.domain.societe.adapter.SocieteRepoInterface
+import com.raminagrobis.centraleachat.domain.societe.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.societe.model.Role
 import com.raminagrobis.centraleachat.domain.societe.model.Societe
 import com.raminagrobis.centraleachat.domain.societe.usecase.SuppressionSociete
@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class SuppressionSocieteTest {
 
     @Mock
-    lateinit var userRepo: SocieteRepoInterface
+    lateinit var userRepo: ISocieteRepo
 
     @InjectMocks
     lateinit var suppressionSociete: SuppressionSociete
@@ -38,10 +38,10 @@ class SuppressionSocieteTest {
     @Test
     fun aUserWithoutCommandeMustBeDeleted(){
 
-        `when`(userRepo.getNbCommandeByUser(societe)).thenReturn(0)
+        `when`(userRepo.getNbCommandeBySociete(societe)).thenReturn(0)
         suppressionSociete.handle(societe)
 
-        verify(userRepo, times(1)).deleteUser(societe)
+        verify(userRepo, times(1)).deleteSociete(societe)
     }
 
     @Test
@@ -49,7 +49,7 @@ class SuppressionSocieteTest {
         val societeArgumentCaptor = argumentCaptor<Societe>()
 
         `when`(userRepo.isEmailUnique(societe.email.toString())).thenReturn(true)
-        `when`(userRepo.getNbCommandeByUser(societe)).thenReturn(1)
+        `when`(userRepo.getNbCommandeBySociete(societe)).thenReturn(1)
         suppressionSociete.handle(societe)
 
         verify(userRepo, times(1)).saveSociete(societeArgumentCaptor.capture())
