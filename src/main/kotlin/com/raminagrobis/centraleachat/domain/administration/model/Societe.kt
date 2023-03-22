@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.domain.societe.model
+package com.raminagrobis.centraleachat.domain.administration.model
 
 import jakarta.persistence.*
 

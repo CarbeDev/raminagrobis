@@ -1,6 +1,6 @@
 package com.raminagrobis.centraleachat.infra
 
-import com.raminagrobis.centraleachat.domain.societe.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import org.springframework.data.repository.CrudRepository
 
 

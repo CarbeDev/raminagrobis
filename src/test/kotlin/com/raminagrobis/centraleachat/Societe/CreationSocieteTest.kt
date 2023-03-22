@@ -1,11 +1,11 @@
 package com.raminagrobis.centraleachat.Societe
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.raminagrobis.centraleachat.domain.societe.adapter.ISocieteRepo
-import com.raminagrobis.centraleachat.domain.societe.exception.EmailAlreadyUseException
-import com.raminagrobis.centraleachat.domain.societe.model.Role
-import com.raminagrobis.centraleachat.domain.societe.model.Societe
-import com.raminagrobis.centraleachat.domain.societe.usecase.CreationSociete
+import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
+import com.raminagrobis.centraleachat.domain.administration.exception.EmailAlreadyUseException
+import com.raminagrobis.centraleachat.domain.administration.model.Role
+import com.raminagrobis.centraleachat.domain.administration.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.usecase.CreationSociete
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

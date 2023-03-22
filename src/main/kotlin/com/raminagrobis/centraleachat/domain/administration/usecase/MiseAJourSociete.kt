@@ -1,8 +1,8 @@
-package com.raminagrobis.centraleachat.domain.societe.usecase
+package com.raminagrobis.centraleachat.domain.administration.usecase
 
-import com.raminagrobis.centraleachat.domain.societe.adapter.ISocieteRepo
-import com.raminagrobis.centraleachat.domain.societe.exception.EmailAlreadyUseException
-import com.raminagrobis.centraleachat.domain.societe.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
+import com.raminagrobis.centraleachat.domain.administration.exception.EmailAlreadyUseException
+import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 

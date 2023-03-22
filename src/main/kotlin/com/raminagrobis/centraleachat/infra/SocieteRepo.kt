@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.infra
 
-import com.raminagrobis.centraleachat.domain.societe.adapter.ISocieteRepo
-import com.raminagrobis.centraleachat.domain.societe.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
+import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import org.springframework.stereotype.Repository
 import java.util.*
 

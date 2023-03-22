@@ -1,6 +1,6 @@
-package com.raminagrobis.centraleachat.domain.societe.adapter
+package com.raminagrobis.centraleachat.domain.administration.adapter
 
-import com.raminagrobis.centraleachat.domain.societe.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import java.util.Optional
 
 
