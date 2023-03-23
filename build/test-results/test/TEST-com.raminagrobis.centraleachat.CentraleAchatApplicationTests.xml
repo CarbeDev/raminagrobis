@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.raminagrobis.centraleachat.CentraleAchatApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-10T09:47:43" hostname="0F6E9MN5UGMVC" time="0.31">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.raminagrobis.centraleachat.CentraleAchatApplicationTests" time="0.31"/>
+  <system-out><![CDATA[09:47:41.939 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [CentraleAchatApplicationTests]: using SpringBootContextLoader
+09:47:41.945 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.raminagrobis.centraleachat.CentraleAchatApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+09:47:41.946 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.raminagrobis.centraleachat.CentraleAchatApplicationTests]: CentraleAchatApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:47:41.971 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [CentraleAchatApplicationTests]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+09:47:42.052 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/project/build/classes/kotlin/main/com/raminagrobis/centraleachat/CentraleAchatApplication.class]
+09:47:42.055 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.raminagrobis.centraleachat.CentraleAchatApplication for test class com.raminagrobis.centraleachat.CentraleAchatApplicationTests
+09:47:42.153 [Test worker] DEBUG org.springframework.test.context.util.TestContextSpringFactoriesUtils - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom TestExecutionListener classes or make the default TestExecutionListener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
+09:47:42.155 [Test worker] DEBUG org.springframework.test.context.util.TestContextSpringFactoriesUtils - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom TestExecutionListener classes or make the default TestExecutionListener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+09:47:42.158 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [CentraleAchatApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+09:47:42.160 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [CentraleAchatApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.3)
+
+2023-03-10T09:47:42.411Z  INFO 307 --- [    Test worker] c.r.c.CentraleAchatApplicationTests      : Starting CentraleAchatApplicationTests using Java 17-ea with PID 307 (started by root in /project)
+2023-03-10T09:47:42.413Z  INFO 307 --- [    Test worker] c.r.c.CentraleAchatApplicationTests      : No active profile set, falling back to 1 default profile: "default"
+2023-03-10T09:47:43.571Z  INFO 307 --- [    Test worker] c.r.c.CentraleAchatApplicationTests      : Started CentraleAchatApplicationTests in 1.368 seconds (process running for 2.51)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

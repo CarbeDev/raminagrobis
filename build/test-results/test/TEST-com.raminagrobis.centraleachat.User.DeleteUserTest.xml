@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.raminagrobis.centraleachat.User.DeleteUserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-10T09:47:44" hostname="0F6E9MN5UGMVC" time="0.008">
+  <properties/>
+  <testcase name="aUserWithCommandeMustBeDesactive()" classname="com.raminagrobis.centraleachat.User.DeleteUserTest" time="0.005"/>
+  <testcase name="aUserWithoutCommandeMustBeDeleted()" classname="com.raminagrobis.centraleachat.User.DeleteUserTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
