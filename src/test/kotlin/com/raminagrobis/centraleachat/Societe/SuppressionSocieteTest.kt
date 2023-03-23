@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class SuppressionSocieteTest {
 
     @Mock
-    lateinit var userRepo: ISocieteRepo
+    lateinit var societeRepo: ISocieteRepo
 
     @InjectMocks
     lateinit var suppressionSociete: SuppressionSociete
@@ -38,23 +38,28 @@ class SuppressionSocieteTest {
     @Test
     fun aUserWithoutCommandeMustBeDeleted(){
 
-        `when`(userRepo.getNbCommandeBySociete(societe)).thenReturn(0)
-        suppressionSociete.handle(societe)
+        `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
+        `when`(societeRepo.getNbCommandeBySociete(societe)).thenReturn(0)
 
-        verify(userRepo, times(1)).deleteSociete(societe)
+        suppressionSociete.handle(1)
+
+        verify(societeRepo, times(1)).deleteSociete(societe)
     }
 
     @Test
     fun aUserWithCommandeMustBeDesactive(){
         val societeArgumentCaptor = argumentCaptor<Societe>()
 
-        `when`(userRepo.isEmailUnique(societe.email.toString())).thenReturn(true)
-        `when`(userRepo.getNbCommandeBySociete(societe)).thenReturn(1)
-        suppressionSociete.handle(societe)
+        `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
+        `when`(societeRepo.getNbCommandeBySociete(societe)).thenReturn(1)
+        `when`(societeRepo.isEmailUnique(societe.email.toString())).thenReturn(true)
 
-        verify(userRepo, times(1)).saveSociete(societeArgumentCaptor.capture())
+        suppressionSociete.handle(1)
+
+        verify(societeRepo, times(1)).saveSociete(societeArgumentCaptor.capture())
         societeArgumentCaptor.firstValue.actif?.let { Assertions.assertFalse(it) }
     }
+
 
 
 }

@@ -10,7 +10,7 @@ class SuppressionSociete(private val societeRepo : ISocieteRepo){
 
     fun handle(id : Int){
 
-        val societe = societeRepo.findSocieteByID(id).get()
+        val societe = societeRepo.findSocieteByID(id)
 
         if(societeRepo.getNbCommandeBySociete(societe) >= 1) {
             desactiveSociete(societe)

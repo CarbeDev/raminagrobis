@@ -3,7 +3,6 @@ package com.raminagrobis.centraleachat.infra
 import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 class SocieteRepo(private val repo: SQLSociete) : ISocieteRepo {
@@ -19,8 +18,8 @@ class SocieteRepo(private val repo: SQLSociete) : ISocieteRepo {
         return repo.existsByEmail(email)
     }
 
-    override fun findSocieteByID(id: Int): Optional<Societe> {
-        return repo.findById(id)
+    override fun findSocieteByID(id: Int): Societe {
+        return repo.findById(id).orElseThrow()
     }
 
     override fun getNbCommandeBySociete(societe: Societe): Int {
