@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 class Societe(
-    @Column(name = "nom_societe")
+    @Column(name = "nom_societe", nullable = false)
     var nom : String? = null,
     @Column(nullable = false)
     var email: String? = null,
