@@ -1,0 +1,20 @@
+services:
+  
+  db:
+    image: postgres
+    ports:
+      - "5442:5432"
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - raminagrobisVolume:/var/lib/postgresql/data
+
+#  back:
+#    build: ./Back
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - db
+
+volumes:
+  raminagrobisVolume:

@@ -1,0 +1,2 @@
+anyio==3.6.2
+dagger-io==0.3.3
