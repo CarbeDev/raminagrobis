@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class CreationSocieteTest{
 
     @Mock
-    private lateinit var userRepo : ISocieteRepo
+    private lateinit var societeRepo : ISocieteRepo
     @InjectMocks
     private lateinit var creationSociete: CreationSociete
 
@@ -31,10 +31,10 @@ class CreationSocieteTest{
 
         val societeCaptor = argumentCaptor<Societe>()
 
-        `when`(userRepo.isEmailUnique(email)).thenReturn(true)
+        `when`(societeRepo.isEmailUnique(email)).thenReturn(true)
         creationSociete.handle(email, nom, role)
 
-        verify(userRepo, times(1)).saveSociete(societeCaptor.capture())
+        verify(societeRepo, times(1)).saveSociete(societeCaptor.capture())
         assertEquals(email,societeCaptor.firstValue.email)
         assertEquals(nom,societeCaptor.firstValue.nom)
         assertEquals(role,societeCaptor.firstValue.role)
@@ -43,13 +43,13 @@ class CreationSocieteTest{
 
     @Test
     fun createAUserWithNonUniqueEmailMustThrowException(){
-        `when`(userRepo.isEmailUnique(email)).thenReturn(false)
+        `when`(societeRepo.isEmailUnique(email)).thenReturn(false)
 
         assertThrows(EmailAlreadyUseException::class.java) {
             creationSociete.handle(email, nom, role)
         }
 
-        verify(userRepo, times(0)).saveSociete(com.nhaarman.mockitokotlin2.any())
+        verify(societeRepo, times(0)).saveSociete(com.nhaarman.mockitokotlin2.any())
     }
 
 }
