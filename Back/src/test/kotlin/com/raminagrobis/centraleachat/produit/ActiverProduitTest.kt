@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class ActiverProduitTest {
@@ -27,9 +28,11 @@ class ActiverProduitTest {
 
     @Test
     fun theProductMustBeActif(){
-        val produit = Produit(actif = false)
+        val ref = "abcd"
+        val produit = Produit(reference = ref,actif = false)
 
-        usecase.handle(produit)
+        Mockito.`when`(repoProduit.getProduitByRef(ref)).thenReturn(produit)
+        usecase.handle(ref)
 
         produit.actif?.let { Assertions.assertTrue(it) }
         verify(repoProduit, times(1)).saveProduit(produit)

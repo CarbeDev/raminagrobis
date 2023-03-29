@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class DesactiverProduitTest {
@@ -27,9 +28,12 @@ class DesactiverProduitTest {
 
     @Test
     fun TheProduitMustBeDesactive(){
-        val produit = Produit(actif = false)
+        val ref = "abc"
+        val produit = Produit(reference = ref, actif = false)
 
-        useCase.handle(produit)
+        Mockito.`when`(repoProduit.getProduitByRef(ref)).thenReturn(produit)
+
+        useCase.handle(ref)
 
         produit.actif?.let { Assertions.assertFalse(it) }
         verify(repoProduit, times(1)).saveProduit(produit)

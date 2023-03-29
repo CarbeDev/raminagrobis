@@ -6,16 +6,15 @@ import com.raminagrobis.centraleachat.domain.administration.usecase.CreationSoci
 import com.raminagrobis.centraleachat.domain.administration.usecase.GetSocietes
 import com.raminagrobis.centraleachat.domain.administration.usecase.MiseAJourSociete
 import com.raminagrobis.centraleachat.domain.administration.usecase.SuppressionSociete
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
-class AdminController(val getSocietes: GetSocietes, val creationSociete: CreationSociete, val suppressionSociete: SuppressionSociete, val miseAJourSociete: MiseAJourSociete){
+class AdminController(
+    val getSocietes: GetSocietes,
+    val creationSociete: CreationSociete,
+    val suppressionSociete: SuppressionSociete,
+    val miseAJourSociete: MiseAJourSociete
+){
 
     @GetMapping("admin/societes")
     fun getSocietes():Iterable<Societe>{
