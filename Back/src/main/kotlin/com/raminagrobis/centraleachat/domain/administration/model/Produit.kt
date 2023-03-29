@@ -10,6 +10,7 @@ class Produit(
     var nom : String? = null,
     @Column(name = "description_produit")
     var description: String? = null,
+    var actif : Boolean? = null,
     @ManyToOne
     @JoinColumn(name = "id_categorie")
     var categorie: Categorie? = null
