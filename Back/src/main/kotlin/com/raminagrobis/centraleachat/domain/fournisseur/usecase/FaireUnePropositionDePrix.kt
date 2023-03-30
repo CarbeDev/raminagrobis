@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
-class FaireProposition(private val repo: IPropositionRepo) {
+class FaireUnePropositionDePrix(private val repo: IPropositionRepo) {
 
     fun handle(proposition: Proposition){
         if (proposition.prix!! <= BigDecimal(0)){

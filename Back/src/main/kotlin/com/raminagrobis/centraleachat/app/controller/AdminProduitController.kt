@@ -2,28 +2,28 @@ package com.raminagrobis.centraleachat.app.controller
 
 import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import com.raminagrobis.centraleachat.domain.administration.usecase.ActiverProduit
-import com.raminagrobis.centraleachat.domain.administration.usecase.AjouterUnProduit
+import com.raminagrobis.centraleachat.domain.administration.usecase.AjouterProduit
 import com.raminagrobis.centraleachat.domain.administration.usecase.DesactiverProduit
-import com.raminagrobis.centraleachat.domain.administration.usecase.GetProduits
+import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererProduits
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @Controller
 class AdminProduitController(
-    val getProduits: GetProduits,
-    val ajouterUnProduit: AjouterUnProduit,
+    val recupererProduits: RecupererProduits,
+    val ajouterProduit: AjouterProduit,
     val activerProduit: ActiverProduit,
     val desactiverProduit: DesactiverProduit
 ){
 
     @GetMapping("/admin/produits")
     fun getAllProduit(): Iterable<Produit> {
-        return getProduits.handle()
+        return recupererProduits.handle()
     }
 
     @PostMapping("/admin/produit/add")
     fun ajoutProduit(@RequestBody produit: Produit){
-        ajouterUnProduit.handle(produit)
+        ajouterProduit.handle(produit)
     }
 
     @PutMapping("/admin/produit/activate/{id}")

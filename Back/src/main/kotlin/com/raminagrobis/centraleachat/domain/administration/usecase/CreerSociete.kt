@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class CreationSociete(private val societeRepo : ISocieteRepo) {
+class CreerSociete(private val societeRepo : ISocieteRepo) {
 
     fun handle(email: String, nom: String, role: Role) {
         val actif = true

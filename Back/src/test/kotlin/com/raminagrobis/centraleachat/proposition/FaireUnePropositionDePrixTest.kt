@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.PriceTooLowException
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
-import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireProposition
+import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -14,13 +14,13 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import java.math.BigDecimal
 
-class FairePropositionTest {
+class FaireUnePropositionDePrixTest {
 
     @Mock
     private lateinit var propositionRepo : IPropositionRepo
 
     @InjectMocks
-    private lateinit var usecase : FaireProposition
+    private lateinit var usecase : FaireUnePropositionDePrix
 
     @BeforeEach
     fun setup(){

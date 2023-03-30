@@ -5,7 +5,7 @@ import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.administration.exception.EmailAlreadyUseException
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.model.Societe
-import com.raminagrobis.centraleachat.domain.administration.usecase.CreationSociete
+import com.raminagrobis.centraleachat.domain.administration.usecase.CreerSociete
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -15,12 +15,12 @@ import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class CreationSocieteTest{
+class CreerSocieteTest{
 
     @Mock
     private lateinit var societeRepo : ISocieteRepo
     @InjectMocks
-    private lateinit var creationSociete: CreationSociete
+    private lateinit var creerSociete: CreerSociete
 
     val email = "test@raminagrobis.com"
     val nom = "nom"
@@ -32,7 +32,7 @@ class CreationSocieteTest{
         val societeCaptor = argumentCaptor<Societe>()
 
         `when`(societeRepo.isEmailUnique(email)).thenReturn(true)
-        creationSociete.handle(email, nom, role)
+        creerSociete.handle(email, nom, role)
 
         verify(societeRepo, times(1)).saveSociete(societeCaptor.capture())
         assertEquals(email,societeCaptor.firstValue.email)
@@ -46,7 +46,7 @@ class CreationSocieteTest{
         `when`(societeRepo.isEmailUnique(email)).thenReturn(false)
 
         assertThrows(EmailAlreadyUseException::class.java) {
-            creationSociete.handle(email, nom, role)
+            creerSociete.handle(email, nom, role)
         }
 
         verify(societeRepo, times(0)).saveSociete(com.nhaarman.mockitokotlin2.any())

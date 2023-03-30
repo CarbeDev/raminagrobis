@@ -6,7 +6,7 @@ import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import org.springframework.stereotype.Service
 
 @Service
-class SuppressionSociete(private val societeRepo : ISocieteRepo){
+class SupprimerSociete(private val societeRepo : ISocieteRepo){
 
     fun handle(id : Int){
 

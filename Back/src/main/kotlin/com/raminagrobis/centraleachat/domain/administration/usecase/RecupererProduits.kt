@@ -5,9 +5,9 @@ import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import org.springframework.stereotype.Service
 
 @Service
-class AjouterUnProduit(private val repo : IProduitRepo){
+class RecupererProduits(private val repo:IProduitRepo) {
 
-    fun handle(produit: Produit){
-        repo.saveProduit(produit)
+    fun handle() : Iterable<Produit>{
+        return repo.getProduits()
     }
 }

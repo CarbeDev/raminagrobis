@@ -2,33 +2,33 @@ package com.raminagrobis.centraleachat.app.controller
 
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.model.Societe
-import com.raminagrobis.centraleachat.domain.administration.usecase.CreationSociete
-import com.raminagrobis.centraleachat.domain.administration.usecase.GetSocietes
+import com.raminagrobis.centraleachat.domain.administration.usecase.CreerSociete
 import com.raminagrobis.centraleachat.domain.administration.usecase.MiseAJourSociete
-import com.raminagrobis.centraleachat.domain.administration.usecase.SuppressionSociete
+import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes
+import com.raminagrobis.centraleachat.domain.administration.usecase.SupprimerSociete
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class AdminController(
-    val getSocietes: GetSocietes,
-    val creationSociete: CreationSociete,
-    val suppressionSociete: SuppressionSociete,
+    val recupererSocietes: RecupererSocietes,
+    val creerSociete: CreerSociete,
+    val supprimerSociete: SupprimerSociete,
     val miseAJourSociete: MiseAJourSociete
 ){
 
     @GetMapping("admin/societes")
     fun getSocietes():Iterable<Societe>{
-         return getSocietes.handle()
+         return recupererSocietes.handle()
     }
 
     @PostMapping("admin/societe/create")
     fun createSociete(@RequestBody societeToCreate: SocieteToCreate){
-        creationSociete.handle(societeToCreate.email,societeToCreate.nom,societeToCreate.role)
+        creerSociete.handle(societeToCreate.email,societeToCreate.nom,societeToCreate.role)
     }
 
     @DeleteMapping("admin/societe/delete/{id}")
     fun deleteSociete(@PathVariable id : Int){
-        suppressionSociete.handle(id)
+        supprimerSociete.handle(id)
     }
 
     @PutMapping("admin/societe/update")
