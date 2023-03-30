@@ -3,7 +3,10 @@ package com.raminagrobis.centraleachat.proposition
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import com.raminagrobis.centraleachat.domain.administration.model.Role
+import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
+import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.PriceTooLowException
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
@@ -25,8 +28,10 @@ class FaireUnePropositionDePrixTest {
     private lateinit var usecase : FaireUnePropositionDePrix
 
     @Test
-    fun aPropositionWhitPrixHigherThan0MustBeSave(){
-        val proposition = Proposition(prix = BigDecimal(100))
+    fun aPropositionWhitPrixHigherThan0AndASocieteFournisseurMustBeSave(){
+        val societe = Societe(role = Role.FOURNISSEUR)
+        val prix = BigDecimal(100)
+        val proposition = Proposition(prix = prix, societe = societe)
 
         val propositionCaptor = argumentCaptor<Proposition>()
 
@@ -38,9 +43,22 @@ class FaireUnePropositionDePrixTest {
 
     @Test
     fun aPropositionWithPrixUnderOrEqualsTo0MustThrowAnException(){
-        val proposition = Proposition(prix = BigDecimal(0))
+        val societe = Societe(role = Role.FOURNISSEUR)
+        val proposition = Proposition(prix = BigDecimal(0), societe = societe)
 
         Assertions.assertThrows(PriceTooLowException::class.java){
+            usecase.handle(proposition)
+        }
+    }
+
+    @Test
+    fun unePropositionAvecUneSocieteAdherenteDoitRenvoyerUneErreur(){
+        val societe = Societe(role = Role.ADHERENT)
+        val prix = BigDecimal(100)
+
+        val proposition = Proposition(prix = prix, societe = societe)
+
+        Assertions.assertThrows(IncorrectRoleSocieteException::class.java){
             usecase.handle(proposition)
         }
     }
