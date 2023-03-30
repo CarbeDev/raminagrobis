@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository
 @Repository
 class PropositionRepo(private val repo : SQLProposition) : IPropositionRepo {
     override fun saveProposition(proposition: Proposition) {
-        TODO("Not yet implemented")
+        repo.save(proposition)
+    }
+
+
+    override fun deleteProposition(proposition: Proposition) {
+        repo.delete(proposition)
     }
 }
