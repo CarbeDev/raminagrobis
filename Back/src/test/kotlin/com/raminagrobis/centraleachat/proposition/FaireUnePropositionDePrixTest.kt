@@ -1,5 +1,6 @@
 package com.raminagrobis.centraleachat.proposition
 
+import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
@@ -7,13 +8,14 @@ import com.raminagrobis.centraleachat.domain.fournisseur.exception.PriceTooLowEx
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.jupiter.MockitoExtension
 import java.math.BigDecimal
 
+@ExtendWith(MockitoExtension::class)
 class FaireUnePropositionDePrixTest {
 
     @Mock
@@ -22,17 +24,16 @@ class FaireUnePropositionDePrixTest {
     @InjectMocks
     private lateinit var usecase : FaireUnePropositionDePrix
 
-    @BeforeEach
-    fun setup(){
-        MockitoAnnotations.openMocks(this)
-    }
-
     @Test
     fun aPropositionWhitPrixHigherThan0MustBeSave(){
         val proposition = Proposition(prix = BigDecimal(100))
 
+        val propositionCaptor = argumentCaptor<Proposition>()
+
         usecase.handle(proposition)
-        verify(propositionRepo, times(1)).saveProposition(proposition)
+
+        verify(propositionRepo, times(1)).saveProposition(propositionCaptor.capture())
+        Assertions.assertEquals(BigDecimal(100),propositionCaptor.firstValue.prix)
     }
 
     @Test
