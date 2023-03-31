@@ -6,13 +6,14 @@ import com.raminagrobis.centraleachat.domain.administration.adapter.IProduitRepo
 import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import com.raminagrobis.centraleachat.domain.administration.usecase.ActiverProduit
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.jupiter.MockitoExtension
 
+@ExtendWith(MockitoExtension::class)
 class ActiverProduitTest {
 
     @Mock
@@ -20,11 +21,6 @@ class ActiverProduitTest {
 
     @InjectMocks
     private lateinit var usecase : ActiverProduit
-
-    @BeforeEach
-    fun setup(){
-        MockitoAnnotations.openMocks(this)
-    }
 
     @Test
     fun theProductMustBeActif(){

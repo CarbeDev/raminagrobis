@@ -6,13 +6,14 @@ import com.raminagrobis.centraleachat.domain.administration.adapter.IProduitRepo
 import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import com.raminagrobis.centraleachat.domain.administration.usecase.DesactiverProduit
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.jupiter.MockitoExtension
 
+@ExtendWith(MockitoExtension::class)
 class DesactiverProduitTest {
 
     @Mock
@@ -20,11 +21,6 @@ class DesactiverProduitTest {
 
     @InjectMocks
     private lateinit var useCase : DesactiverProduit
-
-    @BeforeEach
-    fun setup(){
-        MockitoAnnotations.openMocks(this)
-    }
 
     @Test
     fun TheProduitMustBeDesactive(){
