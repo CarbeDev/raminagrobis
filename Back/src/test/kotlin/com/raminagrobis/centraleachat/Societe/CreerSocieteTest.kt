@@ -27,7 +27,7 @@ class CreerSocieteTest{
     val role = Role.ADHERENT
 
     @Test
-    fun createAUserShouldSaveItOnceWithCorrectProperties(){
+    fun creerUnUtilisateurDoitLeSauvegarderAvecLesBonnesProprietes(){
 
         val societeCaptor = argumentCaptor<Societe>()
 
@@ -42,7 +42,7 @@ class CreerSocieteTest{
     }
 
     @Test
-    fun createAUserWithNonUniqueEmailMustThrowException(){
+    fun creerUnUtilisateurAvecUnMailDejaUtiliseDoitEnvoyeUneException(){
         `when`(societeRepo.isEmailUnique(email)).thenReturn(false)
 
         assertThrows(EmailAlreadyUseException::class.java) {

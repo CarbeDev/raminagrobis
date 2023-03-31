@@ -28,7 +28,7 @@ class FaireUnePropositionDePrixTest {
     private lateinit var usecase : FaireUnePropositionDePrix
 
     @Test
-    fun aPropositionWhitPrixHigherThan0AndASocieteFournisseurMustBeSave(){
+    fun unePropositionAvecUnPrixSuperieurA0EtAvecUneSocieteFournisseurDoitEtreSauvegarder(){
         val societe = Societe(role = Role.FOURNISSEUR)
         val prix = BigDecimal(100)
         val proposition = Proposition(prix = prix, societe = societe)
@@ -42,7 +42,7 @@ class FaireUnePropositionDePrixTest {
     }
 
     @Test
-    fun aPropositionWithPrixUnderOrEqualsTo0MustThrowAnException(){
+    fun unePropositionAvecUnPrixInferieurOuEgalA0DoitEnvoyeUneException(){
         val societe = Societe(role = Role.FOURNISSEUR)
         val proposition = Proposition(prix = BigDecimal(0), societe = societe)
 
