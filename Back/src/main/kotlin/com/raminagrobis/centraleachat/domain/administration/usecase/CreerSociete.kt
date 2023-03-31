@@ -12,6 +12,7 @@ class CreerSociete(private val societeRepo : ISocieteRepo) {
 
     fun handle(email: String, nom: String, role: Role) {
         val actif = true
-        if (societeRepo.isEmailUnique(email)) societeRepo.saveSociete(Societe(nom, email, actif, role)) else throw EmailAlreadyUseException()
+        if (societeRepo.isEmailUnique(email)) societeRepo.saveSociete(Societe(nom = nom, email = email, actif = actif, role = role)) else throw EmailAlreadyUseException()
+
     }
 }
