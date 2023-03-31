@@ -23,7 +23,7 @@ class ActiverProduitTest {
     private lateinit var usecase : ActiverProduit
 
     @Test
-    fun theProductMustBeActif(){
+    fun leProduitDoitEtreActive(){
         val ref = "abcd"
         val produit = Produit(reference = ref,actif = false)
 

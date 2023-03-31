@@ -23,7 +23,7 @@ class DesactiverProduitTest {
     private lateinit var useCase : DesactiverProduit
 
     @Test
-    fun TheProduitMustBeDesactive(){
+    fun leProduitDoitEtreDesactive(){
         val ref = "abc"
         val produit = Produit(reference = ref, actif = false)
 

@@ -36,7 +36,7 @@ class SupprimerSocieteTest {
     }
 
     @Test
-    fun aUserWithoutCommandeMustBeDeleted(){
+    fun uneSocieteSansCommandeDoitEtreSupprime(){
 
         `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
         `when`(societeRepo.getNbCommandeBySociete(societe)).thenReturn(0)
@@ -47,7 +47,7 @@ class SupprimerSocieteTest {
     }
 
     @Test
-    fun aUserWithCommandeMustBeDesactive(){
+    fun uneSocieteAvecAuMoinsUneCommandeDoitEtreDesactive(){
         val societeArgumentCaptor = argumentCaptor<Societe>()
 
         `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
