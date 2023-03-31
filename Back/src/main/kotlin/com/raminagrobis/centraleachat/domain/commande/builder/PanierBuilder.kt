@@ -1,5 +1,6 @@
 package com.raminagrobis.centraleachat.domain.commande.builder
 
+import com.raminagrobis.centraleachat.domain.commande.model.Etat
 import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -11,7 +12,7 @@ class PanierBuilder {
         val numSemaine = getNumSemaine(jour)
         val annee = getDeuxDerniersNombresDeLannee(jour)
 
-        return Panier(id = numSemaine + "_" + annee)
+        return Panier(id = numSemaine + "_" + annee, etat = Etat.OUVERT)
     }
 
     private fun getNumSemaine(jour: Calendar) : String{

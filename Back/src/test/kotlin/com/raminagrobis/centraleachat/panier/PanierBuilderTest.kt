@@ -1,8 +1,9 @@
 package com.raminagrobis.centraleachat.panier
 
 import com.raminagrobis.centraleachat.domain.commande.builder.PanierBuilder
+import com.raminagrobis.centraleachat.domain.commande.model.Etat
 import com.raminagrobis.centraleachat.domain.commande.model.Panier
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -26,12 +27,17 @@ class PanierBuilderTest {
     }
 
     @Test
-    fun LIdDuPanierDoitFaireExactement5Charactere(){
-        Assertions.assertEquals(5,panier.id.length)
+    fun lIdDuPanierDoitFaireExactement5Charactere(){
+        assertEquals(5,panier.id.length)
     }
 
     @Test
-    fun LIdDuPanierDoitEtreLeNumeroDeLaSemaineEtDeLannee(){
-        Assertions.assertEquals("13_23", panier.id)
+    fun lIdDuPanierDoitEtreLeNumeroDeLaSemaineEtDeLannee(){
+        assertEquals("13_23", panier.id)
+    }
+
+    @Test
+    fun unPanierCreeDoitEtreOuvert(){
+        assertEquals(Etat.OUVERT,panier.etat)
     }
 }

@@ -1,9 +1,6 @@
 package com.raminagrobis.centraleachat.domain.commande.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
+import jakarta.persistence.*
 
 @Entity
 class Panier(
@@ -12,5 +9,14 @@ class Panier(
     var id : String = "",
 
     @OneToMany(mappedBy = "panier")
-    var listeAchat : List<Achat> = listOf()
+    var listeAchat : List<Achat> = listOf(),
+
+    @Enumerated(EnumType.STRING)
+    var etat: Etat = Etat.FERMER
 )
+
+enum class Etat {
+    OUVERT,
+    FERMER
+}
+
