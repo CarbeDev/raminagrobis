@@ -12,7 +12,7 @@ class PanierRepo(val repo: SQLPanier) : IPanierRepo{
         return repo.findAllByEtat(Etat.OUVERT)
     }
 
-    override fun savepanier(panier: Panier) {
+    override fun savePanier(panier: Panier) {
        repo.save(panier)
     }
 

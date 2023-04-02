@@ -1,5 +1,6 @@
 package com.raminagrobis.centraleachat.panier
 
+import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
@@ -13,6 +14,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import java.util.*
 
 
 @ExtendWith(MockitoExtension::class)
@@ -38,9 +40,20 @@ class CreationPanierTaskTest {
         taskPanier.handle()
 
         assertEquals(Etat.FERMER, paniersOuvert[0].etat)
-        verify(repoPanier, times(1)).savepanier(panier1)
+        verify(repoPanier, times(1)).savePanier(panier1)
 
         assertEquals(Etat.FERMER, paniersOuvert[1].etat)
-        verify(repoPanier, times(1)).savepanier(panier2)
+        verify(repoPanier, times(1)).savePanier(panier2)
+    }
+
+    @Test
+    fun lePanierOuvertDoitConcernerLaSemaineEnCours(){
+        val panierCaptor = argumentCaptor<Panier>()
+        val numSemaine = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR).toString()
+
+        taskPanier.handle()
+
+        verify(repoPanier, times(1)).savePanier(panierCaptor.capture())
+        assertTrue(panierCaptor.firstValue.id.contains(numSemaine))
     }
 }
