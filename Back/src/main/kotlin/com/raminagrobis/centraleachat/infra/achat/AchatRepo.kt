@@ -9,4 +9,8 @@ class AchatRepo(val repo : SQLAchat) : IAchatRepo{
     override fun saveAchat(achat: Achat) {
         repo.save(achat)
     }
+
+    override fun deleteAchat(achat: Achat) {
+       repo.delete(achat)
+    }
 }

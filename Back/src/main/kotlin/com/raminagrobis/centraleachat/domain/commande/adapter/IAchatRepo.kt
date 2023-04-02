@@ -4,4 +4,6 @@ import com.raminagrobis.centraleachat.domain.commande.model.Achat
 
 interface IAchatRepo {
     fun saveAchat(achat: Achat)
+
+    fun deleteAchat(achat: Achat)
 }
