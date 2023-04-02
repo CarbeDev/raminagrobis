@@ -1,5 +1,7 @@
 package com.raminagrobis.centraleachat.achat
 
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
@@ -47,5 +49,17 @@ class EffectuerAchatTest {
         assertThrows(CantAddAchatException::class.java){
             useCase.handle(achat)
         }
+    }
+
+    @Test
+    fun UnAchatDUnAdherentDansUnPanierFermeDoitEtreSauvegarder(){
+        val societe = Societe(role = Role.ADHERENT)
+        val panier = Panier(etat = Etat.OUVERT)
+
+        val achat = Achat(societe = societe,panier = panier)
+
+        useCase.handle(achat)
+
+        verify(repoAchat, times(1)).saveAchat(achat)
     }
 }
