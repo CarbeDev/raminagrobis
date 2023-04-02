@@ -52,7 +52,7 @@ class EffectuerAchatTest {
     }
 
     @Test
-    fun UnAchatDUnAdherentDansUnPanierFermeDoitEtreSauvegarder(){
+    fun unAchatDUnAdherentDansUnPanierFermeDoitEtreSauvegarder(){
         val societe = Societe(role = Role.ADHERENT)
         val panier = Panier(etat = Etat.OUVERT)
 
