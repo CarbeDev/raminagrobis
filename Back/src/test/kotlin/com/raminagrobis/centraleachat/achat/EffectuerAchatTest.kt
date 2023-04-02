@@ -27,10 +27,10 @@ class EffectuerAchatTest {
 
     @Test
     fun unAchatQuiEstEffectueParUnFournisseurDoitEnvoiUneException(){
-        var societe = Societe(role = Role.FOURNISSEUR)
-        var panier = Panier(etat = Etat.OUVERT)
+        val societe = Societe(role = Role.FOURNISSEUR)
+        val panier = Panier(etat = Etat.OUVERT)
 
-        var achat = Achat(societe = societe, panier = panier)
+        val achat = Achat(societe = societe, panier = panier)
 
         assertThrows(IncorrectRoleSocieteException::class.java){
             useCase.handle(achat)
@@ -39,10 +39,10 @@ class EffectuerAchatTest {
 
     @Test
     fun unAchatQuiConcerneUnPanierFermeEnvoiUneException(){
-        var societe = Societe(role = Role.ADHERENT)
-        var panier = Panier(etat = Etat.FERMER)
+        val societe = Societe(role = Role.ADHERENT)
+        val panier = Panier(etat = Etat.FERMER)
 
-        var achat = Achat(societe = societe,panier = panier)
+        val achat = Achat(societe = societe,panier = panier)
 
         assertThrows(CantAddAchatException::class.java){
             useCase.handle(achat)
