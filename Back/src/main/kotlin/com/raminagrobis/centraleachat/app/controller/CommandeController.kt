@@ -13,12 +13,12 @@ class CommandeController(
     val effectuerAchat: EffectuerAchat,
     val annulerAchat: AnnulerAchat
 ) {
-    @PostMapping(name = "/achat/add")
+    @PostMapping("/achat/add")
     fun addAchat(@RequestBody achat: Achat){
         effectuerAchat.handle(achat)
     }
 
-    @DeleteMapping(name = "/achat/delete")
+    @DeleteMapping("/achat/delete")
     fun deleteAchat(@RequestBody achat: Achat){
         annulerAchat.handle(achat)
     }

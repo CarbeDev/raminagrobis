@@ -5,10 +5,9 @@ import com.raminagrobis.centraleachat.domain.administration.usecase.ActiverProdu
 import com.raminagrobis.centraleachat.domain.administration.usecase.AjouterProduit
 import com.raminagrobis.centraleachat.domain.administration.usecase.DesactiverProduit
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererProduits
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
-@Controller
+@RestController
 class AdminProduitController(
     val recupererProduits: RecupererProduits,
     val ajouterProduit: AjouterProduit,

@@ -30,4 +30,14 @@ class PropositionKey(
     var reference : String? = null,
     @Column(name = "id_societe")
     var idSociete: Int? = null
-) : Serializable
+
+) : Serializable {
+
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+}
