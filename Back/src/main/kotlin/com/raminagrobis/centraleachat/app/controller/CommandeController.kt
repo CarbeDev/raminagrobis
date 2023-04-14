@@ -3,22 +3,29 @@ package com.raminagrobis.centraleachat.app.controller
 import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.usecase.AnnulerAchat
 import com.raminagrobis.centraleachat.domain.commande.usecase.EffectuerAchat
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import com.raminagrobis.centraleachat.domain.commande.usecase.RecupererAchats
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.web.bind.annotation.*
 
+@Tag(name = "Achat")
 @RestController
 class CommandeController(
     val effectuerAchat: EffectuerAchat,
-    val annulerAchat: AnnulerAchat
+    val annulerAchat: AnnulerAchat,
+    val recupererAchats: RecupererAchats
 ) {
-    @PostMapping(name = "/achat/add")
+
+    @GetMapping("/achat/get")
+    fun getAchatByFilter(@RequestParam referenceProduit : String, @RequestParam idPanier : String){
+        recupererAchats.handle(referenceProduit, idPanier)
+    }
+
+    @PostMapping("/achat/add")
     fun addAchat(@RequestBody achat: Achat){
         effectuerAchat.handle(achat)
     }
 
-    @DeleteMapping(name = "/achat/delete")
+    @DeleteMapping("/achat/delete")
     fun deleteAchat(@RequestBody achat: Achat){
         annulerAchat.handle(achat)
     }

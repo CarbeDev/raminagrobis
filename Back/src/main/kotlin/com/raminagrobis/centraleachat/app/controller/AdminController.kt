@@ -2,15 +2,15 @@ package com.raminagrobis.centraleachat.app.controller
 
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.model.Societe
-import com.raminagrobis.centraleachat.domain.administration.usecase.CreerSociete
-import com.raminagrobis.centraleachat.domain.administration.usecase.MiseAJourSociete
-import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes
-import com.raminagrobis.centraleachat.domain.administration.usecase.SupprimerSociete
+import com.raminagrobis.centraleachat.domain.administration.usecase.*
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 
+@Tag(name = "Admin Societe")
 @RestController
 class AdminController(
     val recupererSocietes: RecupererSocietes,
+    val recupererSociete: RecupererSociete,
     val creerSociete: CreerSociete,
     val supprimerSociete: SupprimerSociete,
     val miseAJourSociete: MiseAJourSociete
@@ -19,6 +19,11 @@ class AdminController(
     @GetMapping("admin/societes")
     fun getSocietes():Iterable<Societe>{
          return recupererSocietes.handle()
+    }
+
+    @GetMapping("admin/societe/{id}")
+    fun getSociete(@PathVariable id :Int):Societe{
+        return recupererSociete.handle(id)
     }
 
     @PostMapping("admin/societe/create")
