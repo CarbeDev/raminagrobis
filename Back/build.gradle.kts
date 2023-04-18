@@ -23,6 +23,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-web:3.0.3")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.3")
+    implementation("org.springframework.boot:spring-boot-starter-security:3.0.3")
     implementation("org.postgresql:postgresql:42.5.4")
     implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
