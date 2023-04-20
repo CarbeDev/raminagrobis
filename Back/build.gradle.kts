@@ -28,6 +28,9 @@ dependencies {
     implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
     implementation("org.springframework.plugin:spring-plugin-core:3.0.0")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-gson:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
 }
