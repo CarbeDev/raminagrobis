@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface SQLSociete : CrudRepository<Societe,Int>{
     fun existsByEmail(email : String) : Boolean
-
+    fun getSocieteByEmail(email: String) : Societe
 }

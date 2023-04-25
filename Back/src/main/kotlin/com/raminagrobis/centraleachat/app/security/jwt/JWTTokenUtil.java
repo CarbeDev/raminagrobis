@@ -1,5 +1,6 @@
 package com.raminagrobis.centraleachat.app.security.jwt;
 
+import com.raminagrobis.centraleachat.domain.connexion.adapter.IJWTTokenUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JWTTokenUtil {
+public class JWTTokenUtil implements IJWTTokenUtil {
 
     private static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
