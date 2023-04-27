@@ -24,7 +24,7 @@ class ConnexionUtilisateurTest {
     private lateinit var jwt :IJWTTokenUtil
 
     @Mock
-    private lateinit var repo:IUtilisateurRepo
+    private lateinit var repo :IUtilisateurRepo
 
     @InjectMocks
     private lateinit var useCase : ConnexionUtilisateur
@@ -45,7 +45,7 @@ class ConnexionUtilisateurTest {
     fun uneConnexionReussiDoitRenvoyeUnTokenJWT(){
         val captor = argumentCaptor<UserDetails>()
 
-        useCase.handle(email,mdp)
+        useCase.handle(email,mdp,false)
         verify(jwt, times(1)).generateToken(captor.capture())
     }
 
@@ -54,7 +54,7 @@ class ConnexionUtilisateurTest {
         val mauvaisMdp = "tes"
 
         Assertions.assertThrows(BadPasswordException()::class.java){
-            useCase.handle(email, mauvaisMdp)
+            useCase.handle(email, mauvaisMdp, false)
         }
     }
 }
