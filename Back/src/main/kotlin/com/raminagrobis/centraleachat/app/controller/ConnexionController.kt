@@ -18,7 +18,7 @@ class ConnexionController(
     fun connexionSociete(@RequestBody formData : Form): Map<String,String>{
         val r = HashMap<String,String>()
 
-        val token = connexionUtilisateur.handle(formData.email,formData.mdp)
+        val token = connexionUtilisateur.handle(formData.email,formData.mdp,formData.admin)
 
         r["Token"] = token
         r["Issued at"] = jwtTokenUtil.getIssuedAt(token)
@@ -29,6 +29,7 @@ class ConnexionController(
 
     data class Form(
         val email :String,
-        val mdp : String
+        val mdp : String,
+        val admin : Boolean
     )
 }

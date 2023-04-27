@@ -11,8 +11,12 @@ class Societe(
     var id: Int? = null,
     @Column(name = "nom_societe", nullable = false)
     var nom : String? = null,
-    @Column(nullable = false)
+    @Column(
+        name = "email_societe",
+        nullable = false
+    )
     override var email: String? = null,
+    @Column(name = "mdp_societe")
     override var motDePasse :String? = null,
     @Enumerated(EnumType.STRING)
     override var role: Role? = null,
@@ -22,7 +26,31 @@ class Societe(
 //    @OneToMany(mappedBy = "societe")
 //    var historique : ArrayList<Achat> = arrayListOf()
 ) : Utilisateur
+
+
+@Entity
+class Admin(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_admin")
+    var id : Int = 0,
+
+    @Column(
+        name = "email_admin",
+        nullable = false
+    )
+    override var email : String = "",
+
+    @Column(name = "mdp_admin")
+    override var motDePasse : String = "",
+
+    @Transient
+    override var role: Role? = Role.ADMIN
+) : Utilisateur
+
+
 enum class Role{
     ADHERENT,
-    FOURNISSEUR
+    FOURNISSEUR,
+    ADMIN
 }
