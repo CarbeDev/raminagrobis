@@ -25,6 +25,7 @@ class WebSecurityConfig {
             .requestMatchers("/fournisseur/**").hasAuthority("FOURNISSEUR")
             .requestMatchers("/adherent/**").hasAuthority("ADHERENT")
             .requestMatchers("/connexion").permitAll()
+            .requestMatchers("/swagger-ui/**","/v3/**").permitAll()
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 

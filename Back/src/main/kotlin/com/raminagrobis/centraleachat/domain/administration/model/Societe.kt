@@ -1,6 +1,5 @@
 package com.raminagrobis.centraleachat.domain.administration.model
 
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
 import jakarta.persistence.*
 
@@ -20,8 +19,8 @@ class Societe(
     @Column(nullable = false)
     var actif : Boolean? = null,
 
-    @OneToMany(mappedBy = "societe")
-    var historique : ArrayList<Achat> = arrayListOf()
+//    @OneToMany(mappedBy = "societe")
+//    var historique : ArrayList<Achat> = arrayListOf()
 ) : Utilisateur
 enum class Role{
     ADHERENT,
