@@ -13,6 +13,7 @@ class Societe(
     var nom : String? = null,
     @Column(
         name = "email_societe",
+        unique = true,
         nullable = false
     )
     override var email: String? = null,

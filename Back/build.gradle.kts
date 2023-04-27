@@ -30,6 +30,7 @@ dependencies {
     implementation("org.springframework.plugin:spring-plugin-core:3.0.0")
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
     implementation("io.jsonwebtoken:jjwt-gson:0.11.5")
+    implementation("org.passay:passay:1.6.3")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
