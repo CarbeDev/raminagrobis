@@ -4,7 +4,6 @@ import com.raminagrobis.centraleachat.domain.connexion.adapter.IJWTTokenUtil
 import com.raminagrobis.centraleachat.domain.connexion.adapter.IUtilisateurRepo
 import com.raminagrobis.centraleachat.domain.connexion.exception.BadPasswordException
 import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.stereotype.Service
 
@@ -17,7 +16,7 @@ class ConnexionUtilisateur(
         val utilisateur = getUtilisateur(email,admin)
 
         if (BCrypt.checkpw(mdp,utilisateur.motDePasse)){
-            return jwt.generateToken(User(utilisateur.email, utilisateur.motDePasse, utilisateur.getAuthority()))
+            return jwt.generateToken(utilisateur.toSpringUser())
         } else {
             throw BadPasswordException()
         }
