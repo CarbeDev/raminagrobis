@@ -43,8 +43,8 @@ class JWTTokenUtil(env: Environment): IJWTTokenUtil {
         return getClaimFromToken<Date>(token, Function<Claims, Date> { obj: Claims -> obj.issuedAt }).toString()
     }
 
-    fun validateToken(token: String, user: UserDetails): Boolean {
-        return getUsernameFromToken(token) == user.username && !isTokenExpired(token)
+    fun validateToken(token: String): Boolean {
+        return getUsernameFromToken(token) != null && !isTokenExpired(token)
     }
 
 
