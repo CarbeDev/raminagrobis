@@ -21,15 +21,15 @@ class Proposition(
     @JoinColumn(name = "id_societe", referencedColumnName = "id_societe", insertable = false, updatable = false)
     var societe: Societe? = null,
 
-    var prix : BigDecimal? = null
+    var prix : BigDecimal = BigDecimal(0)
 )
 
 @Embeddable
 class PropositionKey(
     @Column(name = "reference_produit")
-    var reference : String? = null,
+    var reference : String = "",
     @Column(name = "id_societe")
-    var idSociete: Int? = null
+    var idSociete: Int = 0
 
 ) : Serializable {
 
