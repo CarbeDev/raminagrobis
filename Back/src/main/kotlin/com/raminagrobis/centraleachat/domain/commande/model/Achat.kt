@@ -33,7 +33,7 @@ class AchatKey(
     var idSociete: Int = 0,
 
     @Column(name = "reference_produit")
-    var reference : String? = null,
+    var reference : String = "",
 
     @Column(name = "id_panier")
     var idpanier : String = ""
