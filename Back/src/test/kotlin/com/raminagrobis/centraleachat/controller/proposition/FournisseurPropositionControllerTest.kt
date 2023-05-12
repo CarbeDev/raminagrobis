@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.controller.fournisseurProposition
+package com.raminagrobis.centraleachat.controller.proposition
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.raminagrobis.centraleachat.app.controller.FournisseurPropositionController
@@ -53,7 +53,7 @@ class FournisseurPropositionControllerTest {
             )
         ).andReturn().response
 
-        assertEquals(response.status,HttpStatus.CREATED.value())
+        assertEquals(HttpStatus.CREATED.value(),response.status,)
     }
 
     @Test
@@ -65,7 +65,7 @@ class FournisseurPropositionControllerTest {
             )
         ).andReturn().response
 
-        assertEquals(response.status, HttpStatus.NO_CONTENT.value())
+        assertEquals(HttpStatus.NO_CONTENT.value(),response.status)
     }
 
 }

@@ -14,4 +14,12 @@ class PropositionRepo(private val repo : SQLProposition) : IPropositionRepo {
     override fun deleteProposition(proposition: Proposition) {
         repo.delete(proposition)
     }
+
+    override fun getPropositionsByProduit(refProduit: String): Iterable<Proposition> {
+        return repo.getAllByProduitOrderByPrix(refProduit)
+    }
+
+    override fun getPropositionsBySociete(idSociete : Int): Iterable<Proposition> {
+        return repo.getAllBySocieteOrderByPrix(idSociete)
+    }
 }
