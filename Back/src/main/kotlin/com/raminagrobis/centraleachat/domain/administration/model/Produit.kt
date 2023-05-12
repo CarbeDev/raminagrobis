@@ -5,12 +5,12 @@ import jakarta.persistence.*
 @Entity
 class Produit(
     @Id
-    var reference : String? = null,
+    var reference : String = "",
     @Column(name = "nom_produit", nullable = false)
-    var nom : String? = null,
+    var nom : String = "",
     @Column(name = "description_produit")
-    var description: String? = null,
-    var actif : Boolean? = null,
+    var description: String = "",
+    var actif : Boolean = false,
     @ManyToOne
     @JoinColumn(name = "id_categorie")
     var categorie: Categorie? = null

@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.User
 
 interface Utilisateur {
 
-    val email : String?
-    val motDePasse : String?
+    val email : String
+    val motDePasse : String
     val role : Role?
 
     fun toSpringUser() : User{

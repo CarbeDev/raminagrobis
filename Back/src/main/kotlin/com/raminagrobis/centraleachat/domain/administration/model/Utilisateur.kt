@@ -8,21 +8,21 @@ class Societe(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_societe")
-    var id: Int? = null,
+    var id: Int = 0,
     @Column(name = "nom_societe", nullable = false)
-    var nom : String? = null,
+    var nom : String = "",
     @Column(
         name = "email_societe",
         unique = true,
         nullable = false
     )
-    override var email: String? = null,
+    override var email: String = "",
     @Column(name = "mdp_societe")
-    override var motDePasse :String? = null,
+    override var motDePasse :String = "",
     @Enumerated(EnumType.STRING)
     override var role: Role? = null,
     @Column(nullable = false)
-    var actif : Boolean? = null,
+    var actif : Boolean = false,
 
 //    @OneToMany(mappedBy = "societe")
 //    var historique : ArrayList<Achat> = arrayListOf()
@@ -46,7 +46,7 @@ class Admin(
     override var motDePasse : String = "",
 
     @Transient
-    override var role: Role? = Role.ADMIN
+    override var role: Role = Role.ADMIN
 ) : Utilisateur
 
 

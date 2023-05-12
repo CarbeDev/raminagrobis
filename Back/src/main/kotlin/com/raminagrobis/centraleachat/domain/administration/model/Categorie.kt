@@ -9,9 +9,9 @@ import jakarta.persistence.OneToMany
 class Categorie(
     @Id
     @Column(name = "id_categorie")
-    var id : Int? = null,
+    var id : Int = 0,
     @Column(name = "libelle_categorie")
-    var libelle : String? = null,
+    var libelle : String = "",
     @OneToMany(mappedBy = "categorie")
-    var  produits : Set<Produit>? = null
+    var  produits : Set<Produit> = emptySet()
 )
