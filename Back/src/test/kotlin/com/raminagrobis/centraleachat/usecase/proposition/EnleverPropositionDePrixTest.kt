@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
-import com.raminagrobis.centraleachat.domain.fournisseur.usecase.EnleverUnePropositionDePrix
+import com.raminagrobis.centraleachat.domain.fournisseur.usecase.SupprimerUnePropositionDePrix
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -18,7 +18,7 @@ class EnleverPropositionDePrixTest {
     private lateinit var repoProposition: IPropositionRepo
 
     @InjectMocks
-    private lateinit var useCase : EnleverUnePropositionDePrix
+    private lateinit var useCase : SupprimerUnePropositionDePrix
 
     @Test
     fun laPropositionDoitEtreSupprime(){
