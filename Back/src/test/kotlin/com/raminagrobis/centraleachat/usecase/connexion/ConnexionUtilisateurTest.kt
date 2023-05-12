@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.connexion
+package com.raminagrobis.centraleachat.usecase.connexion
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.raminagrobis.centraleachat.domain.administration.model.Societe

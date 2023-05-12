@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.Societe
+package com.raminagrobis.centraleachat.usecase.societe
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo

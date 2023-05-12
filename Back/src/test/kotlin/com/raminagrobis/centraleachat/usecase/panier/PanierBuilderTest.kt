@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.panier
+package com.raminagrobis.centraleachat.usecase.panier
 
 import com.raminagrobis.centraleachat.domain.commande.builder.PanierBuilder
 import com.raminagrobis.centraleachat.domain.commande.model.Etat

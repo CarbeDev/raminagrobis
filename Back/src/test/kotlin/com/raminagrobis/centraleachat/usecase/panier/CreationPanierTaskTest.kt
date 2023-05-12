@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.panier
+package com.raminagrobis.centraleachat.usecase.panier
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times

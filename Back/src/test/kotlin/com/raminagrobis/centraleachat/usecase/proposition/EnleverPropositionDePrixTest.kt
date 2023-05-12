@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.proposition
+package com.raminagrobis.centraleachat.usecase.proposition
 
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify

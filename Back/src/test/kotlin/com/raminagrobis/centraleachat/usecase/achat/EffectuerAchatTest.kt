@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.achat
+package com.raminagrobis.centraleachat.usecase.achat
 
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
