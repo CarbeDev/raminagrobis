@@ -15,19 +15,18 @@ class ConnexionController(
 ){
 
     @PostMapping("/connexion")
-    fun connexionSociete(@RequestBody formData : Form): Map<String,String>{
-        val r = HashMap<String,String>()
+    fun connexionSociete(@RequestBody connexionFormData : ConnexionForm): Map<String,String>{
 
-        val token = connexionUtilisateur.handle(formData.email,formData.mdp,formData.admin)
+        val token = connexionUtilisateur.handle(connexionFormData.email,connexionFormData.mdp,connexionFormData.admin)
 
-        r["Token"] = token
-        r["Issued at"] = jwtTokenUtil.getIssuedAt(token)
-        r["Expire"] = jwtTokenUtil.getExpiration(token)
-
-        return r
+        return mapOf(
+            Pair("Token", token),
+            Pair("Issued at", jwtTokenUtil.getIssuedAt(token)),
+            Pair("Expire", jwtTokenUtil.getExpiration(token))
+        )
     }
 
-    data class Form(
+    data class ConnexionForm(
         val email :String,
         val mdp : String,
         val admin : Boolean

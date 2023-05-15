@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class AdminRepo(val repo : SQLAdmin){
-    fun getByEmail(email : String) : Admin{
+    fun getByEmail(email : String) : Admin?{
         return repo.findAdminByEmail(email)
     }
 }

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class UtilisateurRepo(var societeRepo: SocieteRepo, var adminRepo : AdminRepo) : IUtilisateurRepo{
-    override fun findSocieteByEmail(email : String): Utilisateur {
+    override fun findSocieteByEmail(email : String): Utilisateur? {
         return societeRepo.getByEmail(email)
     }
 
-    override fun findAdminByEmail(email: String): Utilisateur {
+    override fun findAdminByEmail(email: String): Utilisateur? {
         return adminRepo.getByEmail(email)
     }
 }
