@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.app.controller
+package com.raminagrobis.centraleachat.app.controller.admin
 
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role

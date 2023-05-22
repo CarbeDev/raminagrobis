@@ -1,9 +1,9 @@
-package com.raminagrobis.centraleachat.controller
+package com.raminagrobis.centraleachat.controller.admin
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
-import com.raminagrobis.centraleachat.app.controller.AdminController
-import com.raminagrobis.centraleachat.app.controller.SocieteToCreate
+import com.raminagrobis.centraleachat.app.controller.admin.AdminController
+import com.raminagrobis.centraleachat.app.controller.admin.SocieteToCreate
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.model.Societe
@@ -40,7 +40,7 @@ class AdminControllerTest {
     @Mock
     private lateinit var miseAJourSociete: MiseAJourSociete
     @InjectMocks
-    private lateinit var controller :AdminController
+    private lateinit var controller : AdminController
 
     private lateinit var jsonSocieteDTOs: JacksonTester<Iterable<SocieteDTO>>
     private lateinit var jsonSocieteDTO: JacksonTester<SocieteDTO>
