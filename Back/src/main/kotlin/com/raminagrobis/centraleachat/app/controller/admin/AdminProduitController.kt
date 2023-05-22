@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.app.controller
+package com.raminagrobis.centraleachat.app.controller.admin
 
 import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
@@ -8,22 +8,10 @@ import org.springframework.web.bind.annotation.*
 @Tag(name = "Admin Produit")
 @RestController
 class AdminProduitController(
-    val recupererProduits: RecupererProduits,
-    val recupererProduit: RecupererProduit,
     val ajouterProduit: AjouterProduit,
     val activerProduit: ActiverProduit,
     val desactiverProduit: DesactiverProduit
 ){
-
-    @GetMapping("/admin/produits")
-    fun getAllProduit(): Iterable<Produit> {
-        return recupererProduits.handle()
-    }
-
-    @GetMapping("/admin/produit/{ref}")
-    fun getProduit(@PathVariable ref:String) : Produit{
-        return recupererProduit.handle(ref)
-    }
 
     @PostMapping("/admin/produit/add")
     fun ajoutProduit(@RequestBody produit: Produit){
