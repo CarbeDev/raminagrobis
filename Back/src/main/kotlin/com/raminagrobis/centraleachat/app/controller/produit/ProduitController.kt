@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.app.controller
+package com.raminagrobis.centraleachat.app.controller.produit
 
 import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererProduit

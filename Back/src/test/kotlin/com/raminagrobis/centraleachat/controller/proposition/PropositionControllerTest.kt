@@ -2,7 +2,7 @@ package com.raminagrobis.centraleachat.controller.proposition
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
-import com.raminagrobis.centraleachat.app.controller.PropositionController
+import com.raminagrobis.centraleachat.app.controller.proposition.PropositionController
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
 import com.raminagrobis.centraleachat.domain.fournisseur.model.PropositionKey
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.RecupererPropositions

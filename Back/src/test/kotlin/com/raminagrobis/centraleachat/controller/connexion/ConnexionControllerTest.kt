@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
-import com.raminagrobis.centraleachat.app.controller.ConnexionController
-import com.raminagrobis.centraleachat.app.controller.ConnexionController.*
+import com.raminagrobis.centraleachat.app.controller.connexion.ConnexionController
+import com.raminagrobis.centraleachat.app.controller.connexion.ConnexionController.*
 import com.raminagrobis.centraleachat.app.security.jwt.JWTTokenUtil
 import com.raminagrobis.centraleachat.domain.connexion.exception.BadPasswordException
 import com.raminagrobis.centraleachat.domain.connexion.exception.UserNotFoundException

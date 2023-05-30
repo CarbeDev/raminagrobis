@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.controller.commande
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.raminagrobis.centraleachat.app.controller.CommandeController
+import com.raminagrobis.centraleachat.app.controller.commande.CommandeController
 import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.usecase.AnnulerAchat
 import com.raminagrobis.centraleachat.domain.commande.usecase.EffectuerAchat

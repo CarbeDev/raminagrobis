@@ -1,8 +1,8 @@
-package com.raminagrobis.centraleachat.controller.admin
+package com.raminagrobis.centraleachat.controller.produit
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
-import com.raminagrobis.centraleachat.app.controller.ProduitController
+import com.raminagrobis.centraleachat.app.controller.produit.ProduitController
 import com.raminagrobis.centraleachat.domain.administration.model.Categorie
 import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import com.raminagrobis.centraleachat.domain.administration.usecase.*

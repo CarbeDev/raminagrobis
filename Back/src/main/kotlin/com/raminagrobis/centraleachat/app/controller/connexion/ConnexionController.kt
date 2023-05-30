@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.app.controller
+package com.raminagrobis.centraleachat.app.controller.connexion
 
 import com.raminagrobis.centraleachat.app.security.jwt.JWTTokenUtil
 import com.raminagrobis.centraleachat.domain.connexion.usecase.ConnexionUtilisateur

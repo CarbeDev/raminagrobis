@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.app.controller
+package com.raminagrobis.centraleachat.app.controller.proposition
 
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.RecupererPropositions

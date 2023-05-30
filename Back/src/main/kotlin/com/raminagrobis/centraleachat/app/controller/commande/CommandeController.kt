@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.app.controller
+package com.raminagrobis.centraleachat.app.controller.commande
 
 import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.usecase.AnnulerAchat

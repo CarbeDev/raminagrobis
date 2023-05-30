@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.controller.proposition
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.raminagrobis.centraleachat.app.controller.FournisseurPropositionController
+import com.raminagrobis.centraleachat.app.controller.proposition.FournisseurPropositionController
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.SupprimerUnePropositionDePrix
