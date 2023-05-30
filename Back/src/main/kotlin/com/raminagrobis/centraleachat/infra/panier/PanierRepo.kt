@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 class PanierRepo(val repo: SQLPanier) : IPanierRepo{
 
     override fun getPaniersOuvert(): Iterable<Panier> {
-        return repo.findAllByEtat(EtatPanier.OUVERT)
+        return repo.findAllByEtatPanier(EtatPanier.OUVERT)
     }
 
     override fun savePanier(panier: Panier) {

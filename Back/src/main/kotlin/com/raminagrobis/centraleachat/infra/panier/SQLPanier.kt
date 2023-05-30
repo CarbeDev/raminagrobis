@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface SQLPanier : CrudRepository<Panier, String> {
 
-    fun findAllByEtat(etatPanier: EtatPanier) : Iterable<Panier>
+    fun findAllByEtatPanier(etatPanier: EtatPanier) : Iterable<Panier>
 }
