@@ -10,7 +10,7 @@ class SocieteRepo(private val repo: SQLSociete) : ISocieteRepo {
         return repo.findAll()
     }
 
-    override fun getByEmail(email: String): Societe {
+    override fun getByEmail(email: String): Societe? {
         return repo.getSocieteByEmail(email)
     }
 

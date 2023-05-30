@@ -45,9 +45,9 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val utilisateurRepo: Utilis
         var utilisateur :Utilisateur
         val email = jwtTokenUtil.getUsernameFromToken(token)
         try {
-            utilisateur = utilisateurRepo.findAdminByEmail(email)
+            utilisateur = utilisateurRepo.findAdminByEmail(email)!!
         } catch (e : Exception){
-            utilisateur = utilisateurRepo.findSocieteByEmail(email)
+            utilisateur = utilisateurRepo.findSocieteByEmail(email)!!
         }
 
         return utilisateur

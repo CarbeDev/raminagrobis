@@ -1,13 +1,23 @@
 package com.raminagrobis.centraleachat.domain.administration.usecase
 
 import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import org.springframework.stereotype.Service
 
 @Service
-class RecupererSocietes(private val userRepo: ISocieteRepo) {
+class RecupererSocietes(private val repo: ISocieteRepo) {
 
-    fun handle(): Iterable<Societe> {
-        return userRepo.getAll()
+    fun handle(): Iterable<SocieteDTO> {
+        return repo.getAll().asSequence().map { societe ->  SocieteDTO(
+            id = societe.id,
+            nom = societe.nom,
+            email = societe.email,
+            role = societe.role,
+            actif = societe.actif
+        )
+        }.asIterable()
     }
+
+
+
 }
