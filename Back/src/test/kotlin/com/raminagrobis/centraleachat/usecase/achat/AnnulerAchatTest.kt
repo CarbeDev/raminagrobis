@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
 import com.raminagrobis.centraleachat.domain.commande.exception.CantRemoveAchatException
 import com.raminagrobis.centraleachat.domain.commande.model.Achat
-import com.raminagrobis.centraleachat.domain.commande.model.Etat
+import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import com.raminagrobis.centraleachat.domain.commande.usecase.AnnulerAchat
 import org.junit.jupiter.api.Assertions.*
@@ -27,7 +27,7 @@ class AnnulerAchatTest {
 
     @Test
     fun annulerUnAchatAlorsQueLePanierEstFermeEnvoiUneException(){
-        val panier = Panier(etat = Etat.FERMER)
+        val panier = Panier(etatPanier = EtatPanier.FERMER)
         val achat = Achat(panier = panier)
 
 
@@ -38,7 +38,7 @@ class AnnulerAchatTest {
 
     @Test
     fun annulerUnAchatDansUnPanierOuvertLeSupprime(){
-        val panier = Panier(etat = Etat.OUVERT)
+        val panier = Panier(etatPanier = EtatPanier.OUVERT)
         val achat = Achat(panier = panier)
 
         usecase.handle(achat)

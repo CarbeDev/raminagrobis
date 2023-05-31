@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.usecase.panier
 
 import com.raminagrobis.centraleachat.domain.commande.builder.PanierBuilder
-import com.raminagrobis.centraleachat.domain.commande.model.Etat
+import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
@@ -38,6 +38,6 @@ class PanierBuilderTest {
 
     @Test
     fun unPanierCreeDoitEtreOuvert(){
-        assertEquals(Etat.OUVERT,panier.etat)
+        assertEquals(EtatPanier.OUVERT,panier.etatPanier)
     }
 }

@@ -2,7 +2,7 @@ package com.raminagrobis.centraleachat.domain.commande.config
 
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
 import com.raminagrobis.centraleachat.domain.commande.builder.PanierBuilder
-import com.raminagrobis.centraleachat.domain.commande.model.Etat
+import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
@@ -25,7 +25,7 @@ class CreationPanierTask(val repo : IPanierRepo) {
 
     private fun fermerAncienPanier(){
         repo.getPaniersOuvert().forEach{
-            it.etat = Etat.FERMER
+            it.etatPanier = EtatPanier.FERMER
             repo.savePanier(it)
         }
     }

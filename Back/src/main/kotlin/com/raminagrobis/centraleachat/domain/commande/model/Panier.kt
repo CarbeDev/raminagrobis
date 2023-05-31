@@ -12,10 +12,11 @@ class Panier(
     var listeAchat : List<Achat> = listOf(),
 
     @Enumerated(EnumType.STRING)
-    var etat: Etat = Etat.FERMER
+    @Column(name = "etat_panier")
+    var etatPanier: EtatPanier = EtatPanier.FERMER
 )
 
-enum class Etat {
+enum class EtatPanier {
     OUVERT,
     FERMER
 }

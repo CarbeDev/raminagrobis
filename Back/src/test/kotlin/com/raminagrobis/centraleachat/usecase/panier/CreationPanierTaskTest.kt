@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
 import com.raminagrobis.centraleachat.domain.commande.config.CreationPanierTask
-import com.raminagrobis.centraleachat.domain.commande.model.Etat
+import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -29,8 +29,8 @@ class CreationPanierTaskTest {
     @Test
     fun ouvrirUnPanierDoitFermerTousLesAutresPaniers(){
 
-        val panier1 = Panier(id = "01_23", etat = Etat.OUVERT)
-        val panier2 = Panier(id = "02_23", etat = Etat.OUVERT)
+        val panier1 = Panier(id = "01_23", etatPanier = EtatPanier.OUVERT)
+        val panier2 = Panier(id = "02_23", etatPanier = EtatPanier.OUVERT)
 
 
         val paniersOuvert = listOf(panier1, panier2)
@@ -39,10 +39,10 @@ class CreationPanierTaskTest {
 
         taskPanier.handle()
 
-        assertEquals(Etat.FERMER, paniersOuvert[0].etat)
+        assertEquals(EtatPanier.FERMER, paniersOuvert[0].etatPanier)
         verify(repoPanier, times(1)).savePanier(panier1)
 
-        assertEquals(Etat.FERMER, paniersOuvert[1].etat)
+        assertEquals(EtatPanier.FERMER, paniersOuvert[1].etatPanier)
         verify(repoPanier, times(1)).savePanier(panier2)
     }
 
