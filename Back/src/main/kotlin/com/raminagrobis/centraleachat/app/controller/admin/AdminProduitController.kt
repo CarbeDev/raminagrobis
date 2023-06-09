@@ -1,6 +1,6 @@
 package com.raminagrobis.centraleachat.app.controller.admin
 
-import com.raminagrobis.centraleachat.domain.administration.model.Produit
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
@@ -14,7 +14,7 @@ class AdminProduitController(
 ){
 
     @PostMapping("/admin/produit/add")
-    fun ajoutProduit(@RequestBody produit: Produit){
+    fun ajoutProduit(@RequestBody produit: ProduitDTO){
         ajouterProduit.handle(produit)
     }
 

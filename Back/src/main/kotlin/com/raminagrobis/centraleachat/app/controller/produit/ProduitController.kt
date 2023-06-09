@@ -1,6 +1,6 @@
 package com.raminagrobis.centraleachat.app.controller.produit
 
-import com.raminagrobis.centraleachat.domain.administration.model.Produit
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererProduit
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererProduits
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -16,12 +16,12 @@ class ProduitController(
 ){
 
     @GetMapping("/produits")
-    fun getAllProduit(): Iterable<Produit> {
+    fun getAllProduit(): Iterable<ProduitDTO> {
         return recupererProduits.handle()
     }
 
     @GetMapping("/produit/{ref}")
-    fun getProduit(@PathVariable ref:String) : Produit {
+    fun getProduit(@PathVariable ref:String) : ProduitDTO {
         return recupererProduit.handle(ref)
     }
 }

@@ -3,8 +3,8 @@ package com.raminagrobis.centraleachat.controller.produit
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
 import com.raminagrobis.centraleachat.app.controller.produit.ProduitController
-import com.raminagrobis.centraleachat.domain.administration.model.Categorie
-import com.raminagrobis.centraleachat.domain.administration.model.Produit
+import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -33,8 +33,8 @@ class ProduitControllerTest {
     @InjectMocks
     private lateinit var controller : ProduitController
 
-    private lateinit var jsonProduit : JacksonTester<Produit>
-    private lateinit var jsonProduits : JacksonTester<List<Produit>>
+    private lateinit var jsonProduit : JacksonTester<ProduitDTO>
+    private lateinit var jsonProduits : JacksonTester<List<ProduitDTO>>
 
     @BeforeEach
     fun setup(){
@@ -45,22 +45,22 @@ class ProduitControllerTest {
     @Test
     fun desProduitsSontRecuperer(){
         val produits = listOf(
-            Produit(
+            ProduitDTO(
                 reference = "LG203",
                 nom = "Logitech G203",
                 description = "Un tres bon produit",
                 actif = true,
-                categorie = Categorie(
+                categorie = CategorieDTO(
                     id = 1,
                     libelle = "Souris"
                 )
             ),
-            Produit(
+            ProduitDTO(
                 reference = "HUAMV",
                 nom = "Huawei MateView",
                 description = "Un tres bon ecran",
                 actif = true,
-                categorie = Categorie(
+                categorie = CategorieDTO(
                     id = 2,
                     libelle = "Ecran"
                 )
@@ -79,12 +79,12 @@ class ProduitControllerTest {
 
     @Test
     fun unProduitEstRecuperer(){
-        val produit = Produit(
+        val produit = ProduitDTO(
             reference = "LG203",
             nom = "Logitech G203",
             description = "Un tres bon produit",
             actif = true,
-            categorie = Categorie(
+            categorie = CategorieDTO(
                 id = 1,
                 libelle = "Souris"
             )

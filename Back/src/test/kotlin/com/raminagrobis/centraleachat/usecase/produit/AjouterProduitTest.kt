@@ -1,12 +1,11 @@
 package com.raminagrobis.centraleachat.usecase.produit
 
-import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.adapter.IProduitRepo
-import com.raminagrobis.centraleachat.domain.administration.model.Produit
+import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
 import com.raminagrobis.centraleachat.domain.administration.usecase.AjouterProduit
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -24,13 +23,20 @@ class AjouterProduitTest {
 
     @Test
     fun ajouterUnProduitDoitLeSauvegarder(){
-        val produit = Produit()
-
-        val produitCaptor = argumentCaptor<Produit>()
+        val produit = ProduitDTO(
+            reference = "LSD",
+            nom = "Logitech StreamDeck",
+            description = "Tres utile",
+            categorie = CategorieDTO(
+                id = 3,
+                libelle = "Autre"
+            ),
+            actif = false
+        )
 
         useCase.handle(produit)
 
-        verify(repoProduit , times(1)).saveProduit(produitCaptor.capture())
-        Assertions.assertEquals(produit,produitCaptor.firstValue)
+        verify(repoProduit , times(1)).saveProduit(produit)
+
     }
 }

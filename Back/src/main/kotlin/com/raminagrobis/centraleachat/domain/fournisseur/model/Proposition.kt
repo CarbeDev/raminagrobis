@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.domain.fournisseur.model
 
-import com.raminagrobis.centraleachat.domain.administration.model.Produit
 import com.raminagrobis.centraleachat.domain.administration.model.Societe
+import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
 import jakarta.persistence.*
 import java.io.Serializable
 import java.math.BigDecimal
@@ -14,7 +14,7 @@ class Proposition(
     @ManyToOne(fetch =  FetchType.LAZY)
     //@MapsId("referenceProduit")
     @JoinColumn(name = "reference_produit", referencedColumnName = "reference", insertable = false, updatable = false)
-    var produit : Produit? = null,
+    var produit : ProduitEntity? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     //@MapsId("idSociete")

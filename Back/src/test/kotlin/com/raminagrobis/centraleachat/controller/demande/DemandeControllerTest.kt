@@ -2,9 +2,9 @@ package com.raminagrobis.centraleachat.controller.demande
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.raminagrobis.centraleachat.app.controller.demande.DemandeController
-import com.raminagrobis.centraleachat.domain.administration.model.Categorie
 import com.raminagrobis.centraleachat.domain.demande.model.Demande
 import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
+import com.raminagrobis.centraleachat.infra.produit.entity.CategorieEntity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -44,7 +44,7 @@ class DemandeControllerTest {
             id = 1,
             nom = "Apple TrackPad",
             description = "Trop cher",
-            categorie = Categorie(
+            categorie = CategorieEntity(
                 id = 1,
                 libelle = "Souris"
             ),
