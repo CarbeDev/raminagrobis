@@ -4,11 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
 import com.raminagrobis.centraleachat.app.controller.admin.AdminController
 import com.raminagrobis.centraleachat.app.controller.admin.SocieteToCreate
+import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes.*
+import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -45,8 +46,7 @@ class AdminControllerTest {
     private lateinit var jsonSocieteDTOs: JacksonTester<Iterable<SocieteDTO>>
     private lateinit var jsonSocieteDTO: JacksonTester<SocieteDTO>
     private lateinit var jsonSocieteToCreate: JacksonTester<SocieteToCreate>
-    private lateinit var jsonSociete : JacksonTester<Societe>
-
+    private lateinit var jsonDetailSociete : JacksonTester<DetailSociete>
     @BeforeEach
     fun setup(){
         JacksonTester.initFields(this,ObjectMapper())
@@ -85,12 +85,13 @@ class AdminControllerTest {
 
     @Test
     fun uneRecuperationDeSociete(){
-        val societe = SocieteDTO(
+        val societe = DetailSociete(
             id = 1,
             nom = "Fournisseur1",
             email = "fournisseur1@email.fr",
             role = Role.FOURNISSEUR,
-            actif = false
+            actif = false,
+            historique = listOf<Achat>()
         )
 
         `when`(recupererSociete.handle(1)).doReturn(societe)
@@ -100,7 +101,7 @@ class AdminControllerTest {
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(), response.status)
-        assertEquals(jsonSocieteDTO.write(societe).json, response.contentAsString)
+        assertEquals(jsonDetailSociete.write(societe).json, response.contentAsString)
     }
 
     @Test

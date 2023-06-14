@@ -1,8 +1,8 @@
 package com.raminagrobis.centraleachat.app.controller.admin
 
+import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes.*
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -26,7 +26,7 @@ class AdminController(
     }
 
     @GetMapping("admin/societe/{id}")
-    fun getSociete(@PathVariable id :Int):SocieteDTO{
+    fun getSociete(@PathVariable id :Int):DetailSociete{
         return recupererSociete.handle(id)
     }
 
@@ -43,7 +43,7 @@ class AdminController(
     }
 
     @PutMapping("admin/societe/update")
-    fun updateSociete(@RequestBody societe: Societe) : ResponseEntity<String>{
+    fun updateSociete(@RequestBody societe: SocieteDTO) : ResponseEntity<String>{
         miseAJourSociete.handle(societe)
         return ResponseEntity(HttpStatus.OK)
     }

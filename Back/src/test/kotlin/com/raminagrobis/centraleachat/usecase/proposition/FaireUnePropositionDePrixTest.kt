@@ -4,12 +4,12 @@ import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.PriceTooLowException
 import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
+import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,7 +29,7 @@ class FaireUnePropositionDePrixTest {
 
     @Test
     fun unePropositionAvecUnPrixSuperieurA0EtAvecUneSocieteFournisseurDoitEtreSauvegarder(){
-        val societe = Societe(role = Role.FOURNISSEUR)
+        val societe = SocieteEntity(role = Role.FOURNISSEUR)
         val prix = BigDecimal(100)
         val proposition = Proposition(prix = prix, societe = societe)
 
@@ -43,7 +43,7 @@ class FaireUnePropositionDePrixTest {
 
     @Test
     fun unePropositionAvecUnPrixInferieurOuEgalA0DoitEnvoyeUneException(){
-        val societe = Societe(role = Role.FOURNISSEUR)
+        val societe = SocieteEntity(role = Role.FOURNISSEUR)
         val proposition = Proposition(prix = BigDecimal(0), societe = societe)
 
         Assertions.assertThrows(PriceTooLowException::class.java){
@@ -53,7 +53,7 @@ class FaireUnePropositionDePrixTest {
 
     @Test
     fun unePropositionAvecUneSocieteAdherenteDoitRenvoyerUneErreur(){
-        val societe = Societe(role = Role.ADHERENT)
+        val societe = SocieteEntity(role = Role.ADHERENT)
         val prix = BigDecimal(100)
 
         val proposition = Proposition(prix = prix, societe = societe)

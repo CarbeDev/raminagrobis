@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.domain.demande.model
 
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.infra.produit.entity.CategorieEntity
+import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import jakarta.persistence.*
 
 @Entity
@@ -11,7 +11,7 @@ class Demande(
     var id : Int = 0,
     @ManyToOne
     @JoinColumn(name = "id_societe")
-    var societe : Societe? = null,
+    var societe : SocieteEntity? = null,
     var nom : String = "",
     var description : String = "",
     @ManyToOne

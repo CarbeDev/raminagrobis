@@ -3,7 +3,6 @@ package com.raminagrobis.centraleachat.usecase.achat
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
 import com.raminagrobis.centraleachat.domain.commande.exception.CantAddAchatException
 import com.raminagrobis.centraleachat.domain.commande.model.Achat
@@ -11,6 +10,7 @@ import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import com.raminagrobis.centraleachat.domain.commande.usecase.EffectuerAchat
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
+import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,7 +29,7 @@ class EffectuerAchatTest {
 
     @Test
     fun unAchatQuiEstEffectueParUnFournisseurDoitEnvoiUneException(){
-        val societe = Societe(role = Role.FOURNISSEUR)
+        val societe = SocieteEntity(role = Role.FOURNISSEUR)
         val panier = Panier(etatPanier = EtatPanier.OUVERT)
 
         val achat = Achat(societe = societe, panier = panier)
@@ -41,7 +41,7 @@ class EffectuerAchatTest {
 
     @Test
     fun unAchatQuiConcerneUnPanierFermeEnvoiUneException(){
-        val societe = Societe(role = Role.ADHERENT)
+        val societe = SocieteEntity(role = Role.ADHERENT)
         val panier = Panier(etatPanier = EtatPanier.FERMER)
 
         val achat = Achat(societe = societe,panier = panier)
@@ -53,7 +53,7 @@ class EffectuerAchatTest {
 
     @Test
     fun unAchatDUnAdherentDansUnPanierFermeDoitEtreSauvegarder(){
-        val societe = Societe(role = Role.ADHERENT)
+        val societe = SocieteEntity(role = Role.ADHERENT)
         val panier = Panier(etatPanier = EtatPanier.OUVERT)
 
         val achat = Achat(societe = societe,panier = panier)

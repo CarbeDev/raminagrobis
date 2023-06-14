@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.domain.commande.model
 
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
+import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import jakarta.persistence.*
 import java.io.Serializable
 
@@ -12,7 +12,7 @@ class Achat(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_societe", referencedColumnName = "id_societe", insertable = false, updatable = false)
-    var societe : Societe? = null,
+    var societe : SocieteEntity? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reference_produit", referencedColumnName = "reference", insertable = false, updatable = false)

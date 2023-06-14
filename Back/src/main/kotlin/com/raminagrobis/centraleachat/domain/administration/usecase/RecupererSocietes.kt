@@ -8,14 +8,7 @@ import org.springframework.stereotype.Service
 class RecupererSocietes(private val repo: ISocieteRepo) {
 
     fun handle(): Iterable<SocieteDTO> {
-        return repo.getAll().asSequence().map { societe ->  SocieteDTO(
-            id = societe.id,
-            nom = societe.nom,
-            email = societe.email,
-            role = societe.role,
-            actif = societe.actif
-        )
-        }.asIterable()
+        return repo.getAll()
     }
 
 
