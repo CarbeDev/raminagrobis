@@ -20,5 +20,5 @@ class AdminEntity(
     var motDePasse : String = "",
 
     @Transient
-    var role: Role = Role.ADMIN
+    val role: Role = Role.ADMIN
 )
