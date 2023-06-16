@@ -1,9 +1,9 @@
 package com.raminagrobis.centraleachat.domain.commande.adapter
 
-import com.raminagrobis.centraleachat.domain.commande.model.Panier
+import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 
 interface IPanierRepo {
 
-    fun getPaniersOuvert() : Iterable<Panier>
-    fun savePanier(panier: Panier)
+    fun getPaniersOuvert() : Iterable<PanierDTO>
+    fun savePanier(panier: PanierDTO)
 }

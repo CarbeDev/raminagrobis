@@ -1,5 +1,6 @@
 package com.raminagrobis.centraleachat.domain.commande.model
 
+import com.raminagrobis.centraleachat.infra.panier.entity.PanierEntity
 import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
 import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import jakarta.persistence.*
@@ -20,7 +21,7 @@ class Achat(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_panier", referencedColumnName = "id_panier", insertable = false, updatable = false)
-    var panier: Panier? = null,
+    var panier: PanierEntity? = null,
 
 
     var quantite: Int= 0

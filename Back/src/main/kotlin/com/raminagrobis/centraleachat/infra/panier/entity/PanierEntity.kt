@@ -1,9 +1,11 @@
-package com.raminagrobis.centraleachat.domain.commande.model
+package com.raminagrobis.centraleachat.infra.panier.entity
 
+import com.raminagrobis.centraleachat.domain.commande.model.Achat
+import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import jakarta.persistence.*
 
 @Entity
-class Panier(
+class PanierEntity(
     @Id
     @Column(name = "id_panier")
     var id : String = "",
@@ -15,9 +17,3 @@ class Panier(
     @Column(name = "etat_panier")
     var etatPanier: EtatPanier = EtatPanier.FERMER
 )
-
-enum class EtatPanier {
-    OUVERT,
-    FERMER
-}
-

@@ -1,8 +1,8 @@
 package com.raminagrobis.centraleachat.usecase.panier
 
 import com.raminagrobis.centraleachat.domain.commande.builder.PanierBuilder
+import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
-import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -16,7 +16,7 @@ import java.util.*
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PanierBuilderTest {
 
-    lateinit var panier: Panier
+    lateinit var panier: PanierDTO
 
     @BeforeAll
     fun setup(){

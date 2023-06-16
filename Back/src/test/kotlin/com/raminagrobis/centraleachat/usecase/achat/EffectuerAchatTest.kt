@@ -7,9 +7,9 @@ import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
 import com.raminagrobis.centraleachat.domain.commande.exception.CantAddAchatException
 import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
-import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import com.raminagrobis.centraleachat.domain.commande.usecase.EffectuerAchat
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
+import com.raminagrobis.centraleachat.infra.panier.entity.PanierEntity
 import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -30,7 +30,7 @@ class EffectuerAchatTest {
     @Test
     fun unAchatQuiEstEffectueParUnFournisseurDoitEnvoiUneException(){
         val societe = SocieteEntity(role = Role.FOURNISSEUR)
-        val panier = Panier(etatPanier = EtatPanier.OUVERT)
+        val panier = PanierEntity(etatPanier = EtatPanier.OUVERT)
 
         val achat = Achat(societe = societe, panier = panier)
 
@@ -42,7 +42,7 @@ class EffectuerAchatTest {
     @Test
     fun unAchatQuiConcerneUnPanierFermeEnvoiUneException(){
         val societe = SocieteEntity(role = Role.ADHERENT)
-        val panier = Panier(etatPanier = EtatPanier.FERMER)
+        val panier = PanierEntity(etatPanier = EtatPanier.FERMER)
 
         val achat = Achat(societe = societe,panier = panier)
 
@@ -54,7 +54,7 @@ class EffectuerAchatTest {
     @Test
     fun unAchatDUnAdherentDansUnPanierFermeDoitEtreSauvegarder(){
         val societe = SocieteEntity(role = Role.ADHERENT)
-        val panier = Panier(etatPanier = EtatPanier.OUVERT)
+        val panier = PanierEntity(etatPanier = EtatPanier.OUVERT)
 
         val achat = Achat(societe = societe,panier = panier)
 
