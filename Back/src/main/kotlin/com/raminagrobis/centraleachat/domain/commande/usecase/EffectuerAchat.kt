@@ -2,8 +2,8 @@ package com.raminagrobis.centraleachat.domain.commande.usecase
 
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
+import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
 import com.raminagrobis.centraleachat.domain.commande.exception.CantAddAchatException
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
 import org.springframework.stereotype.Service
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 @Service
 class EffectuerAchat(val repo : IAchatRepo) {
 
-    fun handle(achat: Achat){
+    fun handle(achat: AchatDTO){
 
         if (achat.societe!!.role == Role.FOURNISSEUR){
             throw IncorrectRoleSocieteException()

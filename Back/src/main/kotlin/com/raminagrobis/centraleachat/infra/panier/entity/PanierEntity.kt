@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.infra.panier.entity
 
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 import jakarta.persistence.*
 
 @Entity
@@ -11,7 +11,7 @@ class PanierEntity(
     var id : String = "",
 
     @OneToMany(mappedBy = "panier")
-    var listeAchat : List<Achat> = listOf(),
+    var listeAchat : List<AchatEntity> = listOf(),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "etat_panier")

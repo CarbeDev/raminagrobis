@@ -9,7 +9,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes.*
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -91,7 +91,7 @@ class AdminControllerTest {
             email = "fournisseur1@email.fr",
             role = Role.FOURNISSEUR,
             actif = false,
-            historique = listOf<Achat>()
+            historique = listOf<AchatEntity>()
         )
 
         `when`(recupererSociete.handle(1)).doReturn(societe)

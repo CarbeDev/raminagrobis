@@ -5,7 +5,7 @@ import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.usecase.SupprimerSociete
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -51,7 +51,7 @@ class SupprimerSocieteTest {
     @Test
     fun uneSocieteAvecAuMoinsUneCommandeDoitEtreDesactive(){
         val societeArgumentCaptor = argumentCaptor<DetailSociete>()
-        societe.historique = listOf(Achat())
+        societe.historique = listOf(AchatEntity())
 
         `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
         `when`(societeRepo.isEmailUnique(societe.email)).thenReturn(true)

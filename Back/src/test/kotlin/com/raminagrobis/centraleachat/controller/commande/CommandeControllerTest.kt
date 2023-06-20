@@ -2,10 +2,10 @@ package com.raminagrobis.centraleachat.controller.commande
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.raminagrobis.centraleachat.app.controller.commande.CommandeController
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.usecase.AnnulerAchat
 import com.raminagrobis.centraleachat.domain.commande.usecase.EffectuerAchat
 import com.raminagrobis.centraleachat.domain.commande.usecase.RecupererAchats
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 import org.junit.jupiter.api.BeforeEach
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -26,7 +26,7 @@ class CommandeControllerTest {
     @InjectMocks
     private lateinit var controller : CommandeController
 
-    private lateinit var jsonAchat : JacksonTester<Achat>
+    private lateinit var jsonAchat : JacksonTester<AchatEntity>
 
     @BeforeEach
     fun setup(){

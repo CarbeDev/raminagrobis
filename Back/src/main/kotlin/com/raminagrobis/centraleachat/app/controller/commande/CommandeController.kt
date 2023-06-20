@@ -1,6 +1,6 @@
 package com.raminagrobis.centraleachat.app.controller.commande
 
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
+import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
 import com.raminagrobis.centraleachat.domain.commande.usecase.AnnulerAchat
 import com.raminagrobis.centraleachat.domain.commande.usecase.EffectuerAchat
 import com.raminagrobis.centraleachat.domain.commande.usecase.RecupererAchats
@@ -16,17 +16,17 @@ class CommandeController(
 ) {
 
     @GetMapping("/achat/get")
-    fun getAchatByFilter(@RequestParam referenceProduit : String, @RequestParam idPanier : String){
-        recupererAchats.handle(referenceProduit, idPanier)
+    fun getAchatByFilter(@RequestParam referenceProduit : String, @RequestParam idPanier : String) : Iterable<AchatDTO>?{
+        return recupererAchats.handle(referenceProduit, idPanier)
     }
 
     @PostMapping("/achat/add")
-    fun addAchat(@RequestBody achat: Achat){
+    fun addAchat(@RequestBody achat: AchatDTO){
         effectuerAchat.handle(achat)
     }
 
     @DeleteMapping("/achat/delete")
-    fun deleteAchat(@RequestBody achat: Achat){
+    fun deleteAchat(@RequestBody achat: AchatDTO){
         annulerAchat.handle(achat)
     }
 }

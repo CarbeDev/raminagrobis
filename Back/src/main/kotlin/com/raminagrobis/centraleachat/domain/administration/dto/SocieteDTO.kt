@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.domain.administration.dto
 
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 
 data class SocieteDTO(
     var id : Int,
@@ -17,7 +17,7 @@ data class DetailSociete(
     var email : String,
     var role: Role?,
     var actif : Boolean,
-    var historique : List<Achat>
+    var historique : List<AchatEntity>
 )
 
 data class UserSociete(

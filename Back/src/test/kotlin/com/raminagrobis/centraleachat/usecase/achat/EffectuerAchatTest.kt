@@ -2,16 +2,19 @@ package com.raminagrobis.centraleachat.usecase.achat
 
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
+import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
+import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.exception.CantAddAchatException
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.commande.usecase.EffectuerAchat
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
-import com.raminagrobis.centraleachat.infra.panier.entity.PanierEntity
-import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -27,24 +30,54 @@ class EffectuerAchatTest {
     @InjectMocks
     private lateinit var useCase : EffectuerAchat
 
+    private lateinit var panier : PanierDTO
+    private lateinit var achat : AchatDTO
+
+    @BeforeEach
+    fun setup(){
+        panier = PanierDTO(
+            id = "23-23",
+            etatPanier = EtatPanier.OUVERT,
+            listeAchat = listOf()
+        )
+
+        achat = AchatDTO(
+            societe = SocieteDTO(
+                id = 1,
+                nom = "Free agent",
+                email = "Freeagent@Adherent.com",
+                role = Role.ADHERENT,
+                actif = true
+            ),
+            produit = ProduitDTO(
+                reference = "B550MDS3H",
+                nom = "Gigabyte B550M DS3H",
+                description = "Une carte mere",
+                categorie = CategorieDTO(
+                    id=1,
+                    libelle = "Carte mere"),
+                actif = true,
+            ),
+            panier = panier,
+            quantite = 50
+        )
+    }
+
+
     @Test
     fun unAchatQuiEstEffectueParUnFournisseurDoitEnvoiUneException(){
-        val societe = SocieteEntity(role = Role.FOURNISSEUR)
-        val panier = PanierEntity(etatPanier = EtatPanier.OUVERT)
 
-        val achat = Achat(societe = societe, panier = panier)
+        achat.societe.role = Role.FOURNISSEUR
 
         assertThrows(IncorrectRoleSocieteException::class.java){
             useCase.handle(achat)
         }
+
     }
 
     @Test
     fun unAchatQuiConcerneUnPanierFermeEnvoiUneException(){
-        val societe = SocieteEntity(role = Role.ADHERENT)
-        val panier = PanierEntity(etatPanier = EtatPanier.FERMER)
-
-        val achat = Achat(societe = societe,panier = panier)
+        achat.panier.etatPanier = EtatPanier.FERMER
 
         assertThrows(CantAddAchatException::class.java){
             useCase.handle(achat)
@@ -53,11 +86,6 @@ class EffectuerAchatTest {
 
     @Test
     fun unAchatDUnAdherentDansUnPanierFermeDoitEtreSauvegarder(){
-        val societe = SocieteEntity(role = Role.ADHERENT)
-        val panier = PanierEntity(etatPanier = EtatPanier.OUVERT)
-
-        val achat = Achat(societe = societe,panier = panier)
-
         useCase.handle(achat)
 
         verify(repoAchat, times(1)).saveAchat(achat)

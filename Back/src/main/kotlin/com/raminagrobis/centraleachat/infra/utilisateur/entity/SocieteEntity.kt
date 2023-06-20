@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.infra.utilisateur.entity
 
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 import jakarta.persistence.*
 
 @Entity(name = "Societe")
@@ -25,5 +25,5 @@ class SocieteEntity(
     @Column(nullable = false)
     var actif : Boolean = false,
     @OneToMany(mappedBy = "societe")
-    var historique : List<Achat> = listOf()
+    var historique : List<AchatEntity> = listOf()
 )

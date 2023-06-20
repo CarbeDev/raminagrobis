@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.domain.commande.model
+package com.raminagrobis.centraleachat.infra.achat.entity
 
 import com.raminagrobis.centraleachat.infra.panier.entity.PanierEntity
 import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
@@ -7,7 +7,7 @@ import jakarta.persistence.*
 import java.io.Serializable
 
 @Entity
-class Achat(
+class AchatEntity(
     @EmbeddedId
     var key : AchatKey? = null,
 
