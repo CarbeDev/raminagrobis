@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.infra.demande
 
-import com.raminagrobis.centraleachat.domain.demande.model.Demande
+import com.raminagrobis.centraleachat.infra.demande.entity.DemandeEntity
 import org.springframework.data.repository.CrudRepository
 
-interface DemandeSQL : CrudRepository<Demande,Int>{
+interface DemandeSQL : CrudRepository<DemandeEntity,Int>{
 }

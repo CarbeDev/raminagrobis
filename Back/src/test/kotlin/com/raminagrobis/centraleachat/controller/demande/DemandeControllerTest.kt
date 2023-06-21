@@ -2,9 +2,11 @@ package com.raminagrobis.centraleachat.controller.demande
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.raminagrobis.centraleachat.app.controller.demande.DemandeController
-import com.raminagrobis.centraleachat.domain.demande.model.Demande
+import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
+import com.raminagrobis.centraleachat.domain.administration.model.Role
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
 import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
-import com.raminagrobis.centraleachat.infra.produit.entity.CategorieEntity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -30,7 +32,7 @@ class DemandeControllerTest {
     @InjectMocks
     private lateinit var controller : DemandeController
 
-    private lateinit var jsonDemande : JacksonTester<Demande>
+    private lateinit var jsonDemande : JacksonTester<DemandeDTO>
 
     @BeforeEach
     fun setup(){
@@ -40,14 +42,21 @@ class DemandeControllerTest {
 
     @Test
     fun uneDemandeEstFaite(){
-        val demande = Demande(
+        val demande = DemandeDTO(
             id = 1,
             nom = "Apple TrackPad",
             description = "Trop cher",
-            categorie = CategorieEntity(
+            categorie = CategorieDTO(
                 id = 1,
                 libelle = "Souris"
             ),
+            societe = SocieteDTO(
+                id = 1,
+                nom = "Fournisseur1",
+                email = "fournisseur1@email.fr",
+                role = Role.FOURNISSEUR,
+                actif = false
+            )
         )
 
         val response = mvc.perform(

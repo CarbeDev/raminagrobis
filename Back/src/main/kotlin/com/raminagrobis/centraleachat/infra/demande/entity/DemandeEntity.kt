@@ -1,11 +1,12 @@
-package com.raminagrobis.centraleachat.domain.demande.model
+package com.raminagrobis.centraleachat.infra.demande.entity
 
+import com.raminagrobis.centraleachat.domain.demande.model.EtatDemande
 import com.raminagrobis.centraleachat.infra.produit.entity.CategorieEntity
 import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import jakarta.persistence.*
 
 @Entity
-class Demande(
+class DemandeEntity(
     @Id
     @Column(name = "id_demande")
     var id : Int = 0,
@@ -20,9 +21,3 @@ class Demande(
     @Column(name = "etat_demande")
     var etat : EtatDemande? = EtatDemande.EN_COURS
 )
-
-enum class EtatDemande{
-    EN_COURS,
-    ACCEPTE,
-    REFUSER
-}
