@@ -3,14 +3,16 @@ package com.raminagrobis.centraleachat.usecase.proposition
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.PriceTooLowException
-import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
-import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -29,36 +31,88 @@ class FaireUnePropositionDePrixTest {
 
     @Test
     fun unePropositionAvecUnPrixSuperieurA0EtAvecUneSocieteFournisseurDoitEtreSauvegarder(){
-        val societe = SocieteEntity(role = Role.FOURNISSEUR)
-        val prix = BigDecimal(100)
-        val proposition = Proposition(prix = prix, societe = societe)
 
-        val propositionCaptor = argumentCaptor<Proposition>()
+        val proposition = PropositionDTO(
+            societe = SocieteDTO(
+                id = 1,
+                nom = "Fournisseur1",
+                email = "fournisseur1@email.fr",
+                role = Role.FOURNISSEUR,
+                actif = false
+            ),
+            produit = ProduitDTO(
+                reference = "VisPRO",
+                nom = "Apple Vision Pro",
+                description = "Revolutionnaire",
+                actif = true,
+                CategorieDTO(
+                    id = 3,
+                    libelle = "Autre"
+                )
+            ),
+            prix = BigDecimal(3200)
+        )
+
+        val propositionCaptor = argumentCaptor<PropositionDTO>()
 
         usecase.handle(proposition)
 
         verify(propositionRepo, times(1)).saveProposition(propositionCaptor.capture())
-        Assertions.assertEquals(BigDecimal(100),propositionCaptor.firstValue.prix)
+
+        assertEquals(BigDecimal(3200),propositionCaptor.firstValue.prix)
     }
 
     @Test
     fun unePropositionAvecUnPrixInferieurOuEgalA0DoitEnvoyeUneException(){
-        val societe = SocieteEntity(role = Role.FOURNISSEUR)
-        val proposition = Proposition(prix = BigDecimal(0), societe = societe)
+        val proposition = PropositionDTO(
+            societe = SocieteDTO(
+                id = 1,
+                nom = "Fournisseur1",
+                email = "fournisseur1@email.fr",
+                role = Role.FOURNISSEUR,
+                actif = false
+            ),
+            produit = ProduitDTO(
+                reference = "VisPRO",
+                nom = "Apple Vision Pro",
+                description = "Revolutionnaire",
+                actif = true,
+                CategorieDTO(
+                    id = 3,
+                    libelle = "Autre"
+                )
+            ),
+            prix = BigDecimal(0)
+        )
 
-        Assertions.assertThrows(PriceTooLowException::class.java){
+        assertThrows(PriceTooLowException::class.java){
             usecase.handle(proposition)
         }
     }
 
     @Test
     fun unePropositionAvecUneSocieteAdherenteDoitRenvoyerUneErreur(){
-        val societe = SocieteEntity(role = Role.ADHERENT)
-        val prix = BigDecimal(100)
-
-        val proposition = Proposition(prix = prix, societe = societe)
-
-        Assertions.assertThrows(IncorrectRoleSocieteException::class.java){
+        val proposition = PropositionDTO(
+            societe = SocieteDTO(
+                id = 1,
+                nom = "Fournisseur1",
+                email = "fournisseur1@email.fr",
+                role = Role.ADHERENT,
+                actif = false
+            ),
+            produit = ProduitDTO(
+                reference = "VisPRO",
+                nom = "Apple Vision Pro",
+                description = "Revolutionnaire",
+                actif = true,
+                CategorieDTO(
+                    id = 3,
+                    libelle = "Autre"
+                )
+            ),
+            prix = BigDecimal(3200)
+        )
+        assertThrows(IncorrectRoleSocieteException::class.java){
             usecase.handle(proposition)
         }
     }

@@ -3,8 +3,11 @@ package com.raminagrobis.centraleachat.controller.proposition
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
 import com.raminagrobis.centraleachat.app.controller.proposition.PropositionController
-import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
-import com.raminagrobis.centraleachat.domain.fournisseur.model.PropositionKey
+import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
+import com.raminagrobis.centraleachat.domain.administration.model.Role
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.RecupererPropositions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -33,7 +36,7 @@ class PropositionControllerTest {
     @InjectMocks
     private lateinit var  controller: PropositionController
 
-    private lateinit var jsonPropositions : JacksonTester<Iterable<Proposition>>
+    private lateinit var jsonPropositions : JacksonTester<Iterable<PropositionDTO>>
 
     @BeforeEach
     fun setup(){
@@ -45,13 +48,45 @@ class PropositionControllerTest {
     fun DesPropositionsPeuventEtreRecupererAPartirDeLeurFournisseur(){
 
         val resultat = listOf(
-            Proposition(
-                propositionKey = PropositionKey("LG502", 1),
-                prix = BigDecimal(30)
+            PropositionDTO(
+                societe = SocieteDTO(
+                    id = 1,
+                    nom = "Fournisseur1",
+                    email = "fournisseur1@email.fr",
+                    role = Role.FOURNISSEUR,
+                    actif = false
+                ),
+                produit = ProduitDTO(
+                    reference = "VisPRO",
+                    nom = "Apple Vision Pro",
+                    description = "Revolutionnaire",
+                    actif = true,
+                    CategorieDTO(
+                        id = 3,
+                        libelle = "Autre"
+                    )
+                ),
+                prix = BigDecimal(3200)
             ),
-            Proposition(
-                propositionKey = PropositionKey("LStreamCam", 1),
-                prix = BigDecimal(80)
+            PropositionDTO(
+                societe = SocieteDTO(
+                    id = 1,
+                    nom = "Fournisseur1",
+                    email = "fournisseur1@email.fr",
+                    role = Role.FOURNISSEUR,
+                    actif = false
+                ),
+                produit = ProduitDTO(
+                    reference = "LSD",
+                    nom = "Logitech StreamDeck",
+                    description = "Tres utile",
+                    categorie = CategorieDTO(
+                        id = 3,
+                        libelle = "Autre"
+                    ),
+                    actif = false
+                ),
+                prix = BigDecimal(72.99)
             )
         )
 
@@ -69,14 +104,46 @@ class PropositionControllerTest {
     fun DesPropositionsPeuventEtreRecupererAPartirDeLeurProduit(){
 
         val resultat = listOf(
-            Proposition(
-                propositionKey = PropositionKey("LG502", 1),
-                prix = BigDecimal(30)
+            PropositionDTO(
+                societe = SocieteDTO(
+                    id = 1,
+                    nom = "Fournisseur1",
+                    email = "fournisseur1@email.fr",
+                    role = Role.FOURNISSEUR,
+                    actif = false
+                ),
+                produit = ProduitDTO(
+                    reference = "VisPRO",
+                    nom = "Apple Vision Pro",
+                    description = "Revolutionnaire",
+                    actif = true,
+                    CategorieDTO(
+                        id = 3,
+                        libelle = "Autre"
+                    )
+                ),
+                prix = BigDecimal(3200)
             ),
-            Proposition(
-                propositionKey = PropositionKey("LG502", 2),
-                prix = BigDecimal(40)
-            )
+            PropositionDTO(
+                societe = SocieteDTO(
+                    id = 1,
+                    nom = "Fournisseur2",
+                    email = "fournisseur2@email.fr",
+                    role = Role.FOURNISSEUR,
+                    actif = false
+                ),
+                produit = ProduitDTO(
+                    reference = "VisPRO",
+                    nom = "Apple Vision Pro",
+                    description = "Revolutionnaire",
+                    actif = true,
+                    CategorieDTO(
+                        id = 3,
+                        libelle = "Autre"
+                    )
+                ),
+                prix = BigDecimal(3450)
+            ),
         )
 
         `when`(recupererPropositions.handle("LG502")).doReturn(resultat)

@@ -1,4 +1,4 @@
-package com.raminagrobis.centraleachat.domain.fournisseur.model
+package com.raminagrobis.centraleachat.infra.proposition.entity
 
 import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
 import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
@@ -7,7 +7,7 @@ import java.io.Serializable
 import java.math.BigDecimal
 
 @Entity
-class Proposition(
+class PropositionEntity(
     @EmbeddedId
     var propositionKey: PropositionKey? = null,
 

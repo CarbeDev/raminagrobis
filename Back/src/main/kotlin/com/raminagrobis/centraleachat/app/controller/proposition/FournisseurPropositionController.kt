@@ -1,6 +1,6 @@
 package com.raminagrobis.centraleachat.app.controller.proposition
 
-import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.SupprimerUnePropositionDePrix
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class FournisseurPropositionController(
     val faireUnePropositionDePrix: FaireUnePropositionDePrix,
-    val supprimerUnePropositionDePrix: SupprimerUnePropositionDePrix
+    val supprimerUnePropositionDePrix: SupprimerUnePropositionDePrix,
 ) {
 
     @PostMapping("/fournisseur/proposition/add")
-    fun addProposition(@RequestBody proposition: Proposition) : ResponseEntity<String>{
+    fun addProposition(@RequestBody proposition: PropositionDTO) : ResponseEntity<String>{
         faireUnePropositionDePrix.handle(proposition)
         return ResponseEntity<String>(HttpStatus.CREATED)
     }
 
     @DeleteMapping("/fournisseur/proposition/delete")
-    fun deleteProposition(@RequestBody proposition: Proposition) : ResponseEntity<String>{
+    fun deleteProposition(@RequestBody proposition: PropositionDTO) : ResponseEntity<String>{
         supprimerUnePropositionDePrix.handle(proposition)
         return  ResponseEntity<String>(HttpStatus.NO_CONTENT)
     }
