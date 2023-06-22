@@ -5,8 +5,9 @@ import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
 import org.springframework.stereotype.Service
 
 @Service
-class FaireDemande(val repo : IDemandeRepo) {
-    fun handle(demande: DemandeDTO){
-        repo.saveDemande(demande)
+class RecupererDemande(val repo : IDemandeRepo){
+
+    fun handle(id : Int) : DemandeDTO{
+       return repo.getDemande(id)
     }
 }

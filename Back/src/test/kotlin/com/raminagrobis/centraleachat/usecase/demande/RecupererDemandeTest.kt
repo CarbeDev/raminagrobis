@@ -7,27 +7,29 @@ import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeRepo
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
-import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
+import com.raminagrobis.centraleachat.domain.demande.usecase.RecupererDemande
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class FaireDemandeTest {
+class RecupererDemandeTest {
 
     @Mock
-    private lateinit var repo : IDemandeRepo
+    private lateinit var repo :IDemandeRepo
 
     @InjectMocks
-    private lateinit var usecase : FaireDemande
+    private lateinit var usecase: RecupererDemande
 
     @Test
-    fun uneDemandeDoitEtreEnregistre(){
+    fun laFonctionDoitLaDemande(){
+        val id= 1
 
         val demande = DemandeDTO(
-            id = 1,
+            id = id,
             nom = "Apple TrackPad",
             description = "Trop cher",
             categorie = CategorieDTO(
@@ -43,8 +45,9 @@ class FaireDemandeTest {
             )
         )
 
-        usecase.handle(demande)
+        `when`(repo.getDemande(id)).thenReturn(demande)
+        usecase.handle(1)
 
-        verify(repo, times(1)).saveDemande(demande)
+        verify(repo, times(1)).getDemande(id)
     }
 }
