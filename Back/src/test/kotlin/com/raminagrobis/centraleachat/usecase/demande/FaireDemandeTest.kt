@@ -5,7 +5,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeInterface
+import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeRepo
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
 import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
 import org.junit.jupiter.api.Test
@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class FaireDemandeTest {
 
     @Mock
-    private lateinit var repo : IDemandeInterface
+    private lateinit var repo : IDemandeRepo
 
     @InjectMocks
     private lateinit var usecase : FaireDemande

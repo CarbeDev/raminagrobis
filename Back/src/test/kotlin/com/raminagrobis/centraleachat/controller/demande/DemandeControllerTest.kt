@@ -3,9 +3,12 @@ package com.raminagrobis.centraleachat.controller.demande
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.raminagrobis.centraleachat.app.controller.demande.DemandeController
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeGere
+import com.raminagrobis.centraleachat.domain.demande.usecase.AccepterDemande
 import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -28,12 +31,14 @@ class DemandeControllerTest {
 
     @Mock
     private lateinit var faireDemande: FaireDemande
+    @Mock
+    private lateinit var accepterDemande: AccepterDemande
 
     @InjectMocks
     private lateinit var controller : DemandeController
 
     private lateinit var jsonDemande : JacksonTester<DemandeDTO>
-
+    private lateinit var jsonDemandeGere: JacksonTester<DemandeGere>
     @BeforeEach
     fun setup(){
         mvc = MockMvcBuilders.standaloneSetup(controller).build()
@@ -66,5 +71,31 @@ class DemandeControllerTest {
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(),response.status)
+    }
+
+    @Test
+    fun uneDemandeEstAccepte(){
+
+        val demandeGere = DemandeGere(
+            produit = ProduitDTO(
+                reference = "VisPRO",
+                nom = "Apple Vision Pro",
+                description = "Revolutionnaire",
+                actif = true,
+                CategorieDTO(
+                    id = 3,
+                    libelle = "Autre"
+                )
+            ),
+            idDemande = 1
+        )
+
+        val response = mvc.perform(
+            post("/admin/demande/accepter").contentType(MediaType.APPLICATION_JSON).content(
+                jsonDemandeGere.write(demandeGere).json
+            )
+        ).andReturn().response
+
+        assertEquals(HttpStatus.CREATED.value(), response.status)
     }
 }
