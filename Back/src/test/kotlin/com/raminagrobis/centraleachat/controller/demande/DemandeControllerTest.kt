@@ -10,10 +10,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeGere
-import com.raminagrobis.centraleachat.domain.demande.usecase.AccepterDemande
-import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
-import com.raminagrobis.centraleachat.domain.demande.usecase.RecupererDemande
-import com.raminagrobis.centraleachat.domain.demande.usecase.RefuserDemande
+import com.raminagrobis.centraleachat.domain.demande.usecase.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -41,6 +38,8 @@ class DemandeControllerTest {
     private lateinit var refuserDemande: RefuserDemande
     @Mock
     private lateinit var recupererDemande: RecupererDemande
+    @Mock
+    private lateinit var recupererDemandes: RecupererDemandes
 
     @InjectMocks
     private lateinit var controller : DemandeController
@@ -73,7 +72,7 @@ class DemandeControllerTest {
         )
 
         val response = mvc.perform(
-            post("/demande").contentType(MediaType.APPLICATION_JSON).content(
+            post("/demandes").contentType(MediaType.APPLICATION_JSON).content(
                 jsonDemande.write(demande).json
             )
         ).andReturn().response
@@ -100,7 +99,7 @@ class DemandeControllerTest {
         )
 
         val response = mvc.perform(
-            post("/admin/demande").contentType(MediaType.APPLICATION_JSON).content(
+            post("/admin/demandes").contentType(MediaType.APPLICATION_JSON).content(
                 jsonDemandeGere.write(demandeGere).json
             )
         ).andReturn().response
@@ -112,7 +111,7 @@ class DemandeControllerTest {
     @Test
     fun uneDemandeEstRefuse(){
         val response = mvc.perform(
-            patch("/admin/demande/1")
+            patch("/admin/demandes/1")
         ).andReturn().response
 
         verify(refuserDemande, times(1)).handle(1)
@@ -122,10 +121,22 @@ class DemandeControllerTest {
     @Test
     fun uneDemandeEstRecupere(){
         val reponse = mvc.perform(
-            get("/demande/1")
+            get("/demandes/1")
         ).andReturn().response
 
         verify(recupererDemande, times(1)).handle(1)
         assertEquals(HttpStatus.OK.value(), reponse.status)
+    }
+
+    @Test
+    fun desDemandesSontRecupere(){
+        val reponse = mvc.perform(
+            get("/demandes")
+        ).andReturn().response
+
+        verify(recupererDemandes, times(1)).handle()
+        assertEquals(HttpStatus.OK.value(),reponse.status)
+
+        verify(recupererDemandes, times(1)).handle()
     }
 }
