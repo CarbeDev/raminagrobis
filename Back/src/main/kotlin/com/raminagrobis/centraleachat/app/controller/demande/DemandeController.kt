@@ -4,6 +4,7 @@ import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeGere
 import com.raminagrobis.centraleachat.domain.demande.usecase.AccepterDemande
 import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
+import com.raminagrobis.centraleachat.domain.demande.usecase.RecupererDemande
 import com.raminagrobis.centraleachat.domain.demande.usecase.RefuserDemande
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -13,11 +14,16 @@ import org.springframework.web.bind.annotation.*
 @Tag(name = "Demande")
 @RestController
 class DemandeController(
+    val recupererDemande: RecupererDemande,
     val faireDemande: FaireDemande,
     val accepterDemande: AccepterDemande,
     val refuserDemande: RefuserDemande
 ){
 
+    @GetMapping("/demande/{id}")
+    fun recupererUneDemande(@PathVariable id: Int) : DemandeDTO{
+        return recupererDemande.handle(id)
+    }
     @PostMapping("/demande")
     fun faireUneDemande(@RequestBody demande: DemandeDTO) : ResponseEntity<String>{
         faireDemande.handle(demande)
