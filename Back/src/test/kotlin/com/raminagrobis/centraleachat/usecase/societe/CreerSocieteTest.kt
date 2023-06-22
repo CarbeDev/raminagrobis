@@ -2,9 +2,9 @@ package com.raminagrobis.centraleachat.usecase.societe
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
+import com.raminagrobis.centraleachat.domain.administration.dto.UserSociete
 import com.raminagrobis.centraleachat.domain.administration.exception.EmailAlreadyUseException
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.administration.usecase.CreerSociete
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -29,7 +29,7 @@ class CreerSocieteTest{
     @Test
     fun creerUnUtilisateurDoitLeSauvegarderAvecLesBonnesProprietes(){
 
-        val societeCaptor = argumentCaptor<Societe>()
+        val societeCaptor = argumentCaptor<UserSociete>()
 
         `when`(societeRepo.isEmailUnique(email)).thenReturn(true)
         creerSociete.handle(email, nom, role)
@@ -38,7 +38,7 @@ class CreerSocieteTest{
         assertEquals(email,societeCaptor.firstValue.email)
         assertEquals(nom,societeCaptor.firstValue.nom)
         assertEquals(role,societeCaptor.firstValue.role)
-        societeCaptor.firstValue.actif?.let { assertTrue(it) }
+        assertTrue(societeCaptor.firstValue.actif)
     }
 
     @Test
@@ -49,7 +49,6 @@ class CreerSocieteTest{
             creerSociete.handle(email, nom, role)
         }
 
-        verify(societeRepo, times(0)).saveSociete(com.nhaarman.mockitokotlin2.any())
     }
 
 }

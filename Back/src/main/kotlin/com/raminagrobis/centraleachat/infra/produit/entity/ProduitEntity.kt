@@ -1,9 +1,9 @@
-package com.raminagrobis.centraleachat.domain.administration.model
+package com.raminagrobis.centraleachat.infra.produit.entity
 
 import jakarta.persistence.*
 
 @Entity
-class Produit(
+class ProduitEntity(
     @Id
     var reference : String = "",
     @Column(name = "nom_produit", nullable = false)
@@ -13,5 +13,5 @@ class Produit(
     var actif : Boolean = false,
     @ManyToOne
     @JoinColumn(name = "id_categorie")
-    var categorie: Categorie? = null
+    var categorie: CategorieEntity? = null
 )

@@ -2,10 +2,11 @@ package com.raminagrobis.centraleachat.usecase.societe
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
+import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
 import com.raminagrobis.centraleachat.domain.administration.usecase.SupprimerSociete
-import org.junit.jupiter.api.Assertions
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,15 +24,17 @@ class SupprimerSocieteTest {
     @InjectMocks
     lateinit var supprimerSociete: SupprimerSociete
 
-    lateinit var societe: Societe
+    lateinit var societe: DetailSociete
 
     @BeforeEach
     fun setup(){
-        societe = Societe(
+        societe = DetailSociete(
+            id = 1,
             email = "test@raminagrobis.com",
             nom = "nom",
             role = Role.ADHERENT,
-            actif = true
+            actif = true,
+            historique = listOf()
         )
     }
 
@@ -39,7 +42,6 @@ class SupprimerSocieteTest {
     fun uneSocieteSansCommandeDoitEtreSupprime(){
 
         `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
-        `when`(societeRepo.getNbCommandeBySociete(societe)).thenReturn(0)
 
         supprimerSociete.handle(1)
 
@@ -48,16 +50,16 @@ class SupprimerSocieteTest {
 
     @Test
     fun uneSocieteAvecAuMoinsUneCommandeDoitEtreDesactive(){
-        val societeArgumentCaptor = argumentCaptor<Societe>()
+        val societeArgumentCaptor = argumentCaptor<DetailSociete>()
+        societe.historique = listOf(AchatEntity())
 
         `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
-        `when`(societeRepo.getNbCommandeBySociete(societe)).thenReturn(1)
-        `when`(societeRepo.isEmailUnique(societe.email.toString())).thenReturn(true)
+        `when`(societeRepo.isEmailUnique(societe.email)).thenReturn(true)
 
         supprimerSociete.handle(1)
 
         verify(societeRepo, times(1)).saveSociete(societeArgumentCaptor.capture())
-        societeArgumentCaptor.firstValue.actif?.let { Assertions.assertFalse(it) }
+        assertFalse(societeArgumentCaptor.firstValue.actif)
     }
 
 

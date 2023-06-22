@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("jvm") version "1.7.22"
-
+    kotlin("kapt") version "1.8.21"
 }
 
 group = "com.raminagrobis"
@@ -32,9 +32,13 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-gson:0.11.5")
     implementation("org.passay:passay:1.6.3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+
 }
 
 tasks.withType<KotlinCompile> {

@@ -8,7 +8,7 @@ class DesactiverProduit(private val repo : IProduitRepo) {
 
     fun handle(ref : String){
         val produit = repo.getProduitByRef(ref)
-        produit.actif = false
-        repo.saveProduit(produit)
+        produit.actif =false
+        repo.saveProduit(produit.copy(actif = false))
     }
 }

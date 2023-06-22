@@ -1,6 +1,6 @@
 package com.raminagrobis.centraleachat.app.controller.demande
 
-import com.raminagrobis.centraleachat.domain.demande.model.Demande
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
 import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -16,7 +16,7 @@ class DemandeController(
 ){
 
     @PostMapping("/demande")
-    fun faireUneDemande(@RequestBody demande: Demande) : ResponseEntity<String>{
+    fun faireUneDemande(@RequestBody demande: DemandeDTO) : ResponseEntity<String>{
         faireDemande.handle(demande)
         return ResponseEntity(HttpStatus.OK)
     }

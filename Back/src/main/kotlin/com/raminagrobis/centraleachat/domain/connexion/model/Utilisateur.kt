@@ -5,11 +5,10 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 
-interface Utilisateur {
-
-    val email : String
-    val motDePasse : String
-    val role : Role?
+class Utilisateur(
+    val email : String,
+    val motDePasse : String,
+    val role : Role?){
 
     fun toSpringUser() : User{
         return User(email,motDePasse,getAuthority())

@@ -5,8 +5,8 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
 import com.raminagrobis.centraleachat.domain.commande.config.CreationPanierTask
+import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
-import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,8 +29,8 @@ class CreationPanierTaskTest {
     @Test
     fun ouvrirUnPanierDoitFermerTousLesAutresPaniers(){
 
-        val panier1 = Panier(id = "01_23", etatPanier = EtatPanier.OUVERT)
-        val panier2 = Panier(id = "02_23", etatPanier = EtatPanier.OUVERT)
+        val panier1 = PanierDTO(id = "01_23", etatPanier = EtatPanier.OUVERT, listeAchat = listOf())
+        val panier2 = PanierDTO(id = "02_23", etatPanier = EtatPanier.OUVERT, listeAchat = listOf())
 
 
         val paniersOuvert = listOf(panier1, panier2)
@@ -48,7 +48,7 @@ class CreationPanierTaskTest {
 
     @Test
     fun lePanierOuvertDoitConcernerLaSemaineEnCours(){
-        val panierCaptor = argumentCaptor<Panier>()
+        val panierCaptor = argumentCaptor<PanierDTO>()
         val numSemaine = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR).toString()
 
         taskPanier.handle()

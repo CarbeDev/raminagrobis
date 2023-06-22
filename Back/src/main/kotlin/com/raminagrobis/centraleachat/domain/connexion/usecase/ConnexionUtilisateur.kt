@@ -28,7 +28,7 @@ class ConnexionUtilisateur(
         }
     }
 
-    fun getUtilisateur(email: String,admin: Boolean) : Utilisateur?{
+    fun getUtilisateur(email: String,admin: Boolean) : Utilisateur{
         if (admin) return repo.findAdminByEmail(email) else return repo.findSocieteByEmail(email)
     }
 }

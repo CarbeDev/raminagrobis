@@ -8,7 +8,6 @@ class ActiverProduit(private val repo : IProduitRepo) {
 
     fun handle(ref : String){
         val produit = repo.getProduitByRef(ref)
-
         produit.actif = true
         repo.saveProduit(produit)
     }

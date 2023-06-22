@@ -1,8 +1,9 @@
 package com.raminagrobis.centraleachat.infra.utilisateur
 
-import com.raminagrobis.centraleachat.domain.administration.model.Admin
+import com.raminagrobis.centraleachat.infra.utilisateur.entity.AdminEntity
 import org.springframework.data.repository.CrudRepository
+import java.util.*
 
-interface SQLAdmin : CrudRepository<Admin,Int>{
-    fun findAdminByEmail(email: String):Admin?
+interface SQLAdmin : CrudRepository<AdminEntity,Int>{
+    fun findAdminByEmail(email: String):Optional<AdminEntity>
 }

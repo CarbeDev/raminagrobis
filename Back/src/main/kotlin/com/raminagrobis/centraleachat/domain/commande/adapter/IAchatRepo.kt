@@ -1,13 +1,13 @@
 package com.raminagrobis.centraleachat.domain.commande.adapter
 
-import com.raminagrobis.centraleachat.domain.commande.model.Achat
+import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
 
 interface IAchatRepo {
-    fun getAllAchat() : Iterable<Achat>
-    fun getAchatByCommande(idPanier : String) : Iterable<Achat>
-    fun getAchatByProduit(refProduit : String) : Iterable<Achat>
-    fun getAchatByProduitAndCommande(refProduit: String, idPanier: String)
-    fun saveAchat(achat: Achat)
-    fun deleteAchat(achat: Achat)
+    fun getAllAchat() : Iterable<AchatDTO>
+    fun getAchatByCommande(idPanier : String) : Iterable<AchatDTO>
+    fun getAchatByProduit(refProduit : String) : Iterable<AchatDTO>
+    fun getAchatByProduitAndCommande(refProduit: String, idPanier: String) : Iterable<AchatDTO>
+    fun saveAchat(achat: AchatDTO)
+    fun deleteAchat(achat: AchatDTO)
 
 }

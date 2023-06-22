@@ -1,36 +1,48 @@
 package com.raminagrobis.centraleachat.infra
 
 import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
+import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.UserSociete
+import com.raminagrobis.centraleachat.domain.administration.mapper.SocieteMapper
+import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import org.springframework.stereotype.Repository
 
 @Repository
-class SocieteRepo(private val repo: SQLSociete) : ISocieteRepo {
-    override fun getAll(): Iterable<Societe> {
-        return repo.findAll()
+class SocieteRepo(private val repo: SQLSociete, val mapper: SocieteMapper) : ISocieteRepo {
+    override fun getAll(): Iterable<SocieteDTO> {
+        return repo.findAll().map { mapper.toDTO(it) }
     }
 
-    override fun getByEmail(email: String): Societe? {
-        return repo.getSocieteByEmail(email)
+    override fun getByEmail(email: String): SocieteEntity {
+        return repo.getSocieteByEmail(email).orElseThrow()
     }
 
-    override fun saveSociete(societe: Societe) {
-        repo.save(societe)
+    override fun saveSociete(societe: SocieteDTO) {
+        repo.save(mapper.toEntity(societe))
+    }
+
+    override fun saveSociete(societe: DetailSociete) {
+        repo.save(mapper.toEntity(societe))
+    }
+
+    override fun saveSociete(societe: UserSociete) {
+        repo.save(mapper.toEntity(societe))
     }
 
     override fun isEmailUnique(email: String): Boolean {
         return repo.existsByEmail(email)
     }
 
-    override fun findSocieteByID(id: Int): Societe {
-        return repo.findById(id).orElseThrow()
+    override fun findSocieteByID(id: Int): DetailSociete {
+        return mapper.toDetail(repo.findById(id).orElseThrow())
     }
 
-    override fun getNbCommandeBySociete(societe: Societe): Int {
-        TODO("Not yet implemented")
+    override fun deleteSociete(societe: SocieteDTO) {
+        repo.delete(mapper.toEntity(societe))
     }
 
-    override fun deleteSociete(societe: Societe) {
-        repo.delete(societe)
+    override fun deleteSociete(societe: DetailSociete) {
+        repo.delete(mapper.toEntity(societe))
     }
 }

@@ -3,7 +3,8 @@ package com.raminagrobis.centraleachat.usecase.produit
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.adapter.IProduitRepo
-import com.raminagrobis.centraleachat.domain.administration.model.Produit
+import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
 import com.raminagrobis.centraleachat.domain.administration.usecase.ActiverProduit
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -24,13 +25,22 @@ class ActiverProduitTest {
 
     @Test
     fun leProduitDoitEtreActive(){
-        val ref = "abcd"
-        val produit = Produit(reference = ref,actif = false)
+        val ref = "LSD"
+        val produit = ProduitDTO(
+            reference = ref,
+            nom = "Logitech StreamDeck",
+            description = "Tres utile",
+            categorie = CategorieDTO(
+                id = 3,
+                libelle = "Autre"
+            ),
+            actif = false
+        )
 
         Mockito.`when`(repoProduit.getProduitByRef(ref)).thenReturn(produit)
         usecase.handle(ref)
 
-        produit.actif?.let { Assertions.assertTrue(it) }
+        Assertions.assertTrue(produit.actif)
         verify(repoProduit, times(1)).saveProduit(produit)
     }
 }

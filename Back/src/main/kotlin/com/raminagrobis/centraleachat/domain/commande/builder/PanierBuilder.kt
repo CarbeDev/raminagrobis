@@ -1,18 +1,18 @@
 package com.raminagrobis.centraleachat.domain.commande.builder
 
+import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
-import com.raminagrobis.centraleachat.domain.commande.model.Panier
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 class PanierBuilder {
 
-    fun build(jour : Calendar): Panier {
+    fun build(jour : Calendar): PanierDTO {
         val numSemaine = getNumSemaine(jour)
         val annee = getDeuxDerniersNombresDeLannee(jour)
 
-        return Panier(id = numSemaine + "_" + annee, etatPanier = EtatPanier.OUVERT)
+        return PanierDTO(id = numSemaine + "_" + annee, listeAchat = listOf(), etatPanier = EtatPanier.OUVERT)
     }
 
     private fun getNumSemaine(jour: Calendar) : String{

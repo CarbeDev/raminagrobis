@@ -1,26 +1,27 @@
-package com.raminagrobis.centraleachat.domain.commande.model
+package com.raminagrobis.centraleachat.infra.achat.entity
 
-import com.raminagrobis.centraleachat.domain.administration.model.Produit
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
+import com.raminagrobis.centraleachat.infra.panier.entity.PanierEntity
+import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
+import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import jakarta.persistence.*
 import java.io.Serializable
 
 @Entity
-class Achat(
+class AchatEntity(
     @EmbeddedId
     var key : AchatKey? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_societe", referencedColumnName = "id_societe", insertable = false, updatable = false)
-    var societe : Societe? = null,
+    var societe : SocieteEntity? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reference_produit", referencedColumnName = "reference", insertable = false, updatable = false)
-    var produit: Produit? = null,
+    var produit: ProduitEntity? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_panier", referencedColumnName = "id_panier", insertable = false, updatable = false)
-    var panier: Panier? = null,
+    var panier: PanierEntity? = null,
 
 
     var quantite: Int= 0

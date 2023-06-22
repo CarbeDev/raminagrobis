@@ -2,12 +2,12 @@ package com.raminagrobis.centraleachat.usecase.connexion
 
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.doReturn
-import com.raminagrobis.centraleachat.domain.administration.model.Admin
-import com.raminagrobis.centraleachat.domain.administration.model.Societe
+import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.connexion.adapter.IJWTTokenUtil
 import com.raminagrobis.centraleachat.domain.connexion.adapter.IUtilisateurRepo
 import com.raminagrobis.centraleachat.domain.connexion.exception.BadPasswordException
 import com.raminagrobis.centraleachat.domain.connexion.exception.UserNotFoundException
+import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
 import com.raminagrobis.centraleachat.domain.connexion.usecase.ConnexionUtilisateur
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -37,7 +37,11 @@ class ConnexionUtilisateurTest {
 
     @Test
     fun leRepoAdminDoitEtreAppeleLorsqueUnAdminEssaieDeSeConnecter(){
-        val admin = Admin(email = email, motDePasse = mdpHash)
+        val admin = Utilisateur(
+            email = email,
+            motDePasse = mdpHash,
+            role = Role.ADMIN
+        )
         `when`(repo.findAdminByEmail(email)).doReturn(admin)
 
         useCase.handle(email,mdp,admin = true)
@@ -46,7 +50,11 @@ class ConnexionUtilisateurTest {
 
     @Test
     fun leRepoSocieteDoitEtreAppeleLorsqueUneSocieteEssaieDeSeConnecter(){
-        val societe = Societe(email = email, motDePasse = mdpHash)
+        val societe = Utilisateur(
+            email = email,
+            motDePasse = mdpHash,
+            role = Role.FOURNISSEUR)
+
         `when`(repo.findSocieteByEmail(email)).doReturn(societe)
 
         useCase.handle(email,mdp,admin = false)
@@ -63,7 +71,7 @@ class ConnexionUtilisateurTest {
     @Test
     fun uneConnexionReussiDoitRenvoyeUnTokenJWT(){
         val captor = argumentCaptor<UserDetails>()
-        val societe = Societe(email = email, motDePasse = mdpHash)
+        val societe = Utilisateur(email = email, motDePasse = mdpHash, role = Role.ADHERENT)
         `when`(repo.findSocieteByEmail(email)).doReturn(societe)
 
         useCase.handle(email,mdp,false)
@@ -72,7 +80,7 @@ class ConnexionUtilisateurTest {
 
     @Test
     fun uneTentativeDeConnexionAvecUnMauvaisMotDePasseRevoieUneException(){
-        val societe = Societe(email = email, motDePasse = mdpHash)
+        val societe = Utilisateur(email = email, motDePasse = mdpHash, role = Role.ADHERENT)
         `when`(repo.findSocieteByEmail(email)).doReturn(societe)
         val mauvaisMdp = "tes"
 

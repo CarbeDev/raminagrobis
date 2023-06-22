@@ -1,11 +1,11 @@
 package com.raminagrobis.centraleachat.infra.proposition
 
-import com.raminagrobis.centraleachat.domain.fournisseur.model.Proposition
-import com.raminagrobis.centraleachat.domain.fournisseur.model.PropositionKey
+import com.raminagrobis.centraleachat.infra.proposition.entity.PropositionEntity
+import com.raminagrobis.centraleachat.infra.proposition.entity.PropositionKey
 import org.springframework.data.repository.CrudRepository
 
-interface SQLProposition : CrudRepository<Proposition, PropositionKey> {
-    fun getAllByProduitOrderByPrix(refProduit : String) : Iterable<Proposition>
+interface SQLProposition : CrudRepository<PropositionEntity, PropositionKey> {
+    fun getAllByProduitOrderByPrix(refProduit : String) : Iterable<PropositionEntity>
 
-    fun getAllBySocieteOrderByPrix(idSociete : Int) : Iterable<Proposition>
+    fun getAllBySocieteOrderByPrix(idSociete : Int) : Iterable<PropositionEntity>
 }
