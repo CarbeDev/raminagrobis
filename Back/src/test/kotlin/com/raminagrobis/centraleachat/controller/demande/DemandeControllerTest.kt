@@ -10,6 +10,7 @@ import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeGere
 import com.raminagrobis.centraleachat.domain.demande.usecase.AccepterDemande
 import com.raminagrobis.centraleachat.domain.demande.usecase.FaireDemande
+import com.raminagrobis.centraleachat.domain.demande.usecase.RefuserDemande
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -21,6 +22,7 @@ import org.springframework.boot.test.json.JacksonTester
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
@@ -33,6 +35,8 @@ class DemandeControllerTest {
     private lateinit var faireDemande: FaireDemande
     @Mock
     private lateinit var accepterDemande: AccepterDemande
+    @Mock
+    private lateinit var refuserDemande: RefuserDemande
 
     @InjectMocks
     private lateinit var controller : DemandeController
@@ -91,11 +95,20 @@ class DemandeControllerTest {
         )
 
         val response = mvc.perform(
-            post("/admin/demande/accepter").contentType(MediaType.APPLICATION_JSON).content(
+            post("/admin/demande").contentType(MediaType.APPLICATION_JSON).content(
                 jsonDemandeGere.write(demandeGere).json
             )
         ).andReturn().response
 
         assertEquals(HttpStatus.CREATED.value(), response.status)
+    }
+
+    @Test
+    fun uneDemandeEstRefuse(){
+        val response = mvc.perform(
+            patch("/admin/demande/1")
+        ).andReturn().response
+
+        assertEquals(HttpStatus.OK.value(), response.status)
     }
 }
