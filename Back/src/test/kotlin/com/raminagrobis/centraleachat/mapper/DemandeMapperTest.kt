@@ -66,9 +66,7 @@ class DemandeMapperTest {
         )
 
         val entity = DemandeMapperImpl().toEntity(dto)
-        val plop = SocieteMapperImpl().toEntity(dto.societe)
 
-        val ife = plop.equals(entity.societe)
         assertEquals(dto.id, entity.id)
         assertEquals(dto.etat, entity.etat)
         assertEquals(dto.nom, entity.nom)
