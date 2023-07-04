@@ -7,7 +7,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeRepo
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
-import com.raminagrobis.centraleachat.domain.demande.usecase.RecupererDemande
+import com.raminagrobis.centraleachat.domain.demande.usecase.RecupererDemandeParId
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -16,13 +16,13 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-class RecupererDemandeTest {
+class RecupererDemandeParIdTest {
 
     @Mock
     private lateinit var repo :IDemandeRepo
 
     @InjectMocks
-    private lateinit var usecase: RecupererDemande
+    private lateinit var usecase: RecupererDemandeParId
 
     @Test
     fun laFonctionDoitLaDemande(){
@@ -45,9 +45,9 @@ class RecupererDemandeTest {
             )
         )
 
-        `when`(repo.getDemande(id)).thenReturn(demande)
+        `when`(repo.getDemandeById(id)).thenReturn(demande)
         usecase.handle(1)
 
-        verify(repo, times(1)).getDemande(id)
+        verify(repo, times(1)).getDemandeById(id)
     }
 }

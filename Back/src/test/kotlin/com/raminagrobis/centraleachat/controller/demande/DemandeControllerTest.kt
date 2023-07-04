@@ -37,7 +37,7 @@ class DemandeControllerTest {
     @Mock
     private lateinit var refuserDemande: RefuserDemande
     @Mock
-    private lateinit var recupererDemande: RecupererDemande
+    private lateinit var recupererDemandeParId: RecupererDemandeParId
     @Mock
     private lateinit var recupererDemandes: RecupererDemandes
 
@@ -124,7 +124,7 @@ class DemandeControllerTest {
             get("/demandes/1")
         ).andReturn().response
 
-        verify(recupererDemande, times(1)).handle(1)
+        verify(recupererDemandeParId, times(1)).handle(1)
         assertEquals(HttpStatus.OK.value(), reponse.status)
     }
 

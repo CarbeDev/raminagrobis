@@ -70,7 +70,7 @@ class AccepterDemandeTest {
             )
         )
 
-        `when`(demandeRepo.getDemande(1)).thenReturn(demande)
+        `when`(demandeRepo.getDemandeById(1)).thenReturn(demande)
         usecase.handle(demandeGere)
     }
 
