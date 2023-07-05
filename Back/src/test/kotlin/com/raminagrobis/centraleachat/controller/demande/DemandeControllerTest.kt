@@ -39,6 +39,8 @@ class DemandeControllerTest {
     @Mock
     private lateinit var recupererDemandeParId: RecupererDemandeParId
     @Mock
+    private lateinit var  recupererDemandeParSociete: RecupererDemandeParSociete
+    @Mock
     private lateinit var recupererDemandes: RecupererDemandes
 
     @InjectMocks
@@ -136,7 +138,15 @@ class DemandeControllerTest {
 
         verify(recupererDemandes, times(1)).handle()
         assertEquals(HttpStatus.OK.value(),reponse.status)
+    }
 
-        verify(recupererDemandes, times(1)).handle()
+    @Test
+    fun desDemandesSontRecupereSelonLeurSociete(){
+        val reponse = mvc.perform(
+            get("/demandes/societe/1")
+        ).andReturn().response
+
+        verify(recupererDemandeParSociete, times(1)).handle(1)
+        assertEquals(HttpStatus.OK.value(),reponse.status)
     }
 }
