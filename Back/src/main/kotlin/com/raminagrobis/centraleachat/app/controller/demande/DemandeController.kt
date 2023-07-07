@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*
 @Tag(name = "Demande")
 @RestController
 class DemandeController(
-    val recupererDemande: RecupererDemande,
+    val recupererDemandeParId: RecupererDemandeParId,
+    val recupererDemandeParSociete: RecupererDemandeParSociete,
     val recupererDemandes: RecupererDemandes,
     val faireDemande: FaireDemande,
     val accepterDemande: AccepterDemande,
@@ -20,7 +21,7 @@ class DemandeController(
 
     @GetMapping("/demandes/{id}")
     fun recupererUneDemande(@PathVariable id: Int) : DemandeDTO{
-        return recupererDemande.handle(id)
+        return recupererDemandeParId.handle(id)
     }
 
     @GetMapping("/demandes")
@@ -43,5 +44,10 @@ class DemandeController(
     fun refuserUneDemande(@PathVariable id : Int) : ResponseEntity<String>{
         refuserDemande.handle(id)
         return ResponseEntity(HttpStatus.OK)
+    }
+
+    @GetMapping("demandes/societe/{id}")
+    fun recupererUneDemandeParIdSociete(@PathVariable id: Int) : Iterable<DemandeDTO>{
+        return recupererDemandeParSociete.handle(id)
     }
 }

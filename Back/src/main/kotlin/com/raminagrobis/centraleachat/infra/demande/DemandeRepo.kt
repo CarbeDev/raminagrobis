@@ -11,8 +11,12 @@ class DemandeRepo(val repo : DemandeSQL, val mapper : DemandeMapper) : IDemandeR
         repo.save(mapper.toEntity(demande))
     }
 
-    override fun getDemande(id: Int): DemandeDTO {
+    override fun getDemandeById(id: Int): DemandeDTO {
         return mapper.toDTO(repo.findById(id).orElseThrow())
+    }
+
+    override fun getDemandesBySociete(id: Int): Iterable<DemandeDTO> {
+        return repo.findAllBySocieteId(id).map { mapper.toDTO(it) }
     }
 
     override fun getDemandes(): Iterable<DemandeDTO> {

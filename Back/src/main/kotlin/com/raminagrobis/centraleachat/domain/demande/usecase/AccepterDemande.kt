@@ -19,7 +19,7 @@ class AccepterDemande(val repo : IDemandeRepo, val produitRepo : IProduitRepo) {
     }
 
     private fun miseAJourDeLaDemande(demandeGere : DemandeGere){
-        val demande = repo.getDemande(demandeGere.idDemande)
+        val demande = repo.getDemandeById(demandeGere.idDemande)
         demande.etat = EtatDemande.ACCEPTE
         repo.saveDemande(demande)
     }

@@ -49,7 +49,7 @@ class RefuserDemandeTest {
 
         val captor = argumentCaptor<DemandeDTO>()
 
-        `when`(repo.getDemande(1)).thenReturn(demande)
+        `when`(repo.getDemandeById(1)).thenReturn(demande)
         usecase.handle(1)
 
         verify(repo, times(1)).saveDemande(captor.capture())

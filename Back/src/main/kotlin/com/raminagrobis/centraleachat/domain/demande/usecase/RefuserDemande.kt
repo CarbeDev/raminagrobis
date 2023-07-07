@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 class RefuserDemande(val repo : IDemandeRepo) {
 
     fun handle(id : Int){
-        val demande = repo.getDemande(id)
+        val demande = repo.getDemandeById(id)
         demande.etat = EtatDemande.REFUSER
         repo.saveDemande(demande)
     }
