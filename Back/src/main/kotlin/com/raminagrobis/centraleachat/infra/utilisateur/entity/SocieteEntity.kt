@@ -3,6 +3,7 @@ package com.raminagrobis.centraleachat.infra.utilisateur.entity
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 import jakarta.persistence.*
+import java.sql.Date
 
 @Entity(name = "Societe")
 class SocieteEntity(
@@ -22,6 +23,7 @@ class SocieteEntity(
     var motDePasse :String = "",
     @Enumerated(EnumType.STRING)
     var role: Role? = null,
+    var dateInscription : Date? = null,
     @Column(nullable = false)
     var actif : Boolean = false,
     @OneToMany(mappedBy = "societe")
