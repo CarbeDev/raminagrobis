@@ -24,6 +24,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import java.util.*
 
 @ExtendWith(MockitoExtension::class)
 class AdminControllerTest {
@@ -91,7 +92,8 @@ class AdminControllerTest {
             email = "fournisseur1@email.fr",
             role = Role.FOURNISSEUR,
             actif = false,
-            historique = listOf<AchatEntity>()
+            historique = listOf<AchatEntity>(),
+            dateInscription = Date()
         )
 
         `when`(recupererSociete.handle(1)).doReturn(societe)

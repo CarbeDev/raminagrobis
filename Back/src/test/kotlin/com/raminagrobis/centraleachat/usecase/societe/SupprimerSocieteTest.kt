@@ -14,6 +14,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
+import java.util.Date
 
 @ExtendWith(MockitoExtension::class)
 class SupprimerSocieteTest {
@@ -34,7 +35,8 @@ class SupprimerSocieteTest {
             nom = "nom",
             role = Role.ADHERENT,
             actif = true,
-            historique = listOf()
+            historique = listOf(),
+            dateInscription = Date()
         )
     }
 

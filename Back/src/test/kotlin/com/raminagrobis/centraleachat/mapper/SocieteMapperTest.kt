@@ -8,6 +8,7 @@ import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.util.*
 
 class SocieteMapperTest {
 
@@ -18,6 +19,7 @@ class SocieteMapperTest {
         motDePasse = "motDePasse",
         role = Role.FOURNISSEUR,
         actif = true,
+        dateInscription = java.sql.Date(0),
         historique = listOf()
     )
 
@@ -35,6 +37,7 @@ class SocieteMapperTest {
         email = "lidl@adherent.com",
         role = Role.ADHERENT,
         actif = false,
+        dateInscription = Date(),
         historique = listOf()
     )
 
@@ -66,6 +69,7 @@ class SocieteMapperTest {
         assertEquals(entity.email, detail.email)
         assertEquals(entity.role, detail.role)
         assertEquals(entity.actif, detail.actif)
+        assertEquals(entity.dateInscription,detail.dateInscription)
         assertEquals(entity.historique, detail.historique)
     }
 
@@ -88,6 +92,7 @@ class SocieteMapperTest {
         assertEquals(detailSociete.nom,entity.nom)
         assertEquals(detailSociete.email,entity.email)
         assertEquals(detailSociete.role,entity.role)
+        assertEquals(detailSociete.dateInscription, entity.dateInscription)
         assertEquals(detailSociete.actif,entity.actif)
     }
 
