@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service
 class RecupererDemandeParSociete(val repo : IDemandeRepo) {
 
     fun handle(idSociete : Int) : Iterable<DemandeDTO>{
-        return repo.getDemandeBySociete(idSociete)
+        return repo.getDemandesBySociete(idSociete)
     }
 }
