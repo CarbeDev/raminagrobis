@@ -27,5 +27,6 @@ data class UserSociete(
     var email : String,
     var motDePasse : String,
     var role: Role?,
+    var dateInscription: Date,
     var actif : Boolean,
 )

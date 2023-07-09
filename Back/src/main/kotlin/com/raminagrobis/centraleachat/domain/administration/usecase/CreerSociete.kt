@@ -8,6 +8,7 @@ import org.passay.CharacterRule
 import org.passay.EnglishCharacterData
 import org.passay.PasswordGenerator
 import org.springframework.stereotype.Service
+import java.util.*
 
 
 @Service
@@ -20,6 +21,7 @@ class CreerSociete(private val societeRepo : ISocieteRepo) {
             email = email,
             motDePasse = genererMotDePasse(),
             actif = actif,
+            dateInscription = Date(),
             role = role
         )) else throw EmailAlreadyUseException()
 
