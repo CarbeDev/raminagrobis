@@ -46,6 +46,7 @@ class SocieteMapperTest {
         email = "carrefour@adherent.fr",
         motDePasse = "MotDePasse",
         role = Role.ADHERENT,
+        dateInscription = Date(),
         actif = true
     )
 
@@ -104,6 +105,7 @@ class SocieteMapperTest {
         assertEquals(userSociete.email,entity.email)
         assertEquals(userSociete.motDePasse,entity.motDePasse)
         assertEquals(userSociete.role,entity.role)
+        assertEquals(userSociete.dateInscription, entity.dateInscription)
         assertEquals(userSociete.actif,entity.actif)
     }
 }
