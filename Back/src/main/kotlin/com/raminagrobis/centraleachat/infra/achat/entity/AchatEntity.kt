@@ -5,6 +5,7 @@ import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
 import com.raminagrobis.centraleachat.infra.utilisateur.entity.SocieteEntity
 import jakarta.persistence.*
 import java.io.Serializable
+import java.math.BigDecimal
 
 @Entity
 class AchatEntity(
@@ -13,7 +14,7 @@ class AchatEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_societe", referencedColumnName = "id_societe", insertable = false, updatable = false)
-    var societe : SocieteEntity? = null,
+    var adherent : SocieteEntity? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reference_produit", referencedColumnName = "reference", insertable = false, updatable = false)
@@ -23,8 +24,13 @@ class AchatEntity(
     @JoinColumn(name = "id_panier", referencedColumnName = "id_panier", insertable = false, updatable = false)
     var panier: PanierEntity? = null,
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_societe", referencedColumnName = "id_societe", insertable = false, updatable = false)
+    var fournisseur : SocieteEntity? = null,
 
-    var quantite: Int= 0
+    var quantite: Int= 0,
+
+    val prixUnitaire : BigDecimal? = null
 )
 
 @Embeddable
