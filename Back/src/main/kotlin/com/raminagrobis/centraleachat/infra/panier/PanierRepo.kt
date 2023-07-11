@@ -1,6 +1,7 @@
 package com.raminagrobis.centraleachat.infra.panier
 
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
+import com.raminagrobis.centraleachat.domain.commande.dto.PanierConfirme
 import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.mapper.PanierMapper
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
@@ -15,6 +16,10 @@ class PanierRepo(val repo: SQLPanier, val mapper : PanierMapper) : IPanierRepo{
 
     override fun savePanier(panier: PanierDTO) {
        repo.save(mapper.toEntity(panier))
+    }
+
+    override fun savePaniers(paniers: Iterable<PanierConfirme>) {
+        paniers.forEach { repo.save(mapper.toEntity(it)) }
     }
 
 

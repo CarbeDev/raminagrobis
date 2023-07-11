@@ -42,7 +42,7 @@ class AnnulerAchatTest {
         )
 
         achat = AchatDTO(
-            societe = SocieteDTO(
+            adherent = SocieteDTO(
                 id = 1,
                 nom = "Free agent",
                 email = "Freeagent@Adherent.com",

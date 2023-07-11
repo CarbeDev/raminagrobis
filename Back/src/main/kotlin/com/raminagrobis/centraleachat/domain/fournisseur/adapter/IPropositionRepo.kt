@@ -8,4 +8,6 @@ interface IPropositionRepo {
     fun getPropositionsByProduit(refProduit: String): Iterable<PropositionDTO>
     fun getPropositionsBySociete(idSociete : Int): Iterable<PropositionDTO>
 
+    fun getLowestPropositionPrixByPrix(refProduit : String): PropositionDTO
+
 }

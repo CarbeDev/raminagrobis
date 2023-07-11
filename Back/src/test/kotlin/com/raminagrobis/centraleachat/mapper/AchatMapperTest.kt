@@ -35,7 +35,7 @@ class AchatMapperTest {
                 reference,
                 idPanier
             ),
-            societe = SocieteEntity(
+            adherent = SocieteEntity(
                 id = idSociete,
                 nom = "Zach Nani Production",
                 email = "zachnani@production.fr",
@@ -64,7 +64,7 @@ class AchatMapperTest {
 
         val dto = AchatMapperImpl().toDTO(entity)
 
-        assertEquals(SocieteMapperImpl().toDTO(entity.societe!!),dto.societe)
+        assertEquals(SocieteMapperImpl().toDTO(entity.adherent!!),dto.adherent)
         assertEquals(ProduitMapperImpl().toDTO(entity.produit!!),dto.produit)
         assertEquals(PanierMapperImpl().toDTO(entity.panier!!),dto.panier)
         assertEquals(entity.quantite,dto.quantite)
@@ -74,7 +74,7 @@ class AchatMapperTest {
     fun dtoToEntity(){
 
         val dto = AchatDTO(
-            societe = SocieteDTO(
+            adherent = SocieteDTO(
                 id = 1,
                 nom = "Zach Nani Production",
                 email = "zachnani@production.fr",
@@ -101,7 +101,7 @@ class AchatMapperTest {
 
         val entity = AchatMapperImpl().toEntity(dto)
 
-        assertEquals(dto.societe.id,entity.key!!.idSociete)
+        assertEquals(dto.adherent.id,entity.key!!.idSociete)
         assertEquals(dto.panier.id,entity.key!!.idpanier)
         assertEquals(dto.produit.reference,entity.key!!.reference)
         assertEquals(dto.quantite,entity.quantite)

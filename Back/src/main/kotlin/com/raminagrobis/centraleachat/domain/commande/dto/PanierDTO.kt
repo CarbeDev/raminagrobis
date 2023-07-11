@@ -7,7 +7,13 @@ data class PanierDTO(
 
     var id : String,
 
-    var listeAchat : List<AchatEntity>,
+    var listeAchat : List<AchatDTO>,
 
+    var etatPanier: EtatPanier
+)
+
+data class PanierConfirme(
+    var id : String,
+    var listeAchat: List<AchatConfirme>,
     var etatPanier: EtatPanier
 )
