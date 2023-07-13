@@ -42,7 +42,7 @@ class EffectuerAchatTest {
         )
 
         achat = AchatDTO(
-            societe = SocieteDTO(
+            adherent = SocieteDTO(
                 id = 1,
                 nom = "Free agent",
                 email = "Freeagent@Adherent.com",
@@ -67,7 +67,7 @@ class EffectuerAchatTest {
     @Test
     fun unAchatQuiEstEffectueParUnFournisseurDoitEnvoiUneException(){
 
-        achat.societe.role = Role.FOURNISSEUR
+        achat.adherent.role = Role.FOURNISSEUR
 
         assertThrows(IncorrectRoleSocieteException::class.java){
             useCase.handle(achat)

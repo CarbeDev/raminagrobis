@@ -17,10 +17,14 @@ class PropositionRepo(private val repo : SQLProposition, private val mapper : Pr
     }
 
     override fun getPropositionsByProduit(refProduit: String): Iterable<PropositionDTO> {
-        return repo.getAllByProduitOrderByPrix(refProduit).map { mapper.toDTO(it) }
+        return repo.getAllByPropositionKeyReferenceOrderByPrix(refProduit).map { mapper.toDTO(it) }
     }
 
     override fun getPropositionsBySociete(idSociete : Int): Iterable<PropositionDTO> {
-        return repo.getAllBySocieteOrderByPrix(idSociete).map { mapper.toDTO(it) }
+        return repo.getAllByPropositionKeyIdSociete(idSociete).map { mapper.toDTO(it) }
+    }
+
+    override fun getLowestPropositionPrixByPrix(refProduit: String): PropositionDTO {
+        return mapper.toDTO(repo.getFirstByPropositionKeyReferenceOrderByPrix(refProduit))
     }
 }

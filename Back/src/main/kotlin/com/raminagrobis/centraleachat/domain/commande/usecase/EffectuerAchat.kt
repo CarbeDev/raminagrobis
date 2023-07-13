@@ -13,7 +13,7 @@ class EffectuerAchat(val repo : IAchatRepo) {
 
     fun handle(achat: AchatDTO){
 
-        if (achat.societe!!.role == Role.FOURNISSEUR){
+        if (achat.adherent!!.role == Role.FOURNISSEUR){
             throw IncorrectRoleSocieteException()
         } else if(achat.panier!!.etatPanier == EtatPanier.FERMER){
             throw  CantAddAchatException("Le panier est ferme")
