@@ -5,6 +5,7 @@ import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.usecase.SupprimerSociete
+import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
 import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -22,6 +23,9 @@ class SupprimerSocieteTest {
     @Mock
     lateinit var societeRepo: ISocieteRepo
 
+    @Mock
+    lateinit var achatRepo: IAchatRepo
+
     @InjectMocks
     lateinit var supprimerSociete: SupprimerSociete
 
@@ -38,25 +42,22 @@ class SupprimerSocieteTest {
             historique = listOf(),
             dateInscription = Date()
         )
+
+        `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
     }
 
     @Test
     fun uneSocieteSansCommandeDoitEtreSupprime(){
-
-        `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
-
+        `when`(achatRepo.getNbAchatBySociete(societe)).thenReturn(0)
         supprimerSociete.handle(1)
 
-        verify(societeRepo, times(1)).deleteSociete(societe)
+        verify(societeRepo, times(1)).deleteSociete(1)
     }
 
     @Test
     fun uneSocieteAvecAuMoinsUneCommandeDoitEtreDesactive(){
         val societeArgumentCaptor = argumentCaptor<DetailSociete>()
-        societe.historique = listOf(AchatEntity())
-
-        `when`(societeRepo.findSocieteByID(1)).thenReturn(societe)
-        `when`(societeRepo.isEmailUnique(societe.email)).thenReturn(true)
+        `when`(achatRepo.getNbAchatBySociete(societe)).thenReturn(1)
 
         supprimerSociete.handle(1)
 

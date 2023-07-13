@@ -16,8 +16,6 @@ interface ISocieteRepo {
     fun isEmailUnique(email: String) : Boolean
     fun findSocieteByID(id : Int) : DetailSociete
 
-    fun deleteSociete(societe: SocieteDTO)
-
-    fun deleteSociete(societe: DetailSociete)
+    fun deleteSociete(idSociete : Int)
 
 }

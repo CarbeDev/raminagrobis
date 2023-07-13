@@ -1,5 +1,6 @@
 package com.raminagrobis.centraleachat.domain.commande.adapter
 
+import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
 
 interface IAchatRepo {
@@ -9,5 +10,7 @@ interface IAchatRepo {
     fun getAchatByProduitAndCommande(refProduit: String, idPanier: String) : Iterable<AchatDTO>
     fun saveAchat(achat: AchatDTO)
     fun deleteAchat(achat: AchatDTO)
+
+    fun getNbAchatBySociete(societe : DetailSociete) : Int
 
 }

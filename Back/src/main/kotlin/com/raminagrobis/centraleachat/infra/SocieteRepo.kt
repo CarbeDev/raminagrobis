@@ -38,11 +38,7 @@ class SocieteRepo(private val repo: SQLSociete, val mapper: SocieteMapper) : ISo
         return mapper.toDetail(repo.findById(id).orElseThrow())
     }
 
-    override fun deleteSociete(societe: SocieteDTO) {
-        repo.delete(mapper.toEntity(societe))
-    }
-
-    override fun deleteSociete(societe: DetailSociete) {
-        repo.delete(mapper.toEntity(societe))
+    override fun deleteSociete(idSociete: Int) {
+        repo.deleteById(idSociete)
     }
 }
