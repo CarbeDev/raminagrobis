@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.mapper
 
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.mapper.ProduitMapperImpl
 import com.raminagrobis.centraleachat.domain.administration.mapper.SocieteMapperImpl
@@ -81,7 +81,7 @@ class AchatMapperTest {
                 role = Role.ADHERENT,
                 actif = true,
             ),
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "L5490",
                 nom = "Dell Latitude 5490",
                 description = "Un ordinateur portable",

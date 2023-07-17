@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.adapter.IProduitRepo
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.usecase.ActiverProduit
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -26,7 +26,7 @@ class ActiverProduitTest {
     @Test
     fun leProduitDoitEtreActive(){
         val ref = "LSD"
-        val produit = ProduitDTO(
+        val produit = ProduitDetail(
             reference = ref,
             nom = "Logitech StreamDeck",
             description = "Tres utile",

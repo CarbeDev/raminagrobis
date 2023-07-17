@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.adapter.IProduitRepo
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.mapper.ProduitMapper
 import com.raminagrobis.centraleachat.domain.administration.usecase.DesactiverProduit
 import org.junit.jupiter.api.Assertions
@@ -30,7 +30,7 @@ class DesactiverProduitTest {
     @Test
     fun leProduitDoitEtreDesactive(){
         val ref = "LSD"
-        val produit = ProduitDTO(
+        val produit = ProduitDetail(
             reference = ref,
             nom = "Logitech StreamDeck",
             description = "Tres utile",

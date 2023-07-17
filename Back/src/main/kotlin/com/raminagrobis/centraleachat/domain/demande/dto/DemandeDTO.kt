@@ -1,7 +1,7 @@
 package com.raminagrobis.centraleachat.domain.demande.dto
 
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.demande.model.EtatDemande
 
@@ -15,6 +15,6 @@ data class DemandeDTO(
 )
 
 data class DemandeGere(
-    val produit: ProduitDTO,
+    val produit: ProduitDetail,
     val idDemande : Int
 )

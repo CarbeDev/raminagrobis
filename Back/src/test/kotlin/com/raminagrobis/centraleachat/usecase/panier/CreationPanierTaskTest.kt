@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
@@ -97,7 +97,7 @@ class CreationPanierTaskTest {
                 role = Role.ADHERENT,
                 actif = true
             ),
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",
@@ -112,7 +112,7 @@ class CreationPanierTaskTest {
         panier.listeAchat += achat
 
         val proposition = PropositionDTO(
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",
@@ -162,7 +162,7 @@ class CreationPanierTaskTest {
                 role = Role.ADHERENT,
                 actif = true
             ),
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",
@@ -177,7 +177,7 @@ class CreationPanierTaskTest {
         panier.listeAchat += achat
 
         val proposition = PropositionDTO(
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",

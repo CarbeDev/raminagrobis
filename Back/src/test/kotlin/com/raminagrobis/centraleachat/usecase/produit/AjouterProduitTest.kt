@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.adapter.IProduitRepo
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.usecase.AjouterProduit
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,10 +28,7 @@ class AjouterProduitTest {
             reference = "LSD",
             nom = "Logitech StreamDeck",
             description = "Tres utile",
-            categorie = CategorieDTO(
-                id = 3,
-                libelle = "Autre"
-            ),
+            idCategorie = 3,
             actif = false
         )
 
