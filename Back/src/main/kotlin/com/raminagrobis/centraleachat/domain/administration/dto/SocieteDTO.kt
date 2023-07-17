@@ -30,3 +30,9 @@ data class UserSociete(
     var dateInscription: Date,
     var actif : Boolean,
 )
+
+data class SocieteToCreate(
+    val email : String,
+    val nom : String,
+    val role: Role
+)
