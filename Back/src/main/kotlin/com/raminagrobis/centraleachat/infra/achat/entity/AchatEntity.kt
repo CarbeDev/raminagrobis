@@ -43,7 +43,7 @@ class AchatKey(
     var reference : String = "",
 
     @Column(name = "id_panier")
-    var idpanier : String = ""
+    var idPanier : String = ""
 
 ) : Serializable{
     override fun equals(other: Any?): Boolean {

@@ -1,24 +1,30 @@
 package com.raminagrobis.centraleachat.domain.commande.usecase
 
+import com.raminagrobis.centraleachat.domain.administration.adapter.ISocieteRepo
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
+import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
 import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
+import com.raminagrobis.centraleachat.domain.commande.dto.AchatMin
 import com.raminagrobis.centraleachat.domain.commande.exception.CantAddAchatException
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.fournisseur.exception.IncorrectRoleSocieteException
 import org.springframework.stereotype.Service
 
 @Service
-class EffectuerAchat(val repo : IAchatRepo) {
+class EffectuerAchat(val repoAchat : IAchatRepo, val repoSociete : ISocieteRepo, val repoPanier : IPanierRepo) {
 
-    fun handle(achat: AchatDTO){
+    fun handle(achat: AchatMin){
 
-        if (achat.adherent!!.role == Role.FOURNISSEUR){
+        val adherent = repoSociete.findSocieteByID(achat.idAdherent)
+        val panier = repoPanier.findById(achat.idPanier)
+
+        if (adherent.role == Role.FOURNISSEUR){
             throw IncorrectRoleSocieteException()
-        } else if(achat.panier!!.etatPanier == EtatPanier.FERMER){
+        } else if(panier.etatPanier == EtatPanier.FERMER){
             throw  CantAddAchatException("Le panier est ferme")
         } else {
-            repo.saveAchat(achat)
+            repoAchat.saveAchat(achat)
         }
 
     }

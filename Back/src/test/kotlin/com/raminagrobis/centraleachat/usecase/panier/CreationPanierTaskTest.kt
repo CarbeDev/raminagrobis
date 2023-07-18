@@ -142,7 +142,7 @@ class CreationPanierTaskTest {
         verify(repoPanier, times(1)).savePaniers(captor.capture())
 
         assertEquals(proposition.societe, captor.firstValue.elementAt(0).listeAchat[0].fournisseur)
-        assertEquals(proposition.prix, captor.firstValue.elementAt(0).listeAchat[0].prix)
+        assertEquals(proposition.prix, captor.firstValue.elementAt(0).listeAchat[0].prixUnitaire)
     }
 
     @Test
