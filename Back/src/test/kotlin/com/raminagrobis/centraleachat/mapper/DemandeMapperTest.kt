@@ -5,7 +5,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.mapper.CategoryMapperImpl
 import com.raminagrobis.centraleachat.domain.administration.mapper.SocieteMapperImpl
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDetail
 import com.raminagrobis.centraleachat.domain.demande.mapper.DemandeMapperImpl
 import com.raminagrobis.centraleachat.infra.demande.entity.DemandeEntity
 import com.raminagrobis.centraleachat.infra.produit.entity.CategorieEntity
@@ -48,7 +48,7 @@ class DemandeMapperTest {
     @Test
     fun dtoToEntity(){
 
-        val dto = DemandeDTO(
+        val dto = DemandeDetail(
             id = 1,
             nom = "Apple TrackPad",
             description = "Trop cher",

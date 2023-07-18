@@ -6,7 +6,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeRepo
-import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDetail
 import com.raminagrobis.centraleachat.domain.demande.usecase.RecupererDemandeParSociete
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -29,7 +29,7 @@ class RecupererDemandesParSocieteTest {
     fun laFonctionDoitRetournerLesDemandes(){
 
         val demandes = listOf(
-            DemandeDTO(
+            DemandeDetail(
                 id = 1,
                 nom = "Apple TrackPad",
                 description = "Trop cher",
@@ -45,7 +45,7 @@ class RecupererDemandesParSocieteTest {
                     actif = false
                 )
             ),
-            DemandeDTO(
+            DemandeDetail(
                 id = 2,
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",

@@ -9,6 +9,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDetail
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeGere
 import com.raminagrobis.centraleachat.domain.demande.usecase.*
 import org.junit.jupiter.api.Assertions.*
@@ -60,17 +61,8 @@ class DemandeControllerTest {
             id = 1,
             nom = "Apple TrackPad",
             description = "Trop cher",
-            categorie = CategorieDTO(
-                id = 1,
-                libelle = "Souris"
-            ),
-            societe = SocieteDTO(
-                id = 1,
-                nom = "Fournisseur1",
-                email = "fournisseur1@email.fr",
-                role = Role.FOURNISSEUR,
-                actif = false
-            )
+            idCategorie = 1,
+            idSociete = 1
         )
 
         val response = mvc.perform(

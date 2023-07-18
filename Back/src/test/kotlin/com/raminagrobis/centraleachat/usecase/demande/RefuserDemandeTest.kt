@@ -7,7 +7,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeRepo
-import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDetail
 import com.raminagrobis.centraleachat.domain.demande.model.EtatDemande
 import com.raminagrobis.centraleachat.domain.demande.usecase.RefuserDemande
 import org.junit.jupiter.api.Assertions.*
@@ -30,7 +30,7 @@ class RefuserDemandeTest {
     @Test
     fun laDemandeDoitEtreMiseAJour(){
 
-        val demande = DemandeDTO(
+        val demande = DemandeDetail(
             id = 1,
             nom = "Apple TrackPad",
             description = "Trop cher",
@@ -47,7 +47,7 @@ class RefuserDemandeTest {
             )
         )
 
-        val captor = argumentCaptor<DemandeDTO>()
+        val captor = argumentCaptor<DemandeDetail>()
 
         `when`(repo.getDemandeById(1)).thenReturn(demande)
         usecase.handle(1)

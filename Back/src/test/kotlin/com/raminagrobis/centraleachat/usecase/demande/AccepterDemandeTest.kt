@@ -9,7 +9,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeRepo
-import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDetail
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeGere
 import com.raminagrobis.centraleachat.domain.demande.model.EtatDemande
 import com.raminagrobis.centraleachat.domain.demande.usecase.AccepterDemande
@@ -53,7 +53,7 @@ class AccepterDemandeTest {
         )
 
 
-        val demande = DemandeDTO(
+        val demande = DemandeDetail(
             id = 1,
             nom = "Apple TrackPad",
             description = "Trop cher",
@@ -82,7 +82,7 @@ class AccepterDemandeTest {
     @Test
     fun laDemandeEstMiseAJour(){
 
-        val captor = argumentCaptor<DemandeDTO>()
+        val captor = argumentCaptor<DemandeDetail>()
 
         verify(demandeRepo, times(1)).saveDemande(captor.capture())
         assertEquals(EtatDemande.ACCEPTE, captor.firstValue.etat)

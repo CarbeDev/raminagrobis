@@ -1,6 +1,7 @@
 package com.raminagrobis.centraleachat.app.controller.demande
 
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDetail
 import com.raminagrobis.centraleachat.domain.demande.dto.DemandeGere
 import com.raminagrobis.centraleachat.domain.demande.usecase.*
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -20,12 +21,12 @@ class DemandeController(
 ){
 
     @GetMapping("/demandes/{id}")
-    fun recupererUneDemande(@PathVariable id: Int) : DemandeDTO{
+    fun recupererUneDemande(@PathVariable id: Int) : DemandeDetail{
         return recupererDemandeParId.handle(id)
     }
 
     @GetMapping("/demandes")
-    fun recupererDesDemandes() : Iterable<DemandeDTO>{
+    fun recupererDesDemandes() : Iterable<DemandeDetail>{
         return recupererDemandes.handle()
     }
     @PostMapping("/demandes")
@@ -47,7 +48,7 @@ class DemandeController(
     }
 
     @GetMapping("demandes/societe/{id}")
-    fun recupererUneDemandeParIdSociete(@PathVariable id: Int) : Iterable<DemandeDTO>{
+    fun recupererUneDemandeParIdSociete(@PathVariable id: Int) : Iterable<DemandeDetail>{
         return recupererDemandeParSociete.handle(id)
     }
 }
