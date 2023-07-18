@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 
 @Tag(name = "Achat")
 @RestController
-@RequestMapping("/achat")
+@RequestMapping("/achats")
 class CommandeController(
     val effectuerAchat: EffectuerAchat,
     val annulerAchat: AnnulerAchat,
