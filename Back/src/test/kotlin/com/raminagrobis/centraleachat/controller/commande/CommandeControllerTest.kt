@@ -69,7 +69,7 @@ class CommandeControllerTest {
         )
 
         val response = mvc.perform(
-            post("/achat").contentType(MediaType.APPLICATION_JSON).content(
+            post("/achats").contentType(MediaType.APPLICATION_JSON).content(
                 jsonAchatDTO.write(achat).json
             )
         ).andReturn().response
@@ -87,7 +87,7 @@ class CommandeControllerTest {
         )
 
         val response = mvc.perform(
-            delete("/achat").contentType(MediaType.APPLICATION_JSON).content(
+            delete("/achats").contentType(MediaType.APPLICATION_JSON).content(
                 jsonKey.write(key).json
             )
         ).andReturn().response
@@ -154,7 +154,7 @@ class CommandeControllerTest {
         `when`(recupererAchats.handle(refProduit, idPanier)).thenReturn(resultat)
 
         val response = mvc.perform(
-            get("/achat?referenceProduit=B550MDS3H&idPanier=23-23")
+            get("/achats?referenceProduit=B550MDS3H&idPanier=23-23")
         ).andReturn().response
 
         verify(recupererAchats, times(1)).handle("B550MDS3H", "23-23")
