@@ -6,21 +6,23 @@ import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererPro
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "Produit")
 @RestController
+@RequestMapping("/produits")
 class ProduitController(
     val recupererProduits: RecupererProduits,
     val recupererProduit: RecupererProduit
 ){
 
-    @GetMapping("/produits")
+    @GetMapping()
     fun getAllProduit(): Iterable<ProduitDetail> {
         return recupererProduits.handle()
     }
 
-    @GetMapping("/produit/{ref}")
+    @GetMapping("/{ref}")
     fun getProduit(@PathVariable ref:String) : ProduitDetail {
         return recupererProduit.handle(ref)
     }

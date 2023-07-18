@@ -93,7 +93,7 @@ class ProduitControllerTest {
         `when`(recupererProduit.handle("LG203")).doReturn(produit)
 
         val response = mvc.perform(
-            get("/produit/LG203")
+            get("/produits/LG203")
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(), response.status)
