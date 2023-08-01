@@ -7,6 +7,7 @@ import com.raminagrobis.centraleachat.domain.administration.mapper.ProduitMapper
 import com.raminagrobis.centraleachat.domain.administration.mapper.SocieteMapperImpl
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDetail
 import com.raminagrobis.centraleachat.domain.fournisseur.mapper.PropositionMapperImpl
 import com.raminagrobis.centraleachat.infra.produit.entity.CategorieEntity
 import com.raminagrobis.centraleachat.infra.produit.entity.ProduitEntity
@@ -61,30 +62,16 @@ class PropositionMapperTest {
     @Test
     fun dtoToEntity(){
         val dto = PropositionDTO(
-            societe = SocieteDTO(
-                id = 1,
-                nom = "Fournisseur1",
-                email = "fournisseur1@email.fr",
-                role = Role.FOURNISSEUR,
-                actif = false
-            ),
-            produit = ProduitDetail(
-                reference = "VisPRO",
-                nom = "Apple Vision Pro",
-                description = "Revolutionnaire",
-                actif = true,
-                CategorieDTO(
-                    id = 3,
-                    libelle = "Autre"
-                )
-            ),
+            idSociete = 1,
+            refProduit = "VisPRO",
             prix = BigDecimal(3200)
         )
 
+
         val entity = PropositionMapperImpl().toEntity(dto)
 
-        assertEquals(dto.societe.id , entity.propositionKey!!.idSociete)
-        assertEquals(dto.produit.reference, entity.propositionKey!!.reference)
+        assertEquals(dto.idSociete , entity.propositionKey!!.idSociete)
+        assertEquals(dto.refProduit, entity.propositionKey!!.reference)
         assertEquals(dto.prix, entity.prix)
     }
 }

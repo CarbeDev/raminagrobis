@@ -14,7 +14,7 @@ import com.raminagrobis.centraleachat.domain.commande.dto.PanierConfirme
 import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
-import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDetail
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -111,7 +111,7 @@ class CreationPanierTaskTest {
         )
         panier.listeAchat += achat
 
-        val proposition = PropositionDTO(
+        val proposition = PropositionDetail(
             produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
@@ -176,7 +176,7 @@ class CreationPanierTaskTest {
         )
         panier.listeAchat += achat
 
-        val proposition = PropositionDTO(
+        val proposition = PropositionDetail(
             produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
