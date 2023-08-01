@@ -2,10 +2,10 @@ package com.raminagrobis.centraleachat.controller.admin
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
-import com.raminagrobis.centraleachat.app.controller.admin.AdminController
-import com.raminagrobis.centraleachat.app.controller.admin.SocieteToCreate
+import com.raminagrobis.centraleachat.app.controller.admin.AdminSocieteController
 import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.SocieteToCreate
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
 import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes.*
@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import java.util.*
 
 @ExtendWith(MockitoExtension::class)
-class AdminControllerTest {
+class AdminSocieteControllerTest {
 
     private lateinit var mvc: MockMvc
 
@@ -42,7 +42,7 @@ class AdminControllerTest {
     @Mock
     private lateinit var miseAJourSociete: MiseAJourSociete
     @InjectMocks
-    private lateinit var controller : AdminController
+    private lateinit var controller : AdminSocieteController
 
     private lateinit var jsonSocieteDTOs: JacksonTester<Iterable<SocieteDTO>>
     private lateinit var jsonSocieteDTO: JacksonTester<SocieteDTO>
@@ -77,7 +77,7 @@ class AdminControllerTest {
         `when`(recupererSocietes.handle()).doReturn(societes)
 
         val response = mvc.perform(
-            get("/admin/societes")
+            get("/admin/societes/")
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(),response.status)
@@ -99,7 +99,7 @@ class AdminControllerTest {
         `when`(recupererSociete.handle(1)).doReturn(societe)
 
         val response = mvc.perform(
-            get("/admin/societe/1")
+            get("/admin/societes/1")
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(), response.status)
@@ -115,7 +115,7 @@ class AdminControllerTest {
         )
 
         val response = mvc.perform(
-            post("/admin/societe/create").contentType(MediaType.APPLICATION_JSON).content(
+            post("/admin/societes/").contentType(MediaType.APPLICATION_JSON).content(
                 jsonSocieteToCreate.write(societe).json
             )
         ).andReturn().response
@@ -126,21 +126,27 @@ class AdminControllerTest {
     @Test
     fun uneSuppressionDeSociete(){
         val response = mvc.perform(
-            delete("/admin/societe/delete/1")
+            delete("/admin/societes/1")
         ).andReturn().response
 
         assertEquals(HttpStatus.NO_CONTENT.value(), response.status)
     }
 
-    /*@Test
+    @Test
     fun uneMiseAJourDuneSociete(){
         val response = mvc.perform(
-            put("/admin/societe/update").contentType(MediaType.APPLICATION_JSON).content(
-                jsonSociete.write(Societe()).json
+            put("/admin/societes/").contentType(MediaType.APPLICATION_JSON).content(
+                jsonSocieteDTO.write(SocieteDTO(
+                    id = 1,
+                    nom = "Fournisseur1",
+                    email = "fournisseur1@email.fr",
+                    role = Role.FOURNISSEUR,
+                    actif = true
+                )).json
             )
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(), response.status)
-    }*/
+    }
 
 }

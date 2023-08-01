@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
 import com.raminagrobis.centraleachat.app.controller.produit.ProduitController
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -33,8 +33,8 @@ class ProduitControllerTest {
     @InjectMocks
     private lateinit var controller : ProduitController
 
-    private lateinit var jsonProduit : JacksonTester<ProduitDTO>
-    private lateinit var jsonProduits : JacksonTester<List<ProduitDTO>>
+    private lateinit var jsonProduit : JacksonTester<ProduitDetail>
+    private lateinit var jsonProduits : JacksonTester<List<ProduitDetail>>
 
     @BeforeEach
     fun setup(){
@@ -45,7 +45,7 @@ class ProduitControllerTest {
     @Test
     fun desProduitsSontRecuperer(){
         val produits = listOf(
-            ProduitDTO(
+            ProduitDetail(
                 reference = "LG203",
                 nom = "Logitech G203",
                 description = "Un tres bon produit",
@@ -55,7 +55,7 @@ class ProduitControllerTest {
                     libelle = "Souris"
                 )
             ),
-            ProduitDTO(
+            ProduitDetail(
                 reference = "HUAMV",
                 nom = "Huawei MateView",
                 description = "Un tres bon ecran",
@@ -79,7 +79,7 @@ class ProduitControllerTest {
 
     @Test
     fun unProduitEstRecuperer(){
-        val produit = ProduitDTO(
+        val produit = ProduitDetail(
             reference = "LG203",
             nom = "Logitech G203",
             description = "Un tres bon produit",
@@ -93,7 +93,7 @@ class ProduitControllerTest {
         `when`(recupererProduit.handle("LG203")).doReturn(produit)
 
         val response = mvc.perform(
-            get("/produit/LG203")
+            get("/produits/LG203")
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(), response.status)

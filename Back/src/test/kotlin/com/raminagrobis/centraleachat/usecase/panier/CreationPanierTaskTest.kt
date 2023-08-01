@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
@@ -14,7 +14,7 @@ import com.raminagrobis.centraleachat.domain.commande.dto.PanierConfirme
 import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.fournisseur.adapter.IPropositionRepo
-import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDetail
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -97,7 +97,7 @@ class CreationPanierTaskTest {
                 role = Role.ADHERENT,
                 actif = true
             ),
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",
@@ -111,8 +111,8 @@ class CreationPanierTaskTest {
         )
         panier.listeAchat += achat
 
-        val proposition = PropositionDTO(
-            produit = ProduitDTO(
+        val proposition = PropositionDetail(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",
@@ -142,7 +142,7 @@ class CreationPanierTaskTest {
         verify(repoPanier, times(1)).savePaniers(captor.capture())
 
         assertEquals(proposition.societe, captor.firstValue.elementAt(0).listeAchat[0].fournisseur)
-        assertEquals(proposition.prix, captor.firstValue.elementAt(0).listeAchat[0].prix)
+        assertEquals(proposition.prix, captor.firstValue.elementAt(0).listeAchat[0].prixUnitaire)
     }
 
     @Test
@@ -162,7 +162,7 @@ class CreationPanierTaskTest {
                 role = Role.ADHERENT,
                 actif = true
             ),
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",
@@ -176,8 +176,8 @@ class CreationPanierTaskTest {
         )
         panier.listeAchat += achat
 
-        val proposition = PropositionDTO(
-            produit = ProduitDTO(
+        val proposition = PropositionDetail(
+            produit = ProduitDetail(
                 reference = "VisPRO",
                 nom = "Apple Vision Pro",
                 description = "Revolutionnaire",

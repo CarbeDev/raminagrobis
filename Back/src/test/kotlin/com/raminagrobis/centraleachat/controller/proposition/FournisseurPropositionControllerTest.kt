@@ -1,14 +1,19 @@
 package com.raminagrobis.centraleachat.controller.proposition
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.app.controller.proposition.FournisseurPropositionController
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDetail
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.FaireUnePropositionDePrix
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.SupprimerUnePropositionDePrix
+import com.raminagrobis.centraleachat.infra.proposition.entity.PropositionKey
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -41,56 +46,50 @@ class FournisseurPropositionControllerTest {
     private lateinit var controller : FournisseurPropositionController
 
     private lateinit var jsonProposition : JacksonTester<PropositionDTO>
-    private lateinit var proposition : PropositionDTO
+    private lateinit var jsonPropositionKey : JacksonTester<PropositionKey>
     @BeforeEach
     fun setup(){
         JacksonTester.initFields(this, ObjectMapper())
         mvc = MockMvcBuilders.standaloneSetup(controller).build()
-        proposition = PropositionDTO(
-            societe = SocieteDTO(
-                id = 1,
-                nom = "Fournisseur1",
-                email = "fournisseur1@email.fr",
-                role = Role.FOURNISSEUR,
-                actif = false
-            ),
-            produit = ProduitDTO(
-                reference = "VisPRO",
-                nom = "Apple Vision Pro",
-                description = "Revolutionnaire",
-                actif = true,
-                CategorieDTO(
-                    id = 3,
-                    libelle = "Autre"
-                )
-            ),
-            prix = BigDecimal(3200)
-        )
+
     }
 
 
     @Test
     fun unePropositionDePrixEstEnregistre(){
 
+        val proposition = PropositionDTO(
+            idSociete = 1,
+            refProduit = "VisPRO",
+            prix = BigDecimal(3200)
+        )
+
         val response = mvc.perform(
-            post("/fournisseur/proposition/add").contentType(MediaType.APPLICATION_JSON).content(
+            post("/fournisseur/proposition").contentType(MediaType.APPLICATION_JSON).content(
                 jsonProposition.write(proposition).json
             )
         ).andReturn().response
 
-        assertEquals(HttpStatus.CREATED.value(),response.status,)
+        assertEquals(HttpStatus.CREATED.value(),response.status)
+        verify(faireUnePropositionDePrix, times(1)).handle(proposition)
     }
 
     @Test
     fun unePropositionDePrixEstSupprimer(){
 
+        val propositionKey = PropositionKey(
+            idSociete = 1,
+            reference = "VisPro"
+        )
+
         val response = mvc.perform(
-            delete("/fournisseur/proposition/delete").contentType(MediaType.APPLICATION_JSON).content(
-                jsonProposition.write(proposition).json
+            delete("/fournisseur/proposition").contentType(MediaType.APPLICATION_JSON).content(
+                jsonPropositionKey.write(propositionKey).json
             )
         ).andReturn().response
 
         assertEquals(HttpStatus.NO_CONTENT.value(),response.status)
+        verify(supprimerUnePropositionDePrix, times(1)).handle(any())
     }
 
 }

@@ -6,7 +6,7 @@ import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.demande.adapter.IDemandeRepo
-import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDTO
+import com.raminagrobis.centraleachat.domain.demande.dto.DemandeDetail
 import com.raminagrobis.centraleachat.domain.demande.usecase.RecupererDemandeParId
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,7 +28,7 @@ class RecupererDemandeParIdTest {
     fun laFonctionDoitLaDemande(){
         val id= 1
 
-        val demande = DemandeDTO(
+        val demande = DemandeDetail(
             id = id,
             nom = "Apple TrackPad",
             description = "Trop cher",

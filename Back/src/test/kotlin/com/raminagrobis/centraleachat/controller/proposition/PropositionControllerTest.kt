@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
 import com.raminagrobis.centraleachat.app.controller.proposition.PropositionController
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDTO
+import com.raminagrobis.centraleachat.domain.fournisseur.dto.PropositionDetail
 import com.raminagrobis.centraleachat.domain.fournisseur.usecase.RecupererPropositions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -36,7 +36,7 @@ class PropositionControllerTest {
     @InjectMocks
     private lateinit var  controller: PropositionController
 
-    private lateinit var jsonPropositions : JacksonTester<Iterable<PropositionDTO>>
+    private lateinit var jsonPropositions : JacksonTester<Iterable<PropositionDetail>>
 
     @BeforeEach
     fun setup(){
@@ -45,10 +45,10 @@ class PropositionControllerTest {
     }
 
     @Test
-    fun DesPropositionsPeuventEtreRecupererAPartirDeLeurFournisseur(){
+    fun desPropositionsPeuventEtreRecupererAPartirDeLeurFournisseur(){
 
         val resultat = listOf(
-            PropositionDTO(
+            PropositionDetail(
                 societe = SocieteDTO(
                     id = 1,
                     nom = "Fournisseur1",
@@ -56,7 +56,7 @@ class PropositionControllerTest {
                     role = Role.FOURNISSEUR,
                     actif = false
                 ),
-                produit = ProduitDTO(
+                produit = ProduitDetail(
                     reference = "VisPRO",
                     nom = "Apple Vision Pro",
                     description = "Revolutionnaire",
@@ -68,7 +68,7 @@ class PropositionControllerTest {
                 ),
                 prix = BigDecimal(3200)
             ),
-            PropositionDTO(
+            PropositionDetail(
                 societe = SocieteDTO(
                     id = 1,
                     nom = "Fournisseur1",
@@ -76,7 +76,7 @@ class PropositionControllerTest {
                     role = Role.FOURNISSEUR,
                     actif = false
                 ),
-                produit = ProduitDTO(
+                produit = ProduitDetail(
                     reference = "LSD",
                     nom = "Logitech StreamDeck",
                     description = "Tres utile",
@@ -101,10 +101,10 @@ class PropositionControllerTest {
     }
 
     @Test
-    fun DesPropositionsPeuventEtreRecupererAPartirDeLeurProduit(){
+    fun desPropositionsPeuventEtreRecupererAPartirDeLeurProduit(){
 
         val resultat = listOf(
-            PropositionDTO(
+            PropositionDetail(
                 societe = SocieteDTO(
                     id = 1,
                     nom = "Fournisseur1",
@@ -112,7 +112,7 @@ class PropositionControllerTest {
                     role = Role.FOURNISSEUR,
                     actif = false
                 ),
-                produit = ProduitDTO(
+                produit = ProduitDetail(
                     reference = "VisPRO",
                     nom = "Apple Vision Pro",
                     description = "Revolutionnaire",
@@ -124,7 +124,7 @@ class PropositionControllerTest {
                 ),
                 prix = BigDecimal(3200)
             ),
-            PropositionDTO(
+            PropositionDetail(
                 societe = SocieteDTO(
                     id = 1,
                     nom = "Fournisseur2",
@@ -132,7 +132,7 @@ class PropositionControllerTest {
                     role = Role.FOURNISSEUR,
                     actif = false
                 ),
-                produit = ProduitDTO(
+                produit = ProduitDetail(
                     reference = "VisPRO",
                     nom = "Apple Vision Pro",
                     description = "Revolutionnaire",

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class PanierRepo(val repo: SQLPanier, val mapper : PanierMapper) : IPanierRepo{
+    override fun findById(id: String): PanierDTO {
+        return mapper.toDTO(repo.findById(id).orElseThrow())
+    }
 
     override fun getPaniersOuvert(): Iterable<PanierDTO> {
         return repo.findAllByEtatPanier(EtatPanier.OUVERT).map { mapper.toDTO(it) }

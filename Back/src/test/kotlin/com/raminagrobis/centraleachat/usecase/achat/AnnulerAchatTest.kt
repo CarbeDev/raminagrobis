@@ -3,21 +3,23 @@ package com.raminagrobis.centraleachat.usecase.achat
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.raminagrobis.centraleachat.domain.administration.dto.CategorieDTO
-import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDTO
+import com.raminagrobis.centraleachat.domain.administration.dto.ProduitDetail
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.commande.adapter.IAchatRepo
-import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
+import com.raminagrobis.centraleachat.domain.commande.dto.AchatDetail
 import com.raminagrobis.centraleachat.domain.commande.dto.PanierDTO
 import com.raminagrobis.centraleachat.domain.commande.exception.CantRemoveAchatException
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
 import com.raminagrobis.centraleachat.domain.commande.usecase.AnnulerAchat
+import com.raminagrobis.centraleachat.infra.achat.entity.AchatKey
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 
 
@@ -25,23 +27,24 @@ import org.mockito.junit.jupiter.MockitoExtension
 class AnnulerAchatTest {
 
     @Mock
-    private lateinit var repoAchat: IAchatRepo
+    private lateinit var repo: IAchatRepo
 
     @InjectMocks
     private lateinit var usecase : AnnulerAchat
 
-    private lateinit var panier : PanierDTO
-    private lateinit var achat: AchatDTO
+    private lateinit var key : AchatKey
+    private lateinit var achat: AchatDetail
 
     @BeforeEach
     fun setup(){
-        panier = PanierDTO(
-            id = "23-23",
-            etatPanier = EtatPanier.OUVERT,
-            listeAchat = listOf()
+
+        key = AchatKey(
+            idSociete = 1,
+            reference = "B550MDS3H",
+            idPanier = "23-23"
         )
 
-        achat = AchatDTO(
+        achat = AchatDetail(
             adherent = SocieteDTO(
                 id = 1,
                 nom = "Free agent",
@@ -49,7 +52,7 @@ class AnnulerAchatTest {
                 role = Role.ADHERENT,
                 actif = true
             ),
-            produit = ProduitDTO(
+            produit = ProduitDetail(
                 reference = "B550MDS3H",
                 nom = "Gigabyte B550M DS3H",
                 description = "Une carte mere",
@@ -58,9 +61,15 @@ class AnnulerAchatTest {
                     libelle = "Carte mere"),
                 actif = true,
             ),
-            panier = panier,
+            panier = PanierDTO(
+                id = "23-23",
+                etatPanier = EtatPanier.OUVERT,
+                listeAchat = listOf()
+            ),
             quantite = 50
         )
+
+        `when`(repo.getAchat(key)).thenReturn(achat)
     }
 
 
@@ -68,16 +77,18 @@ class AnnulerAchatTest {
     fun annulerUnAchatAlorsQueLePanierEstFermeEnvoiUneException(){
         achat.panier.etatPanier = EtatPanier.FERMER
 
+
+
         assertThrows(CantRemoveAchatException::class.java){
-            usecase.handle(achat)
+            usecase.handle(key)
         }
     }
 
     @Test
     fun annulerUnAchatDansUnPanierOuvertLeSupprime(){
 
-        usecase.handle(achat)
+        usecase.handle(key)
 
-        verify(repoAchat, times(1)).deleteAchat(achat)
+        verify(repo, times(1)).deleteAchat(achat)
     }
 }

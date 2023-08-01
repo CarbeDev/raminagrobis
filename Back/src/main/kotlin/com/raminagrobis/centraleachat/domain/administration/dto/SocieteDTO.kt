@@ -19,7 +19,7 @@ data class DetailSociete(
     var role: Role?,
     var actif : Boolean,
     var dateInscription : Date,
-    var historique : List<AchatEntity>
+    var historique : List<AchatEntity> = listOf()
 )
 
 data class UserSociete(
@@ -29,4 +29,10 @@ data class UserSociete(
     var role: Role?,
     var dateInscription: Date,
     var actif : Boolean,
+)
+
+data class SocieteToCreate(
+    val email : String,
+    val nom : String,
+    val role: Role
 )

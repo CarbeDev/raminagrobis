@@ -26,6 +26,6 @@ class SocieteEntity(
     var dateInscription : Date? = null,
     @Column(nullable = false)
     var actif : Boolean = false,
-    @OneToMany(mappedBy = "societe")
+    @OneToMany(mappedBy = "adherent")
     var historique : List<AchatEntity> = listOf()
 )

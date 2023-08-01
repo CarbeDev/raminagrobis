@@ -2,7 +2,7 @@ package com.raminagrobis.centraleachat.domain.commande.config
 
 import com.raminagrobis.centraleachat.domain.commande.adapter.IPanierRepo
 import com.raminagrobis.centraleachat.domain.commande.builder.PanierBuilder
-import com.raminagrobis.centraleachat.domain.commande.dto.AchatConfirme
+import com.raminagrobis.centraleachat.domain.commande.dto.AchatDetail
 import com.raminagrobis.centraleachat.domain.commande.dto.AchatDTO
 import com.raminagrobis.centraleachat.domain.commande.dto.PanierConfirme
 import com.raminagrobis.centraleachat.domain.commande.model.EtatPanier
@@ -42,16 +42,16 @@ class CreationPanierTask(val panierRepo : IPanierRepo, val propositionRepo : IPr
 
     }
 
-    private fun attribuerPrixAuxAchats(achat : AchatDTO) : AchatConfirme{
+    private fun attribuerPrixAuxAchats(achat : AchatDTO) : AchatDetail{
 
         val meilleurProposition = propositionRepo.getLowestPropositionPrixByPrix(achat.produit.reference)
 
-        return AchatConfirme(
+        return AchatDetail(
             adherent = achat.adherent,
             produit = achat.produit,
             panier = achat.panier,
             quantite = achat.quantite,
-            prix = meilleurProposition.prix,
+            prixUnitaire = meilleurProposition.prix,
             fournisseur = meilleurProposition.societe
         )
     }
