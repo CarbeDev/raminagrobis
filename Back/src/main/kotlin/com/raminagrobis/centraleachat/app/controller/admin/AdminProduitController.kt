@@ -24,12 +24,14 @@ class AdminProduitController(
     }
 
     @PutMapping("activate/{ref}")
-    fun activeProduit(@PathVariable ref :String){
+    fun activeProduit(@PathVariable ref :String) : ResponseEntity<String>{
         activerProduit.handle(ref)
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 
     @PutMapping("desactivate/{ref}")
-    fun desactiveProduit(@PathVariable ref : String){
+    fun desactiveProduit(@PathVariable ref : String) : ResponseEntity<String>{
         desactiverProduit.handle(ref)
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }

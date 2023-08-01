@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "Proposition")
 @RestController
-@RequestMapping("/fournisseur/proposition")
+@RequestMapping("/fournisseur/propositions")
 class FournisseurPropositionController(
     val faireUnePropositionDePrix: FaireUnePropositionDePrix,
     val supprimerUnePropositionDePrix: SupprimerUnePropositionDePrix,

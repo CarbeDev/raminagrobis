@@ -76,7 +76,7 @@ class AdminProduitControllerTest {
         ).andReturn().response
 
         verify(activerProduit, times(1)).handle("VisPRO")
-        assertEquals(HttpStatus.OK.value(), response.status)
+        assertEquals(HttpStatus.CREATED.value(), response.status)
     }
 
     @Test
@@ -86,7 +86,7 @@ class AdminProduitControllerTest {
         ).andReturn().response
 
         verify(desactiverProduit, times(1)).handle("VisPRO")
-        assertEquals(HttpStatus.OK.value(), response.status)
+        assertEquals(HttpStatus.CREATED.value(), response.status)
     }
 
 }

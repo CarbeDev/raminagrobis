@@ -46,7 +46,7 @@ class AdminSocieteController(
     @PutMapping("")
     fun updateSociete(@RequestBody societe: SocieteDTO) : ResponseEntity<String>{
         miseAJourSociete.handle(societe)
-        return ResponseEntity(HttpStatus.OK)
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }
 
