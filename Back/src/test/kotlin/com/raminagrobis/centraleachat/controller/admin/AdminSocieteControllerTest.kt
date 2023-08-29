@@ -92,7 +92,6 @@ class AdminSocieteControllerTest {
             email = "fournisseur1@email.fr",
             role = Role.FOURNISSEUR,
             actif = false,
-            historique = listOf<AchatEntity>(),
             dateInscription = Date()
         )
 

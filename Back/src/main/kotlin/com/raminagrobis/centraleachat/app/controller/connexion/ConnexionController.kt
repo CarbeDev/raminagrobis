@@ -18,7 +18,6 @@ class ConnexionController(
     fun connexionSociete(@RequestBody connexionFormData : ConnexionForm): Map<String,String>{
 
         val token = connexionUtilisateur.handle(connexionFormData.email,connexionFormData.mdp,connexionFormData.admin)
-
         return mapOf(
             Pair("Token", token),
             Pair("Issued at", jwtTokenUtil.getIssuedAt(token)),

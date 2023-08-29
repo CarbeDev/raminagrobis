@@ -20,7 +20,6 @@ class SocieteMapperTest {
         role = Role.FOURNISSEUR,
         actif = true,
         dateInscription = java.sql.Date(0),
-        historique = listOf()
     )
 
     val dto = SocieteDTO(
@@ -38,7 +37,6 @@ class SocieteMapperTest {
         role = Role.ADHERENT,
         actif = false,
         dateInscription = Date(),
-        historique = listOf()
     )
 
     val userSociete = UserSociete(
@@ -71,7 +69,6 @@ class SocieteMapperTest {
         assertEquals(entity.role, detail.role)
         assertEquals(entity.actif, detail.actif)
         assertEquals(entity.dateInscription,detail.dateInscription)
-        assertEquals(entity.historique, detail.historique)
     }
 
     @Test

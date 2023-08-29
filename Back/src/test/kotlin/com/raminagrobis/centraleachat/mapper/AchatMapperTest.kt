@@ -44,7 +44,7 @@ class AchatMapperTest {
                 motDePasse = "TwitchFr",
                 role = Role.ADHERENT,
                 actif = true,
-                historique = listOf()
+
             ),
             produit = ProduitEntity(
                 reference = reference,
