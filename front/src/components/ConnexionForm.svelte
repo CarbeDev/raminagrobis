@@ -1,8 +1,8 @@
 <script lang="ts">
     import 'bulma/css/bulma.css'
-    import type ConnexionData from "../models/ConnexionData";
     import axios from 'axios'
-    import ErrorBox from "./Box/ErrorBox.svelte";
+    import {ConnexionApi, ConnexionData} from "../api/ConnexionApi";
+    import type {GetTokenResponse} from "../api/ConnexionApi";
 
     let erreurConnexion = false
 
@@ -14,15 +14,16 @@
             "admin": false
         }
 
-        await axios.post("http://localhost:8080/connexion", data).then((response) => {
-            createCookie(response)
+        new ConnexionApi().getToken(data).then((token) => {
+            createCookie(token)
         }).catch((error) => {
+            console.log(error)
             erreurConnexion = true
         })
     }
 
-    function createCookie(response) {
-        document.cookie = `token=${response.data.Token}; expires=${response.data.Expire}; SameSite=None; Secure;`
+    function createCookie(response : GetTokenResponse) {
+        document.cookie = `token=${response.token}; expires=${response.expire}; SameSite=None; Secure;`
     }
 
     function closeNotification(){
