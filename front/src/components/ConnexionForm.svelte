@@ -3,6 +3,7 @@
     import {ConnexionApi} from "../api/ConnexionApi";
     import type {GetTokenResponse, ConnexionData} from "../api/ConnexionApi";
 
+    export let isAdmin : boolean
     let erreurConnexion = false
 
     async function handleSubmit(e: SubmitEvent) {
@@ -13,7 +14,7 @@
         const data: ConnexionData = {
             "email": document.getElementById("email").value,
             "mdp": document.getElementById("mdp").value,
-            "admin": false
+            "admin": isAdmin
         }
 
         api.getToken(data).then((tokenResponse) => {
@@ -42,6 +43,9 @@
                 break
             case "FOURNISSEUR" :
                 document.location.href="/fournisseur"
+                break
+            case "ADMIN" :
+                document.location.href="/admin/dashboard"
                 break
             default:
                 console.log(role)
