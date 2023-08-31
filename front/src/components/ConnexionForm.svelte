@@ -1,21 +1,26 @@
 <script lang="ts">
     import 'bulma/css/bulma.css'
-    import axios from 'axios'
-    import {ConnexionApi, ConnexionData} from "../api/ConnexionApi";
-    import type {GetTokenResponse} from "../api/ConnexionApi";
+    import {ConnexionApi} from "../api/ConnexionApi";
+    import type {GetTokenResponse, ConnexionData} from "../api/ConnexionApi";
 
     let erreurConnexion = false
 
     async function handleSubmit(e: SubmitEvent) {
         e.preventDefault()
+
+        const api = new ConnexionApi()
+
         const data: ConnexionData = {
             "email": document.getElementById("email").value,
             "mdp": document.getElementById("mdp").value,
             "admin": false
         }
 
-        new ConnexionApi().getToken(data).then((token) => {
-            createCookie(token)
+        api.getToken(data).then((tokenResponse) => {
+            createCookie(tokenResponse)
+            api.getRole(tokenResponse.token).then((role)=>{
+                redirection(role)
+            })
         }).catch((error) => {
             console.log(error)
             erreurConnexion = true
@@ -28,6 +33,20 @@
 
     function closeNotification(){
         erreurConnexion = false
+    }
+
+    function redirection(role : String){
+        switch (role){
+            case "ADHERENT" :
+                document.location.href = "/adherent"
+                break
+            case "FOURNISSEUR" :
+                document.location.href="/fournisseur"
+                break
+            default:
+                console.log(role)
+                erreurConnexion = true
+        }
     }
 </script>
 

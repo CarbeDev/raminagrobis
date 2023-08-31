@@ -7,4 +7,8 @@ export class Api{
     async post(endpoint : string, data : Object){
         return await axios.post(this.suffix.concat(endpoint), data)
     }
+
+    async get(endpoint : string, data? : Object){
+        return axios.get(this.suffix.concat(endpoint), data)
+    }
 }

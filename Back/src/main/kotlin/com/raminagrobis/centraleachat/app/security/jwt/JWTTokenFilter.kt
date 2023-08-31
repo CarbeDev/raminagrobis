@@ -12,7 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 
 
 @Configuration
-class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val utilisateurRepo: UtilisateurRepo): OncePerRequestFilter() {
+class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil): OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -37,19 +37,7 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val utilisateurRepo: Utilis
     }
 
     private fun getAuthFromToken(token : String) : UsernamePasswordAuthenticationToken{
-        val utilisateur = getUtilisateurFromToken(token)
+        val utilisateur = jwtTokenUtil.getUtilisateurFromToken(token)
         return UsernamePasswordAuthenticationToken(utilisateur.email,null, utilisateur.getAuthority())
-    }
-
-    private fun getUtilisateurFromToken(token : String) : Utilisateur{
-        var utilisateur :Utilisateur
-        val email = jwtTokenUtil.getUsernameFromToken(token)
-        try {
-            utilisateur = utilisateurRepo.findAdminByEmail(email)!!
-        } catch (e : Exception){
-            utilisateur = utilisateurRepo.findSocieteByEmail(email)!!
-        }
-
-        return utilisateur
     }
 }
