@@ -44,6 +44,9 @@
             case "FOURNISSEUR" :
                 document.location.href="/fournisseur"
                 break
+            case "ADMIN" :
+                document.location.href="/admin/dashboard"
+                break
             default:
                 console.log(role)
                 erreurConnexion = true
