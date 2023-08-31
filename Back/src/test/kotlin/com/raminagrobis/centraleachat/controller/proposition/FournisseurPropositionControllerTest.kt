@@ -65,7 +65,7 @@ class FournisseurPropositionControllerTest {
         )
 
         val response = mvc.perform(
-            post("/fournisseur/proposition").contentType(MediaType.APPLICATION_JSON).content(
+            post("/fournisseur/propositions").contentType(MediaType.APPLICATION_JSON).content(
                 jsonProposition.write(proposition).json
             )
         ).andReturn().response
@@ -83,7 +83,7 @@ class FournisseurPropositionControllerTest {
         )
 
         val response = mvc.perform(
-            delete("/fournisseur/proposition").contentType(MediaType.APPLICATION_JSON).content(
+            delete("/fournisseur/propositions").contentType(MediaType.APPLICATION_JSON).content(
                 jsonPropositionKey.write(propositionKey).json
             )
         ).andReturn().response

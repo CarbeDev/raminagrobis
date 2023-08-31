@@ -145,7 +145,7 @@ class AdminSocieteControllerTest {
             )
         ).andReturn().response
 
-        assertEquals(HttpStatus.OK.value(), response.status)
+        assertEquals(HttpStatus.NO_CONTENT.value(), response.status)
     }
 
 }
