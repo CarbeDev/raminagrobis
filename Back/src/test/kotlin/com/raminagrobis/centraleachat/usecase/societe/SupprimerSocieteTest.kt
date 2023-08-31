@@ -39,7 +39,6 @@ class SupprimerSocieteTest {
             nom = "nom",
             role = Role.ADHERENT,
             actif = true,
-            historique = listOf(),
             dateInscription = Date()
         )
 

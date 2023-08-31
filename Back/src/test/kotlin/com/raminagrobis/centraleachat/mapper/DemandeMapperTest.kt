@@ -31,7 +31,6 @@ class DemandeMapperTest {
                 email = "fournisseur1@email.fr",
                 role = Role.FOURNISSEUR,
                 actif = false,
-                historique = listOf()
             )
         )
 

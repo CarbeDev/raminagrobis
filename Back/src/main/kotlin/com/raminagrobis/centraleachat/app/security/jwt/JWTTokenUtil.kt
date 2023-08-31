@@ -1,6 +1,9 @@
 package com.raminagrobis.centraleachat.app.security.jwt
 
+import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.connexion.adapter.IJWTTokenUtil
+import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
+import com.raminagrobis.centraleachat.infra.utilisateur.UtilisateurRepo
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
@@ -13,7 +16,7 @@ import java.util.function.Function
 import javax.crypto.SecretKey
 
 @Service
-class JWTTokenUtil(env: Environment): IJWTTokenUtil {
+class JWTTokenUtil(env: Environment, val utilisateurRepo: UtilisateurRepo): IJWTTokenUtil {
 
     val JWT_TOKEN_VALIDITY = (5 * 60 * 60).toLong()
 
@@ -69,6 +72,18 @@ class JWTTokenUtil(env: Environment): IJWTTokenUtil {
 
     fun isTokenExpired(token: String): Boolean {
         return getClaimFromToken(token) { obj: Claims -> obj.expiration }.before(Date())
+    }
+
+    fun getUtilisateurFromToken(token : String) : Utilisateur {
+        var utilisateur : Utilisateur
+        val email = getUsernameFromToken(token)
+        try {
+            utilisateur = utilisateurRepo.findAdminByEmail(email)!!
+        } catch (e : Exception){
+            utilisateur = utilisateurRepo.findSocieteByEmail(email)!!
+        }
+
+        return utilisateur
     }
 
 }

@@ -1,0 +1,19 @@
+---
+import Minimum from "../layouts/Minimum.astro";
+import ConnexionForm from "../components/ConnexionForm.svelte";
+import 'bulma/css/bulma.css'
+---
+
+<Minimum title="Connexion">
+	<div class="columns is-flex is-justify-content-center is-align-content-center">
+		<div class="column is-two-fifths">
+			<ConnexionForm client:load/>
+		</div>
+	</div>
+</Minimum>
+
+<style>
+	div{
+		width: 100%;
+	}
+</style>

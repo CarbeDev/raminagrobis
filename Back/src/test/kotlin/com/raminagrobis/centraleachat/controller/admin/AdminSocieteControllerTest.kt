@@ -92,7 +92,6 @@ class AdminSocieteControllerTest {
             email = "fournisseur1@email.fr",
             role = Role.FOURNISSEUR,
             actif = false,
-            historique = listOf<AchatEntity>(),
             dateInscription = Date()
         )
 
@@ -146,7 +145,7 @@ class AdminSocieteControllerTest {
             )
         ).andReturn().response
 
-        assertEquals(HttpStatus.OK.value(), response.status)
+        assertEquals(HttpStatus.NO_CONTENT.value(), response.status)
     }
 
 }
