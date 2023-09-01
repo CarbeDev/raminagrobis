@@ -29,3 +29,45 @@ const { title } = Astro.props
         height: 100%;
     }
 </style>
+
+<script>
+    import {ConnexionApi} from "../api/ConnexionApi";
+
+    function redirect(){
+        const api = new ConnexionApi()
+        const path = window.location.pathname
+
+        if (path == "/"){
+            try {
+                api.getRole(api.getTokenCookie()).then((role)=>{
+                    redirection(role)
+                })
+            } catch (e){
+                console.log("a")
+            }
+        } else {
+            if (!api.havePermission(path)){
+                  document.location.href="/"
+            }
+        }
+
+    }
+
+    function redirection(role : String){
+        switch (role){
+            case "ADHERENT" :
+                document.location.href = "/adherent"
+                break
+            case "FOURNISSEUR" :
+                document.location.href="/fournisseur"
+                break
+            case "ADMIN" :
+                document.location.href="/admin/dashboard"
+                break
+            default:
+                console.log(role)
+        }
+    }
+
+    redirect()
+</script>

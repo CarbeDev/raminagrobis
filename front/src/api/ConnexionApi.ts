@@ -19,6 +19,43 @@ export class ConnexionApi extends Api{
         const response = await super.get("/token/role/"+ token)
         return response.data
     }
+
+
+    // @ts-ignore
+    havePermission(path : string) : boolean{
+        console.log("1")
+        this.getRole(this.getTokenCookie()).then((role)=>{
+            switch (role){
+                case "ADMIN":
+                    console.log("2")
+                    return path.startsWith("/admin/")
+                case "FOURNISSEUR":
+                    console.log("3")
+                    return path.startsWith("/fournisseur")
+                case "ADHERENT":
+                    console.log("4")
+                    return path.startsWith("/adherent")
+                default:
+                    return false
+            }
+        }).catch(error => {
+            return false
+        })
+     }
+    // @ts-ignore
+    getTokenCookie() : string{
+        try {
+            return document.cookie
+                .split("; ")
+                .find((row)=> row.startsWith("token"))!!
+                .split("=")[1]
+        } catch (e){
+            console.log(e)
+            throw e
+        }
+    }
+
+
 }
 
 export interface GetTokenResponse {

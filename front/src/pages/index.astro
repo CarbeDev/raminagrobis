@@ -4,7 +4,7 @@ import ConnexionForm from "../components/ConnexionForm.svelte";
 import 'bulma/css/bulma.css'
 ---
 
-<Minimum title="Connexion">
+<Minimum title="Connexion" client:load>
 	<div class="columns is-flex is-justify-content-center is-align-content-center">
 		<div class="column is-two-fifths">
 			<ConnexionForm isAdmin=false client:load/>
