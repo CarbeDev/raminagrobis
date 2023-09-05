@@ -29,3 +29,32 @@ const { title } = Astro.props
         height: 100%;
     }
 </style>
+
+<script>
+    import {ConnexionApi} from "../api/ConnexionApi";
+    import AuthUtil from "../util/AuthUtil";
+
+    function redirect(){
+        const api = new ConnexionApi()
+        const path = window.location.pathname
+
+        if (path == "/"){
+            try {
+                api.getRole(api.getTokenCookie()).then((role)=>{
+                    AuthUtil.loginRedirection(role)
+                })
+            } catch (e){
+
+            }
+        } else {
+            if (!api.havePermission(path)){
+                     document.location.href="/"
+            }
+        }
+
+    }
+
+
+
+    redirect()
+</script>
