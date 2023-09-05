@@ -32,6 +32,7 @@ const { title } = Astro.props
 
 <script>
     import {ConnexionApi} from "../api/ConnexionApi";
+    import AuthUtil from "../util/AuthUtil";
 
     function redirect(){
         const api = new ConnexionApi()
@@ -40,34 +41,20 @@ const { title } = Astro.props
         if (path == "/"){
             try {
                 api.getRole(api.getTokenCookie()).then((role)=>{
-                    redirection(role)
+                    AuthUtil.loginRedirection(role)
                 })
             } catch (e){
-                console.log("a")
+
             }
         } else {
             if (!api.havePermission(path)){
-                  document.location.href="/"
+                     document.location.href="/"
             }
         }
 
     }
 
-    function redirection(role : String){
-        switch (role){
-            case "ADHERENT" :
-                document.location.href = "/adherent"
-                break
-            case "FOURNISSEUR" :
-                document.location.href="/fournisseur"
-                break
-            case "ADMIN" :
-                document.location.href="/admin/dashboard"
-                break
-            default:
-                console.log(role)
-        }
-    }
+
 
     redirect()
 </script>
