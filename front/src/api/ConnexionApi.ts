@@ -23,23 +23,25 @@ export class ConnexionApi extends Api{
 
     // @ts-ignore
     havePermission(path : string) : boolean{
-        console.log("1")
+        console.log(path)
         this.getRole(this.getTokenCookie()).then((role)=>{
+            console.log(path)
             switch (role){
                 case "ADMIN":
                     console.log("2")
-                    return path.startsWith("/admin/")
+                    return !path.startsWith("/admin/")
                 case "FOURNISSEUR":
                     console.log("3")
-                    return path.startsWith("/fournisseur")
+                    return !path.startsWith("/fournisseur")
                 case "ADHERENT":
                     console.log("4")
-                    return path.startsWith("/adherent")
+                    return !path.startsWith("/adherent")
                 default:
-                    return false
+                    console.log("4")
+                    return true
             }
         }).catch(error => {
-            return false
+            return true
         })
      }
     // @ts-ignore
@@ -47,7 +49,7 @@ export class ConnexionApi extends Api{
         try {
             return document.cookie
                 .split("; ")
-                .find((row)=> row.startsWith("token"))!!
+                .find( (row)=> row.startsWith("token"))!!
                 .split("=")[1]
         } catch (e){
             console.log(e)

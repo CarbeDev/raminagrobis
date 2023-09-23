@@ -38,7 +38,7 @@ const { title } = Astro.props
         const api = new ConnexionApi()
         const path = window.location.pathname
 
-        if (path == "/"){
+        if (path == "/" || path == "/admin"){
             try {
                 api.getRole(api.getTokenCookie()).then((role)=>{
                     AuthUtil.loginRedirection(role)
