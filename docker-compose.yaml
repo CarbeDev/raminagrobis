@@ -14,8 +14,8 @@ services:
        ports:
          - "6379:6379"
          - "8001:8001"
-       environment:
-         - REDIS_ARGS="--requirepass motdepasse"   
+       #environment:
+         #- REDIS_ARGS="--requirepass motdepasse"   
 
 #  back:
 #    build: ./Back
