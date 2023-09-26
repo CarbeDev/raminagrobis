@@ -20,10 +20,12 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Fi
 
     private val logger = LoggerFactory.getLogger(JWTTokenFilter::class.java)
 
+    private val permitAllList = listOf("/connexion","/token","/swagger-ui","/v3")
+
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, filterChain: FilterChain?) {
         try {
             val req = request!! as HttpServletRequest
-            if (haveRight(path = req.requestURI, token = getToken(req))){
+            if (haveRight(path = req.requestURI, token = req.getToken())){
                 filterChain!!.doFilter(request,response)
             }
             else {
@@ -42,7 +44,7 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Fi
 
     private fun haveRight(path : String, token: String?) : Boolean{
         with(path){
-            return if (this == "/connexion" || contains("/token") || contains("/swagger-ui") || contains("/v3")) true
+            return if (path.isPermitAll()) true
             else {
                 if (token == null) return false
 
@@ -56,7 +58,11 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Fi
             }
         }
     }
-    private fun getToken(request: HttpServletRequest) : String? {
-        return request.getHeader("Authorization")
+    private fun HttpServletRequest.getToken() : String? {
+        return this.getHeader("Authorization")
+    }
+
+    private fun String.isPermitAll() : Boolean{
+        return permitAllList.stream().anyMatch{ this.contains(it) }
     }
 }
