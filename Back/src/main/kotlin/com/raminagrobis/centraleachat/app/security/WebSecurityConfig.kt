@@ -19,15 +19,10 @@ class WebSecurityConfig {
 
     @Bean
     fun filterChain(http : HttpSecurity) : SecurityFilterChain {
+
         http.cors().and().csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/admin/**").hasAuthority("ADMIN")
-            .requestMatchers("/fournisseur/**").hasAuthority("FOURNISSEUR")
-            .requestMatchers("/adherent/**").hasAuthority("ADHERENT")
-            .requestMatchers("/connexion").permitAll()
-            .requestMatchers("/swagger-ui/**","/v3/**").permitAll()
-            .requestMatchers("/token/**").permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         return http.build()

@@ -1,43 +1,62 @@
 package com.raminagrobis.centraleachat.app.security.jwt
 
-import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
-import com.raminagrobis.centraleachat.infra.utilisateur.UtilisateurRepo
+import com.raminagrobis.centraleachat.domain.administration.model.Role
+import com.raminagrobis.centraleachat.infra.redis.session.SessionRepo
+import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
+import jakarta.servlet.ServletRequest
+import jakarta.servlet.ServletResponse
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.context.annotation.Configuration
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.filter.OncePerRequestFilter
+import org.slf4j.LoggerFactory
+import org.springframework.core.annotation.Order
+import org.springframework.http.HttpStatus
+import org.springframework.stereotype.Component
 
 
-@Configuration
-class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil): OncePerRequestFilter() {
+@Component
+@Order(1)
+class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Filter {
 
-    override fun doFilterInternal(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        filterChain: FilterChain
-    ) {
+    private val logger = LoggerFactory.getLogger(JWTTokenFilter::class.java)
+
+    override fun doFilter(request: ServletRequest?, response: ServletResponse?, filterChain: FilterChain?) {
         try {
-            val token = getToken(request)
-            if (token != null && jwtTokenUtil.validateToken(token)){
-                val auth = getAuthFromToken(token)
-                SecurityContextHolder.getContext().authentication = auth
+            val req = request!! as HttpServletRequest
+            if (haveRight(path = req.requestURI, token = getToken(req))){
+                filterChain!!.doFilter(request,response)
+            }
+            else {
+                logger.warn("Pas les droits")
+                val res = response as HttpServletResponse
+                res.status = HttpStatus.FORBIDDEN.value()
+                return
             }
         } catch (e : Exception){
-            println(e)
+            logger.warn(e.toString())
+            val res = response as HttpServletResponse
+            res.status = HttpStatus.FORBIDDEN.value()
+            return
         }
-
-        filterChain.doFilter(request, response)
     }
 
+    private fun haveRight(path : String, token: String?) : Boolean{
+        with(path){
+            return if (this == "/connexion" || contains("/token") || contains("/swagger-ui") || contains("/v3")) true
+            else {
+                if (token == null) return false
+
+                val role = jwtTokenUtil.getUtilisateurFromToken(token).role!!
+                when{
+                    contains("/admin") -> role == Role.ADMIN
+                    contains("/fournisseur") -> role == Role.FOURNISSEUR
+                    contains("/adherent")-> role == Role.ADHERENT
+                    else -> jwtTokenUtil.validateToken(token)
+                }
+            }
+        }
+    }
     private fun getToken(request: HttpServletRequest) : String? {
         return request.getHeader("Authorization")
-    }
-
-    private fun getAuthFromToken(token : String) : UsernamePasswordAuthenticationToken{
-        val utilisateur = jwtTokenUtil.getUtilisateurFromToken(token)
-        return UsernamePasswordAuthenticationToken(utilisateur.email,null, utilisateur.getAuthority())
     }
 }

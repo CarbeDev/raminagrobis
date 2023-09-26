@@ -14,8 +14,8 @@ class SessionAdapter(
         repo.save(mapper.toEntity(session))
     }
 
-    override fun getSession(jwt: String): Session {
-        return mapper.toDto(repo.findById(jwt).orElseThrow())
+    override fun getSession(jwt: String): Session? {
+        return mapper.toDto(repo.findById(jwt).orElse(null))
     }
 
     override fun supprimerSession(jwt: String) {
