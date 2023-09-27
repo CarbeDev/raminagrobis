@@ -4,6 +4,7 @@ import com.raminagrobis.centraleachat.app.security.jwt.JWTTokenUtil
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.connexion.usecase.ConnexionUtilisateur
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,13 +19,13 @@ class ConnexionController(
 ){
 
     @PostMapping("/connexion")
-    fun connexionSociete(@RequestBody connexionFormData : ConnexionForm): Map<String,String>{
+    fun connexionSociete(@RequestBody connexionFormData : ConnexionForm, request : HttpServletRequest): Map<String,String>{
 
-        val token = connexionUtilisateur.handle(connexionFormData.email,connexionFormData.mdp,connexionFormData.admin)
+        val token = connexionUtilisateur.handle(connexionFormData.email,connexionFormData.mdp,request.remoteAddr,connexionFormData.admin)
         return mapOf(
-            Pair("Token", token),
-            Pair("Issued at", jwtTokenUtil.getIssuedAt(token)),
-            Pair("Expire", jwtTokenUtil.getExpiration(token))
+            "Token" to token,
+            "Issued at" to jwtTokenUtil.getIssuedAt(token),
+            "Expire" to jwtTokenUtil.getExpiration(token),
         )
     }
 

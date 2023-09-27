@@ -8,6 +8,14 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
       - raminagrobisVolume:/var/lib/postgresql/data
+      
+  cache:
+       image: redis/redis-stack
+       ports:
+         - "6379:6379"
+         - "8001:8001"
+       #environment:
+         #- REDIS_ARGS="--requirepass motdepasse"   
 
 #  back:
 #    build: ./Back
