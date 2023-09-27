@@ -5,12 +5,12 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.raminagrobis.centraleachat.app.controller.connexion.ConnexionController
-import com.raminagrobis.centraleachat.app.controller.connexion.ConnexionController.*
+import com.raminagrobis.centraleachat.app.controller.connexion.ConnexionController.ConnexionForm
 import com.raminagrobis.centraleachat.app.security.jwt.JWTTokenUtil
 import com.raminagrobis.centraleachat.domain.connexion.exception.BadPasswordException
 import com.raminagrobis.centraleachat.domain.connexion.exception.UserNotFoundException
 import com.raminagrobis.centraleachat.domain.connexion.usecase.ConnexionUtilisateur
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 @ExtendWith(MockitoExtension::class)
 class ConnexionControllerTest {
 
+    private val ip = "192.0.0.1"
     private lateinit var mvc : MockMvc
 
     @Mock
@@ -47,12 +48,14 @@ class ConnexionControllerTest {
     fun setup(){
         mvc = MockMvcBuilders.standaloneSetup(controller).build()
         JacksonTester.initFields(this, ObjectMapper().registerKotlinModule())
+
     }
 
     @Test
     fun uneConnexionReussie(){
         val email = "test@test.fr"
         val mdp = "JeSuisUnTest"
+
 
         val formData = ConnexionForm(email,mdp,true)
 
@@ -66,7 +69,7 @@ class ConnexionControllerTest {
             Pair("Expire", expiration)
         )
 
-        `when`(connexionUtilisateur.handle(email,mdp, true)).doReturn(token)
+        `when`(connexionUtilisateur.handle(email,mdp,ip, true)).doReturn(token)
         `when`(jwtTokenUtil.getIssuedAt(token)).doReturn(issuedAt)
         `when`(jwtTokenUtil.getExpiration(token)).doReturn(expiration)
 
@@ -87,7 +90,7 @@ class ConnexionControllerTest {
 
         val formData = ConnexionForm(email,mdp,false)
 
-        `when`(connexionUtilisateur.handle(email,mdp,false)).doThrow(UserNotFoundException(email))
+        `when`(connexionUtilisateur.handle(email,mdp,ip,false)).doThrow(UserNotFoundException(email))
 
         val response = mvc.perform(
             post("/connexion").contentType(MediaType.APPLICATION_JSON).content(
@@ -105,7 +108,7 @@ class ConnexionControllerTest {
 
         val formData = ConnexionForm(email,mdp,true)
 
-        `when`(connexionUtilisateur.handle(email,mdp,true)).doThrow(UserNotFoundException(email))
+        `when`(connexionUtilisateur.handle(email,mdp,ip,true)).doThrow(UserNotFoundException(email))
 
         val response = mvc.perform(
             post("/connexion").contentType(MediaType.APPLICATION_JSON).content(
@@ -123,7 +126,7 @@ class ConnexionControllerTest {
 
         val formData = ConnexionForm(email,mdp,true)
 
-        `when`(connexionUtilisateur.handle(email,mdp,true)).doThrow(BadPasswordException())
+        `when`(connexionUtilisateur.handle(email,mdp,ip,true)).doThrow(BadPasswordException())
 
         val response = mvc.perform(
             post("/connexion").contentType(MediaType.APPLICATION_JSON).content(

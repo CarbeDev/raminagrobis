@@ -25,7 +25,7 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Fi
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, filterChain: FilterChain?) {
         try {
             val req = request!! as HttpServletRequest
-            if (haveRight(path = req.requestURI, token = req.getToken())){
+            if (haveRight(req)){
                 filterChain!!.doFilter(request,response)
             }
             else {
@@ -42,24 +42,33 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Fi
         }
     }
 
-    private fun haveRight(path : String, token: String?) : Boolean{
+    private fun haveRight(request : HttpServletRequest) : Boolean{
+        val path = request.requestURI
+        val token = request.token()
         with(path){
             return if (path.isPermitAll()) true
             else {
                 if (token == null) return false
 
                 val role = jwtTokenUtil.getUtilisateurFromToken(token).role!!
-                when{
-                    contains("/admin") -> role == Role.ADMIN
-                    contains("/fournisseur") -> role == Role.FOURNISSEUR
-                    contains("/adherent")-> role == Role.ADHERENT
-                    else -> jwtTokenUtil.validateToken(token)
-                }
+                if (token.isValid(request.remoteAddr)){
+                    when{
+                        contains("/admin") -> role == Role.ADMIN
+                        contains("/fournisseur") -> role == Role.FOURNISSEUR
+                        contains("/adherent")-> role == Role.ADHERENT
+                        else -> true
+                    }
+                } else false
             }
         }
     }
-    private fun HttpServletRequest.getToken() : String? {
+    private fun HttpServletRequest.token() : String? {
         return this.getHeader("Authorization")
+    }
+
+    private fun String.isValid(ip : String) : Boolean{
+        val session = repo.findByIp(ip)
+        return jwtTokenUtil.validateToken(this) && session != null && session.jwt == this
     }
 
     private fun String.isPermitAll() : Boolean{

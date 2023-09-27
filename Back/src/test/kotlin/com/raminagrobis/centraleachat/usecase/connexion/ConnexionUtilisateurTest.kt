@@ -9,7 +9,7 @@ import com.raminagrobis.centraleachat.domain.connexion.exception.BadPasswordExce
 import com.raminagrobis.centraleachat.domain.connexion.exception.UserNotFoundException
 import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
 import com.raminagrobis.centraleachat.domain.connexion.usecase.ConnexionUtilisateur
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt
 @ExtendWith(MockitoExtension::class)
 class ConnexionUtilisateurTest {
 
+    private val ip = "192.0.0.1"
     @Mock
     private lateinit var jwt :IJWTTokenUtil
 
@@ -44,7 +45,7 @@ class ConnexionUtilisateurTest {
         )
         `when`(repo.findAdminByEmail(email)).doReturn(admin)
 
-        useCase.handle(email,mdp,admin = true)
+        useCase.handle(email,mdp,ip,admin = true)
         verify(repo, times(1)).findAdminByEmail(email)
     }
 
@@ -57,14 +58,14 @@ class ConnexionUtilisateurTest {
 
         `when`(repo.findSocieteByEmail(email)).doReturn(societe)
 
-        useCase.handle(email,mdp,admin = false)
+        useCase.handle(email,mdp,ip,admin = false)
         verify(repo, times(1)).findSocieteByEmail(email)
     }
 
     @Test
     fun uneTentativeDeConnexionAvecUnEmailInconnuRenvoieUneException(){
         assertThrows(UserNotFoundException::class.java){
-            useCase.handle(email,mdp,true)
+            useCase.handle(email,mdp,ip,true)
         }
     }
 
@@ -74,7 +75,7 @@ class ConnexionUtilisateurTest {
         val societe = Utilisateur(email = email, motDePasse = mdpHash, role = Role.ADHERENT)
         `when`(repo.findSocieteByEmail(email)).doReturn(societe)
 
-        useCase.handle(email,mdp,false)
+        useCase.handle(email,mdp,ip,false)
         verify(jwt, times(1)).generateToken(captor.capture())
     }
 
@@ -85,7 +86,7 @@ class ConnexionUtilisateurTest {
         val mauvaisMdp = "tes"
 
         assertThrows(BadPasswordException()::class.java){
-            useCase.handle(email, mauvaisMdp, false)
+            useCase.handle(email, mauvaisMdp, ip,false)
         }
     }
 }
