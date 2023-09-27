@@ -16,7 +16,13 @@ services:
          - "8001:8001"
        #environment:
          #- REDIS_ARGS="--requirepass motdepasse"   
-
+   
+  monitoring:
+        image: louislam/uptime-kuma
+        ports:
+          - "3001:3001"
+        volumes:
+          - uptimeKumaRaminagrobis:/app/data
 #  back:
 #    build: ./Back
 #    ports:
@@ -26,3 +32,4 @@ services:
 
 volumes:
   raminagrobisVolume:
+  uptimeKumaRaminagrobis:
