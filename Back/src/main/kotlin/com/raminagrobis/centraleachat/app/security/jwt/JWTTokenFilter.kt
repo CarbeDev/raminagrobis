@@ -46,7 +46,7 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Fi
         val path = request.requestURI
         val token = request.token()
         with(path){
-            return if (path.isPermitAll()) true
+            return if (isPermitAll()) true
             else {
                 if (token == null) return false
 
