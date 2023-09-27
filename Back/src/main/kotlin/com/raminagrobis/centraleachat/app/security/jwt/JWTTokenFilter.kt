@@ -20,7 +20,7 @@ class JWTTokenFilter(val jwtTokenUtil: JWTTokenUtil, val repo : SessionRepo): Fi
 
     private val logger = LoggerFactory.getLogger(JWTTokenFilter::class.java)
 
-    private val permitAllList = listOf("/connexion","/token","/swagger-ui","/v3")
+    private val permitAllList = listOf("/connexion","/token","/swagger-ui","/v3","/ping")
 
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, filterChain: FilterChain?) {
         try {
