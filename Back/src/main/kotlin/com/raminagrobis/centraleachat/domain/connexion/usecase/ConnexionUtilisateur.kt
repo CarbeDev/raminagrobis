@@ -21,21 +21,17 @@ class ConnexionUtilisateur(
     fun handle(email : String, mdp : String, ip : String, admin: Boolean) : String{
         val utilisateur = getUtilisateur(email,admin)
 
-        if (utilisateur != null) {
-            if (BCrypt.checkpw(mdp, utilisateur.motDePasse)) {
-                val token = jwt.generateToken(utilisateur.toSpringUser())
-                creationSession(token, ip)
-                return token
-            } else {
-                throw BadPasswordException()
-            }
-        } else{
-            throw UserNotFoundException("Aucun utilisateur avec cet email n'a été trouvé : $email")
+        if (BCrypt.checkpw(mdp, utilisateur.motDePasse)) {
+            val token = jwt.generateToken(utilisateur.toSpringUser())
+            creationSession(token, ip)
+            return token
+        } else {
+            throw BadPasswordException()
         }
     }
 
     fun getUtilisateur(email: String,admin: Boolean) : Utilisateur{
-        if (admin) return utilisateurRepo.findAdminByEmail(email) else return utilisateurRepo.findSocieteByEmail(email)
+        return if (admin) utilisateurRepo.findAdminByEmail(email) else utilisateurRepo.findSocieteByEmail(email)
     }
 
     fun creationSession(jwt : String,ip : String){

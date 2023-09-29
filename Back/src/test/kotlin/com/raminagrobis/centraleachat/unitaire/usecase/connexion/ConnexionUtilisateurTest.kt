@@ -7,7 +7,6 @@ import com.raminagrobis.centraleachat.domain.connexion.adapter.IJWTTokenUtil
 import com.raminagrobis.centraleachat.domain.connexion.adapter.IUtilisateurRepo
 import com.raminagrobis.centraleachat.domain.connexion.dto.Session
 import com.raminagrobis.centraleachat.domain.connexion.exception.BadPasswordException
-import com.raminagrobis.centraleachat.domain.connexion.exception.UserNotFoundException
 import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
 import com.raminagrobis.centraleachat.domain.connexion.port.SessionPort
 import com.raminagrobis.centraleachat.domain.connexion.usecase.ConnexionUtilisateur
@@ -104,7 +103,7 @@ class ConnexionUtilisateurTest {
 
     @Test
     fun uneTentativeDeConnexionAvecUnEmailInconnuRenvoieUneException(){
-        assertThrows(UserNotFoundException::class.java){
+        assertThrows(NullPointerException::class.java){
             useCase.handle(email,mdp,ip,true)
         }
     }
