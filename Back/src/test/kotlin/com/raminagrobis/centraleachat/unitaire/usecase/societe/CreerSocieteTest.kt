@@ -51,4 +51,12 @@ class CreerSocieteTest{
 
     }
 
+    @Test
+    fun creerUnUtilisateurAvecUnMailAuMauvaisFormatDoitEnvoyeUneException(){
+        val mauvaisEmail = "test"
+        assertThrows(IllegalArgumentException::class.java){
+            creerSociete.handle(mauvaisEmail,nom,role)
+        }
+    }
+
 }

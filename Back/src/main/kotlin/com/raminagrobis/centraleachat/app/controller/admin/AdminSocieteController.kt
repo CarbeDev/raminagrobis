@@ -3,8 +3,8 @@ package com.raminagrobis.centraleachat.app.controller.admin
 import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteToCreate
+import com.raminagrobis.centraleachat.domain.administration.dto.UserSociete
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
-import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes.*
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -32,9 +32,14 @@ class AdminSocieteController(
     }
 
     @PostMapping("")
-    fun createSociete(@RequestBody societeToCreate: SocieteToCreate) : ResponseEntity<String>{
-        creerSociete.handle(societeToCreate.email,societeToCreate.nom,societeToCreate.role)
-        return ResponseEntity(HttpStatus.CREATED)
+    fun createSociete(@RequestBody societeToCreate: SocieteToCreate) : ResponseEntity<UserSociete>{
+        return try {
+            val societe = creerSociete.handle(societeToCreate.email,societeToCreate.nom,societeToCreate.role)
+            ResponseEntity(societe,HttpStatus.CREATED)
+        } catch (e : Exception){
+            if (e is IllegalArgumentException) ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY)
+            else ResponseEntity(HttpStatus.CONFLICT)
+        }
     }
 
     @DeleteMapping("{id}")
@@ -49,4 +54,3 @@ class AdminSocieteController(
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }
-

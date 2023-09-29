@@ -6,11 +6,10 @@ import com.raminagrobis.centraleachat.app.controller.admin.AdminSocieteControlle
 import com.raminagrobis.centraleachat.domain.administration.dto.DetailSociete
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteDTO
 import com.raminagrobis.centraleachat.domain.administration.dto.SocieteToCreate
+import com.raminagrobis.centraleachat.domain.administration.exception.EmailAlreadyUseException
 import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.administration.usecase.*
-import com.raminagrobis.centraleachat.domain.administration.usecase.RecupererSocietes.*
-import com.raminagrobis.centraleachat.infra.achat.entity.AchatEntity
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -120,6 +119,44 @@ class AdminSocieteControllerTest {
         ).andReturn().response
 
         assertEquals(HttpStatus.CREATED.value(), response.status)
+    }
+
+    @Test
+    fun uneCreationDeSocieteAvecUnEmailAuMauvaisFormatDoitRenvoyerUne422(){
+        val societe = SocieteToCreate(
+            email = "mauvaisEmail",
+            nom = "Fournisseur2",
+            role = Role.FOURNISSEUR
+        )
+
+        `when`(creerSociete.handle(societe.email,societe.nom,societe.role)).thenThrow(IllegalArgumentException::class.java)
+
+        val response = mvc.perform(
+            post("/admin/societes/").contentType(MediaType.APPLICATION_JSON).content(
+                jsonSocieteToCreate.write(societe).json
+            )
+        ).andReturn().response
+
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY.value(), response.status)
+    }
+
+    @Test
+    fun uneCreationDeSocieteAvecUnEmailDejaUtilisertDoitRenvoyerUne409(){
+        val societe = SocieteToCreate(
+            email = "fournisseur2",
+            nom = "Fournisseur2",
+            role = Role.FOURNISSEUR
+        )
+
+        `when`(creerSociete.handle(societe.email,societe.nom,societe.role)).thenThrow(EmailAlreadyUseException::class.java)
+
+        val response = mvc.perform(
+            post("/admin/societes/").contentType(MediaType.APPLICATION_JSON).content(
+                jsonSocieteToCreate.write(societe).json
+            )
+        ).andReturn().response
+
+        assertEquals(HttpStatus.CONFLICT.value(), response.status)
     }
 
     @Test
