@@ -10,17 +10,15 @@ import org.springframework.stereotype.Service
 class AccepterDemande(val repo : IDemandeRepo, val produitRepo : IProduitRepo) {
 
     fun handle(demande: DemandeGere){
-        creerProduit(demande)
-        miseAJourDeLaDemande(demande)
+        demande.creerProduit()
+        demande.miseAJourDeLaDemande()
     }
 
-    private fun creerProduit(demande : DemandeGere){
-        produitRepo.saveProduit(demande.produit)
+    private fun DemandeGere.creerProduit(){
+        produitRepo.saveProduit(this.produit)
     }
 
-    private fun miseAJourDeLaDemande(demandeGere : DemandeGere){
-        val demande = repo.getDemandeById(demandeGere.idDemande)
-        demande.etat = EtatDemande.ACCEPTE
-        repo.saveDemande(demande)
+    private fun DemandeGere.miseAJourDeLaDemande(){
+        repo.saveDemande(repo.getDemandeById(this.idDemande).copy(etat = EtatDemande.ACCEPTE))
     }
 }
