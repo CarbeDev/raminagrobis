@@ -18,7 +18,7 @@ class PanierBuilder {
     private fun getNumSemaine(jour: Calendar) : String{
         var numSemaine = jour.get(Calendar.WEEK_OF_YEAR).toString()
 
-        if (numSemaine.length == 1) numSemaine = "0" + numSemaine
+        if (numSemaine.length == 1) numSemaine = "0$numSemaine"
 
         return numSemaine
     }
