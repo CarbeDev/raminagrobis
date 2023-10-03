@@ -1,9 +1,8 @@
 package com.raminagrobis.centraleachat.app.security.jwt
 
-import com.raminagrobis.centraleachat.domain.administration.model.Role
 import com.raminagrobis.centraleachat.domain.connexion.adapter.IJWTTokenUtil
+import com.raminagrobis.centraleachat.domain.connexion.adapter.IUtilisateurRepo
 import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
-import com.raminagrobis.centraleachat.infra.utilisateur.UtilisateurRepo
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
@@ -16,7 +15,7 @@ import java.util.function.Function
 import javax.crypto.SecretKey
 
 @Service
-class JWTTokenUtil(env: Environment, val utilisateurRepo: UtilisateurRepo): IJWTTokenUtil {
+class JWTTokenUtil(env: Environment, val utilisateurRepo: IUtilisateurRepo): IJWTTokenUtil {
 
     val JWT_TOKEN_VALIDITY = (5 * 60 * 60).toLong()
 

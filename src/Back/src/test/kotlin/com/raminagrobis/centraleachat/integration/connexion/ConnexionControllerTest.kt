@@ -2,21 +2,19 @@ package com.raminagrobis.centraleachat.integration.connexion
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.doThrow
 import com.raminagrobis.centraleachat.app.controller.connexion.ConnexionController
 import com.raminagrobis.centraleachat.app.controller.connexion.ConnexionController.ConnexionForm
 import com.raminagrobis.centraleachat.app.security.jwt.JWTTokenUtil
-import com.raminagrobis.centraleachat.domain.administration.model.Role
-import com.raminagrobis.centraleachat.domain.connexion.adapter.IUtilisateurRepo
 import com.raminagrobis.centraleachat.domain.connexion.exception.BadPasswordException
 import com.raminagrobis.centraleachat.domain.connexion.exception.UserNotFoundException
-import com.raminagrobis.centraleachat.domain.connexion.model.Utilisateur
-import com.raminagrobis.centraleachat.domain.connexion.port.SessionPort
 import com.raminagrobis.centraleachat.domain.connexion.usecase.ConnexionUtilisateur
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
@@ -31,16 +29,16 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 @ExtendWith(MockitoExtension::class)
 class ConnexionControllerTest {
 
-    private val ip = "192.0.0.1"
+    private val ip ="127.0.0.1"
+
+        @Mock
+        private lateinit var connexionUtilisateur: ConnexionUtilisateur
     private lateinit var mvc : MockMvc
 
     @Mock
-    private lateinit var utilisateurRepo : IUtilisateurRepo
     private lateinit var jwtTokenUtil: JWTTokenUtil
-    @Mock
-    private lateinit var sessionRepo : SessionPort
 
-    private lateinit var connexionUtilisateur: ConnexionUtilisateur
+    @InjectMocks
     private lateinit var controller : ConnexionController
 
     private lateinit var jsonForm : JacksonTester<ConnexionForm>
@@ -50,9 +48,6 @@ class ConnexionControllerTest {
     fun setup(){
         mvc = MockMvcBuilders.standaloneSetup(controller).build()
         JacksonTester.initFields(this, ObjectMapper().registerKotlinModule())
-
-        connexionUtilisateur = ConnexionUtilisateur(utilisateurRepo,jwtTokenUtil,sessionRepo)
-        controller = ConnexionController(connexionUtilisateur,jwtTokenUtil)
     }
 
     @Test
@@ -60,10 +55,21 @@ class ConnexionControllerTest {
         val email = "test@test.fr"
         val mdp = "JeSuisUnTest"
 
-
         val formData = ConnexionForm(email,mdp,true)
-        `when`(utilisateurRepo.findAdminByEmail(email)).thenReturn(Utilisateur(email,"\$2y\$10\$.D5bYVqfWZ1SPbJcYzobEeQsC3Ss97m/sVtu9npWDqgxpY66537PK",Role.ADMIN))
 
+        val token= "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjg0MTQyNzA1LCJleHAiOjE2ODQxNjA3MDV9.bLY2HghRcoCxxOw-LMFZLJm4qxx5aBvIOPiK-6G7KgM"
+        val issuedAt = "Mon May 15 11:25:05 CEST 2023"
+        val expiration = "Mon May 15 16:25:05 CEST 2023"
+
+        val resultat = mapOf(
+            Pair("Token",token),
+            Pair("Issued at", issuedAt),
+            Pair("Expire", expiration)
+        )
+
+        `when`(connexionUtilisateur.handle(email,mdp, ip,true)).doReturn(token)
+        `when`(jwtTokenUtil.getIssuedAt(token)).doReturn(issuedAt)
+        `when`(jwtTokenUtil.getExpiration(token)).doReturn(expiration)
 
         val response = mvc.perform(
             post("/connexion").contentType(MediaType.APPLICATION_JSON).content(
@@ -72,7 +78,7 @@ class ConnexionControllerTest {
         ).andReturn().response
 
         assertEquals(HttpStatus.OK.value(), response.status)
-        //assertEquals(jsonReturn.write(resultat).json, response.contentAsString)
+        assertEquals(jsonReturn.write(resultat).json, response.contentAsString)
     }
 
     @Test

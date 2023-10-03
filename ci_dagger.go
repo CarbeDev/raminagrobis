@@ -32,8 +32,8 @@ func build(ctx context.Context) error {
 
 	fmt.Println("Exécution des test")
 	out, err := container.
-		WithExec([]string{"./gradlew", "check"}).
-		WithExec([]string{"./gradlew", "build"}).
+		WithExec([]string{"./gradlew", "testCI"}).
+		//WithExec([]string{"./gradlew", "build"}).
 		Stdout(ctx)
 
 	fmt.Println(out)
