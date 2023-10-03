@@ -53,3 +53,9 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.register("testCI", Test::class){
+    group = "verification"
+    description = "Run test without context load for Dagger.IO"
+    exclude("**/*CentraleAchat*")
+}
